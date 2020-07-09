@@ -167,15 +167,16 @@ export class SeleccionpersonajePage implements OnInit {
   }
 
 
-  seleccionarpersonaje(src) {
+  seleccionarpersonaje(personaje) {
 
     var img3 = new Image();
-    img3.src = src;
+    img3.src = personaje.foto;
     // img3.src = '../../assets/imgs/fondo1.jpg';
     img3.width = 900;
     img3.height = 900;
     console.log(img3.src);
-    localStorage.setItem("src", src);
+    localStorage.setItem("fotoPersonaje", personaje.foto);
+    localStorage.setItem("idPersonaje", personaje.id);
     this.router.navigateByUrl("");
 
 
