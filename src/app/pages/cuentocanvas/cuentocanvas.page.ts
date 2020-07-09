@@ -188,7 +188,7 @@ constructor() {
   }
 //ionViewDidEnter
 //   ionViewDidLoad
-  ionViewDidLoadnter() {
+ionViewDidEnter() {
      this._CANVAS = this.canvasEl.nativeElement;
      this._CANVAS.width = 850;
      this._CANVAS.height = 500;
