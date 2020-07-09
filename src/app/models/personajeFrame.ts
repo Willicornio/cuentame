@@ -12,6 +12,7 @@ export class PersonajeFrame {
     ancho: any;
     alto: any;
     pintado: any;
+    tipo:any;
 
 
 
@@ -26,7 +27,8 @@ export class PersonajeFrame {
         positionEnImagenX = '',
         positionEnImagenY = '',
         ancho = '',
-        alto = ''
+        alto = '',
+        tipo = ''
 
     ) {
 
@@ -40,7 +42,8 @@ export class PersonajeFrame {
             this.positionEnImagenX = positionEnImagenX,
             this.positionEnImagenY = positionEnImagenY,
             this.ancho = ancho,
-            this.alto = alto
+            this.alto = alto,
+            this.tipo = tipo
 
     }
 }
