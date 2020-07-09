@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'cuentofondos',
     loadChildren: () => import('./pages/cuentofondos/cuentofondos.module').then( m => m.CuentofondosPageModule)
+  },  {
+    path: 'seleccionpersonaje',
+    loadChildren: () => import('./pages/seleccionpersonaje/seleccionpersonaje.module').then( m => m.SeleccionpersonajePageModule)
   }
+
 ];
 @NgModule({
   imports: [
