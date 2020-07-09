@@ -1,9 +1,93 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>cuentofondos</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>cuentofondos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-item>
+    <ion-card>
+    <h3>Elije un fondo</h3>
+    <button ion-button (click)="muestrainte()">Ver fondos Interior</button>
+
+    <button ion-button (click)="muestraexte()">Ver fondos Exteriores</button>
+    <button ion-button (click)="oculta()"> CERRAR</button>
+    <button ion-button (click)="mestraciudad()">Ver ciudades</button>
+    <button ion-button (click)="muestra()">Otros</button>
+    <button ion-button (click)="muestra()">jiji</button>
+    
+    
+    
+    
+    <div *ngIf="muestrame">
+      <h2>Elije un fondo</h2>
+      <ion-grid>
+        <ion-row>
+
+          <ion-col>
+            <ion-row *ngFor="let fondo of listaFondosIzquierda">
+              <div (click) = "seleccionarfondo(fondo.src)">
+                <img src={{fondo.src}} width="360" height="360">
+              </div>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            <ion-row *ngFor="let fondo of listaFondosDerecha">
+              <div (click) = "seleccionarfondo(fondo.src)">
+                <img src={{fondo.src}} width="360" height="360">
+              </div>
+
+            </ion-row>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+    </div>
+
+
+
+   
+    <div *ngIf="muestramext">
+      <h2>Elije un fondo aqui los exteriores</h2>
+      <ion-grid>
+        <ion-row>
+
+          <ion-col>
+            <ion-row *ngFor="let fondo of listaFondosIzquierda">
+              <div (click) = "seleccionarfondo(fondo.src)">
+                <img src={{fondo.src}} width="360" height="360">
+              </div>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            <ion-row *ngFor="let fondo of listaFondosDerecha">
+              <div (click) = "seleccionarfondo(fondo.src)">
+                <img src={{fondo.src}} width="360" height="360">
+              </div>
+
+            </ion-row>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+    </div>
+
+
+
+
+
+
+
+
+
+  </ion-card>
+  </ion-item>
 
 </ion-content>
