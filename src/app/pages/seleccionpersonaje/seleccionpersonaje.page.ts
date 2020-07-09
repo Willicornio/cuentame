@@ -167,7 +167,7 @@ export class SeleccionpersonajePage implements OnInit {
   }
 
 
-  seleccionarfondo(src) {
+  seleccionarpersonaje(src) {
 
     var img3 = new Image();
     img3.src = src;
