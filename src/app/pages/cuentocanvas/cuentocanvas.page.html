@@ -58,7 +58,7 @@
     <ion-row>
 
 
-      <ion-col col-6>
+      <ion-card>
 
         <form #form="ngForm" (ngSubmit)="putText(form)" method="post">
           <ion-item>
@@ -67,9 +67,10 @@
 
           <button type="submit" expand="full">Cargar dialogo</button>
         </form>
-      </ion-col>
+      </ion-card>
 
-      <ion-col offset-2>
+
+      <ion-col offset-3>
         <div (click)="antiNextFrame()">
           <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
         </div>
@@ -85,26 +86,23 @@
     <ion-row>
       <ion-col>
 
-        <button ion-button (click)="muestra()">Ver personajes en escena</button>
+        <button ion-button (click)="verListaPersonajes()">Ver personajes en escena</button>
         <!-- <div *ngIf="muestrame"> -->
         <div>
-          <div *ngFor="let personaje of listaPersonajeEscenaActual">
+          <div *ngFor="let personaje of listaPersonajeFrameActual">
             <ion-col align-self-center text-center>
-              <form #form3="ngForm" (ngSubmit)="borrarPersonajeEscena(personaje,form3)" method="post">
-                <ion-item>
-                  <ion-label position="floating">{{personaje.id}}</ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-label position="floating">Tiempo de salida</ion-label>
-                  <ion-input ngModel type="name" name="tiempo" placeholder="Tiempo"></ion-input>
-                </ion-item>
+              <!-- <form #form3="ngForm" (ngSubmit)="borrarPersonajeEscena(personaje,form3)" method="post">
+              
+               
                 <button type="submit" ion-button icon-start clear small
                   (click)="borrarPersonajeEscena(personaje,form3)">
                   <ion-icon name="text"></ion-icon>
                   <div>Quitar de la escena</div>
                 </button>
 
-              </form>
+              </form> -->
+
+                <ion-label position="floating">{{personaje.id}}</ion-label>
 
             </ion-col>
           </div>

@@ -30,7 +30,7 @@ export class PersonajeFrame {
 
     ) {
 
-        this.id = id,
+            this.id = id,
             this.foto = foto,
             this.tiempoEntrada = tiempoEntrada,
             this.tiempoSalida = tiempoSalida,

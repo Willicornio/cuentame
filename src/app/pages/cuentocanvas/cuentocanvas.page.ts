@@ -51,7 +51,9 @@ export class CuentocanvasPage implements OnInit {
   listaTexto: Texto[] = [];
 
   listaFrames: Frame[] = [];
-  listaPersonajesFrameAnterior: Personaje[] = [];
+  listaPersonajesFrameAnterior: PersonajeFrame[] = [];
+  listaPersonajeFrameActual: PersonajeFrame[] = [];
+
 
 
   tiempoSalida: any;
@@ -79,6 +81,17 @@ constructor() {
 
      this.escena = new Escena();
      this.escenaFrames = new EscenaFrames();
+
+     var brujita = new PersonajeFrame();
+     brujita.foto = '../../assets/imgs/6fcf009f7a53cbe55821145cd74596dc.png';
+     brujita.id = "brujita";
+
+     var reina = new PersonajeFrame();
+     reina.foto = '../../assets/imgs/6fcf009f7a53cbe55821145cd74596dc.png';
+     reina.id = "reina"; 
+
+  this.listaPersonajeFrameActual.push(brujita);
+  this.listaPersonajeFrameActual.push(reina);
 
      //Escena para dibujar:
 
@@ -137,7 +150,8 @@ constructor() {
 
      this.generarListaFondos();
      
-     
+ 
+
      
    
      
