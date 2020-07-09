@@ -41,7 +41,7 @@ export class CuentocanvasPage implements OnInit {
 
   imagenCargadaWidth: any;
   imagenCargadaHeight: any;
-
+   src: any
   imagen: any;
   pintar: boolean = false;
 
@@ -71,6 +71,7 @@ export class CuentocanvasPage implements OnInit {
   frameActual: Frame;
 
 
+
 public PtagClicked: boolean = false;
   
 constructor() {
@@ -78,7 +79,7 @@ constructor() {
   }
   ngOnInit() {
 
-
+    this.src = localStorage.getItem("src");
      this.escena = new Escena();
      this.escenaFrames = new EscenaFrames();
 
@@ -185,9 +186,9 @@ constructor() {
      this.listaPersonajeEscenaActual = this.listaPersonajeEscenaActual.filter(obj => obj.id !== personaje.id);
      this.drawimages(this.listaPersonajeEscenaActual);
   }
-
+//ionViewDidEnter
 //   ionViewDidLoad
-  ionViewDidEnter() {
+  ionViewDidLoadnter() {
      this._CANVAS = this.canvasEl.nativeElement;
      this._CANVAS.width = 850;
      this._CANVAS.height = 500;
@@ -198,6 +199,7 @@ constructor() {
   initialiseCanvas() {
      if (this._CANVAS.getContext) {
         this.setupCanvas();
+
      }
   }
 
@@ -342,17 +344,7 @@ constructor() {
   }
 
 
-  drawTriangle(): void {
-     this.refreshFondo();
-     this._CONTEXT.beginPath();
-     this._CONTEXT.moveTo(this._CANVAS.width / 2 - 100, this._CANVAS.height / 2 + 100);
-     this._CONTEXT.lineTo(this._CANVAS.width / 2 + 100, this._CANVAS.height / 2 + 100);
-     this._CONTEXT.lineTo(this._CANVAS.width / 2, this._CANVAS.height / 2);
-     this._CONTEXT.lineTo(this._CANVAS.width / 2 - 100, this._CANVAS.height / 2 + 100);
-     this._CONTEXT.lineWidth = 10;
-     this._CONTEXT.strokeStyle = '#ffffff';
-     this._CONTEXT.stroke();
-  }
+
 
   lineaTexto(): void {
      this._CONTEXT.beginPath();
@@ -472,13 +464,32 @@ constructor() {
   }
 
   setupCanvas() {
+   
+   this._CONTEXT = this._CANVAS.getContext('2d');
+   if(this.src != null){
      var img3 = new Image();
-     img3.crossOrigin = "Anonymous";
-     img3.src = 'https://static.vecteezy.com/system/resources/previews/000/263/062/non_2x/cartoon-spring-or-summer-landscape-vector.jpg';
+      img3.src = this.src;
+     img3.width = 900;
+     img3.height = 900; 
+   
+     this.clearCanvas();
      this._CONTEXT = this._CANVAS.getContext('2d');
-     var pat = this._CONTEXT.createPattern(img3, "repeat");
-     this._CONTEXT.fillStyle = pat;
+        var pat = this._CONTEXT.createPattern(img3, "repeat");
+      this._CONTEXT.fillStyle = pat;
+      this._CONTEXT.fillRect(0, 0, 1100, 800);
+
+     this.escena.fondo = img3.src;
+   }
+    else
+   console.log("a por otra cosa mariposa")
+    
+   //   var pat = this._CONTEXT.createPattern(img3, "repeat");
+   //   this._CONTEXT.fillStyle = pat; 
      this._CONTEXT.fillRect(0, 0, 1900, 1900);
+     this.seleccionarfondo();
+   //   var img3 = new Image();
+   //   img3.crossOrigin = "Anonymous";
+   //   img3.src = 'https://static.vecteezy.com/system/resources/previews/000/263/062/non_2x/cartoon-spring-or-summer-landscape-vector.jpg';
 
   }
   clearCanvas() {
@@ -650,43 +661,29 @@ constructor() {
   
      // }
 
-     seleccionarfondo(src){
-        
-     var img3 = new Image();
+     seleccionarfondo(){
 
-     img3.src = src;
-     // img3.src = '../../assets/imgs/fondo1.jpg';
-     img3.width = 900;
-     img3.height = 900; 
+   // if(this.src != null){
+   //    var srq = this.src;
+   //   var img3 = new Image();
+
+   //    img3.src = this.src;
+   //   img3.width = 900;
+   //   img3.height = 900; 
    
-     this.clearCanvas();
-     this._CONTEXT = this._CANVAS.getContext('2d');
-  
-      var pat = this._CONTEXT.createPattern(img3, "repeat");
-      this._CONTEXT.fillStyle = pat;
-      this._CONTEXT.fillRect(0, 0, 1100, 800);
+   //   this.clearCanvas();
+   //   this._CONTEXT = this._CANVAS.getContext('2d');
+   //      var pat = this._CONTEXT.createPattern(img3, "repeat");
+   //    this._CONTEXT.fillStyle = pat;
+   //    this._CONTEXT.fillRect(0, 0, 1100, 800);
 
-     this.escena.fondo = img3.src;
-
+   //   this.escena.fondo = img3.src;
+   // }
+   //  else
+   //    console.log("a por otra cosa mariposa")
+    
         
      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
      cargaDemo() {

@@ -10,8 +10,8 @@
     <ion-card>
     <h3>Elije un fondo</h3>
     <button ion-button (click)="muestrainte()">Ver fondos Interior</button>
-
-    <button ion-button (click)="muestraexte()">Ver fondos Exteriores</button>
+    <button ion-button (click)="oculta()"> CERRAR</button>
+    <button ion-button  class="button button-assertive" (click)="muestraexte()">Ver fondos Exteriores</button>
     <button ion-button (click)="oculta()"> CERRAR</button>
     <button ion-button (click)="mestraciudad()">Ver ciudades</button>
     <button ion-button (click)="muestra()">Otros</button>
@@ -57,7 +57,7 @@
         <ion-row>
 
           <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosIzquierda">
+            <ion-row *ngFor="let fondo of listaFondosIzquierdatipo1">
               <div (click) = "seleccionarfondo(fondo.src)">
                 <img src={{fondo.src}} width="360" height="360">
               </div>
@@ -65,7 +65,7 @@
           </ion-col>
 
           <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosDerecha">
+            <ion-row *ngFor="let fondo of listaFondosDerechatipo1">
               <div (click) = "seleccionarfondo(fondo.src)">
                 <img src={{fondo.src}} width="360" height="360">
               </div>

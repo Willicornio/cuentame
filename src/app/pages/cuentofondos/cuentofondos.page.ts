@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImagenFondo } from '../../models/imagenFondo';
-
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-cuentofondos',
   templateUrl: './cuentofondos.page.html',
@@ -12,9 +12,10 @@ export class CuentofondosPage implements OnInit {
   listaFondos: ImagenFondo [] = [];
   listaFondosDerecha: ImagenFondo [] = [];
   listaFondosIzquierda: ImagenFondo [] = [];
+  listaFondosDerechatipo1: ImagenFondo [] = [];
+  listaFondosIzquierdatipo1: ImagenFondo [] = [];
 
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
  
@@ -77,6 +78,7 @@ export class CuentofondosPage implements OnInit {
       //ahora vamos a generar las lista derecha y la lista izquierda:
 
       this.generarListaFondos();
+      this.generarListaFondostipo1();
       
     }
       
@@ -86,11 +88,11 @@ export class CuentofondosPage implements OnInit {
        this.listaFondos.forEach( fondo => {
           if(fondo.id % 2 == 0 && fondo.tipo == 1)
           {
-             this.listaFondosIzquierda.push(fondo);
+             this.listaFondosIzquierdatipo1.push(fondo);
           }
           else if (fondo.id % 2 != 0 && fondo.tipo == 1)
           {
-             this.listaFondosDerecha.push(fondo);
+             this.listaFondosDerechatipo1.push(fondo);
           }
        })
  
@@ -117,7 +119,9 @@ export class CuentofondosPage implements OnInit {
  muestramext = false;
   muestrame = false;
   muestrainte() {
+   this.muestramext = false;
      this.muestrame = true;
+
    }
      oculta(){
 
@@ -129,6 +133,7 @@ export class CuentofondosPage implements OnInit {
 
      muestraexte(){
 
+      this.muestrame = false;
       this.muestramext = true;
 
      }
@@ -141,8 +146,9 @@ export class CuentofondosPage implements OnInit {
     // img3.src = '../../assets/imgs/fondo1.jpg';
     img3.width = 900;
     img3.height = 900; 
-  console.log(img3.src);
-   
+   console.log(img3.src);
+   this.router.navigateByUrl("");
+   localStorage.setItem("src", src);  
 
 
        
