@@ -63,8 +63,8 @@ export class CuentocanvasPage implements OnInit {
   dialogoActual: any;
 
   listaFondos: ImagenFondo [] = [];
-  listaFondosDerecha: ImagenFondo [] = [];
-  listaFondosIzquierda: ImagenFondo [] = [];
+  listaElementosDerecha: PersonajeFrame [] = [];
+  listaElementosIzquierda: PersonajeFrame [] = [];
 
 
   escenaFrames: EscenaFrames;
@@ -84,15 +84,29 @@ constructor() {
      this.escenaFrames = new EscenaFrames();
 
      var brujita = new PersonajeFrame();
-     brujita.foto = '../../assets/imgs/6fcf009f7a53cbe55821145cd74596dc.png';
-     brujita.id = "brujita";
+     brujita.foto = '../../../assets/imgs/haberlas.png';
+     brujita.id = "1";
 
      var reina = new PersonajeFrame();
-     reina.foto = '../../assets/imgs/6fcf009f7a53cbe55821145cd74596dc.png';
-     reina.id = "reina"; 
+     reina.foto = '../../../assets/imgs/haberlas.png';
+     reina.id = "2"; 
+
+      var brujita2 = new PersonajeFrame();
+     brujita2.foto = '../../../assets/imgs/haberlas.png';
+     brujita2.id = "3";
+
+     var reina2 = new PersonajeFrame();
+     reina2.foto = '../../../assets/imgs/haberlas.png';
+     reina2.id = "4"; 
+
 
   this.listaPersonajeFrameActual.push(brujita);
   this.listaPersonajeFrameActual.push(reina);
+  this.listaPersonajeFrameActual.push(brujita2);
+  this.listaPersonajeFrameActual.push(reina2);
+
+
+  this.generarListaPersonajesEnPantalla();
 
      //Escena para dibujar:
 
@@ -149,30 +163,25 @@ constructor() {
     
      //ahora vamos a generar las lista derecha y la lista izquierda:
 
-     this.generarListaFondos();
+   //   this.generarListaFondos();
      
- 
-
-     
-   
-     
-    
   }
 
-  generarListaFondos()
+  generarListaPersonajesEnPantalla()
   {
-     this.listaFondos.forEach( fondo => {
-        if(fondo.id % 2 == 0)
+     this.listaPersonajeFrameActual.forEach( obj => {
+        if(obj.id % 2 == 0)
         {
-           this.listaFondosIzquierda.push(fondo);
+           this.listaElementosIzquierda.push(obj);
         }
-        else if (fondo.id % 2 != 0)
+        else if (obj.id % 2 != 0)
         {
-           this.listaFondosDerecha.push(fondo);
+           this.listaElementosDerecha.push(obj);
         }
      })
 
   }
+
 
   borrarPersonajeEscena(personaje: Personaje, form: NgForm) {
 

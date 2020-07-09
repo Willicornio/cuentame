@@ -7,53 +7,31 @@
   <ion-grid>
     <ion-row>
       <ion-col>
+
+
+
         <div class="ion-canvas">
           <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
         </div>
+
+
       </ion-col>
       <ion-col>
-        <div>
-
-          <ion-item>
-
-            <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
-
-
-            <button ion-button (click)="oculta()">O</button>
-            <div *ngIf="muestrame">
-              <h2>Elije un fondo</h2>
-              <ion-grid>
-                <ion-row>
-
-                  <ion-col>
-                    <ion-row *ngFor="let fondo of listaFondosIzquierda">
-                      <div (click)="seleccionarfondo(fondo.src)">
-                        <img src={{fondo.src}} width="360" height="360">
-                      </div>
-                    </ion-row>
-                  </ion-col>
-
-                  <ion-col>
-                    <ion-row *ngFor="let fondo of listaFondosDerecha">
-                      <div (click)="seleccionarfondo(fondo.src)">
-                        <img src={{fondo.src}} width="360" height="360">
-                      </div>
-
-                    </ion-row>
-                  </ion-col>
-
-                </ion-row>
-
-              </ion-grid>
-
-            </div>
-
-          </ion-item>
 
 
 
-        </div>
+        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+
+        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+
+        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+
+        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+
+        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+
       </ion-col>
+
     </ion-row>
     <ion-row>
 
@@ -71,48 +49,55 @@
 
 
       <ion-col offset-3>
-        <div (click)="antiNextFrame()">
-          <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
-        </div>
+        <ion-card>
+
+          <div (click)="antiNextFrame()">
+            <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
+          </div>
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col>
+        <ion-card>
+
+          <div (click)="nextFrame()">
+            <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
+          </div>
+        </ion-card>
+
       </ion-col>
       <ion-col>
-        <div (click)="nextFrame()">
-          <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
-        </div>
       </ion-col>
-      <ion-col>
-      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-button (click)="verListaPersonajes()">Ver personajes en escena</ion-button>
+
     </ion-row>
     <ion-row>
-      <ion-col>
 
-        <button ion-button (click)="verListaPersonajes()">Ver personajes en escena</button>
-        <!-- <div *ngIf="muestrame"> -->
-        <div>
-          <div *ngFor="let personaje of listaPersonajeFrameActual">
-            <ion-col align-self-center text-center>
-              <!-- <form #form3="ngForm" (ngSubmit)="borrarPersonajeEscena(personaje,form3)" method="post">
-              
-               
-                <button type="submit" ion-button icon-start clear small
-                  (click)="borrarPersonajeEscena(personaje,form3)">
-                  <ion-icon name="text"></ion-icon>
-                  <div>Quitar de la escena</div>
-                </button>
-
-              </form> -->
-
-                <ion-label position="floating">{{personaje.id}}</ion-label>
-
-            </ion-col>
+      <div *ngIf="hiddenPersonajes">
+        <ion-col>
+          <div *ngFor="let elemento of listaElementosIzquierda">
+            <div (click)="seleccionarfondo(elemento.foto)">
+              <img src={{elemento.foto}} width="150" height="80">
+            </div>
           </div>
-        </div>
+        </ion-col>
+      </div>
 
+      <div *ngIf="hiddenPersonajes">
+        <ion-col>
+          <div *ngFor="let elemento of listaElementosDerecha">
+            <div (click)="seleccionarfondo(elemento.foto)">
+              <img src={{elemento.foto}} width="150" height="80">
+            </div>
+          </div>
+        </ion-col>
+      </div>
 
-      </ion-col>
-      <ion-col col-6>
-
-      </ion-col>
       <ion-col>
 
       </ion-col>
