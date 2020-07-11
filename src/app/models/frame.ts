@@ -8,8 +8,8 @@ export class Frame{
     constructor(
         portadaFrame = '',
         personajes = [],
-        textos = [],
-        numero = ''
+        textos = '',
+        numero = 1
 
     ) {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-
+import {Router} from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -75,7 +75,7 @@ export class CuentocanvasPage implements OnInit {
 
    public PtagClicked: boolean = false;
 
-   constructor() {
+   constructor(public router: Router) {
 
    }
    ngOnInit() {
@@ -130,10 +130,10 @@ export class CuentocanvasPage implements OnInit {
       reina2.id = "4";
 
 
-      this.listaPersonajeFrameActual.push(brujita);
-      this.listaPersonajeFrameActual.push(reina);
-      this.listaPersonajeFrameActual.push(brujita2);
-      this.listaPersonajeFrameActual.push(reina2);
+      // this.listaPersonajeFrameActual.push(brujita);
+      // this.listaPersonajeFrameActual.push(reina);
+      // this.listaPersonajeFrameActual.push(brujita2);
+      // this.listaPersonajeFrameActual.push(reina2);
 
 
       this.generarListaPersonajesEnPantalla();
@@ -197,8 +197,146 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   cargarEscena(){
+
+
+      this.escenaFrames = new EscenaFrames();
+
+      this.escenaFrames.fondo = '/assets/imgs/2.png';
+      this.escenaFrames.maximoFrames = 10;
+      this.escenaFrames.numeroFrames = 6;
+
+      var frame1 = new Frame();
+      frame1.numero = 1;
+      frame1.textos = "Narrador: Bienvenidos al cuento de los gamusinos";
+
+      this.listaFrames.push(frame1);
+      this.escenaFrames.frames = this.listaFrames;
+
+      var frame2 = new Frame();
+      frame2.numero = 2;
+      frame2.textos = "Narrador: Aquí tenemos a la bruhita";
+
+      var brujita = new PersonajeFrame();
+      brujita.foto = '../../../assets/imgs/haberlas.png';
+      brujita.positionX = 182;
+      brujita.positionY = 100;
+      brujita.id = 0;
+
+      this.listaPersonajeFrameActual.push(brujita);
+      frame2.personajes = this.listaPersonajeFrameActual;
+      this.listaPersonajeFrameActual = [];
+
+      this.listaFrames.push(frame2);
+      this.escenaFrames.frames = this.listaFrames;
+
+      var frame3 = new Frame();
+      frame3.numero = 3;
+      frame3.textos = "Brujita: Hola k tal mui vuenas xavale";
+
+      var brujita = new PersonajeFrame();
+      brujita.foto = '../../../assets/imgs/haberlas.png';
+      brujita.positionX = 182;
+      brujita.positionY = 100;
+      brujita.id = 0;
+
+      this.listaPersonajeFrameActual.push(brujita);
+      frame3.personajes = this.listaPersonajeFrameActual;
+      this.listaPersonajeFrameActual = [];
+
+
+      this.listaFrames.push(frame3);
+      this.escenaFrames.frames = this.listaFrames;
+
+
+      var frame4 = new Frame();
+      frame4.numero = 4;
+      frame4.textos = "Reina: hoal sola k tla k dise"; 
+
+      var brujita = new PersonajeFrame();
+      brujita.foto = '../../../assets/imgs/haberlas.png';
+      brujita.positionX = 754;
+      brujita.positionY = 100;
+      brujita.id = 0;
+
+      var reina = new PersonajeFrame();
+      reina.foto = '../../../assets/imgs/haberlas2.png';
+      reina.positionX = 182;
+      reina.positionY = 100;
+      reina.id = 1;
+
+      this.listaPersonajeFrameActual.push(brujita);
+      this.listaPersonajeFrameActual.push(reina);
+      frame4.personajes = this.listaPersonajeFrameActual;
+      this.listaPersonajeFrameActual = [];
+
+
+      this.listaFrames.push(frame4);
+      this.escenaFrames.frames = this.listaFrames;
+
+      var frame5 = new Frame();
+      frame5.numero = 5;
+      frame5.textos = "Brujita: dejame sola me cago en dios pallasa"; 
+
+      var brujita = new PersonajeFrame();
+      brujita.foto = '../../../assets/imgs/haberlas.png';
+      brujita.positionX = 800;
+      brujita.positionY = 100;
+      brujita.id = 0;
+
+      var reina = new PersonajeFrame();
+      reina.foto = '../../../assets/imgs/haberlas2.png';
+      reina.positionX = 182;
+      reina.positionY = 100;
+      reina.id = 1;
+
+      this.listaPersonajeFrameActual.push(brujita);
+      this.listaPersonajeFrameActual.push(reina);
+      frame5.personajes = this.listaPersonajeFrameActual;
+      this.listaPersonajeFrameActual = [];
+
+
+      this.listaFrames.push(frame5);
+      this.escenaFrames.frames = this.listaFrames;
+
+
+      var frame6 = new Frame();
+      frame6.numero = 6;
+      frame6.textos = "Reina: de boi a despedir 1 dia destos"; 
+
+
+      var reina = new PersonajeFrame();
+      reina.foto = '../../../assets/imgs/haberlas2.png';
+      reina.positionX = 182;
+      reina.positionY = 100;
+      reina.id = 1;
+
+      this.listaPersonajeFrameActual.push(reina);
+      frame6.personajes = this.listaPersonajeFrameActual;
+      this.listaPersonajeFrameActual = [];
+
+
+      this.listaFrames.push(frame6);
+      this.escenaFrames.frames = this.listaFrames;
+
+
+      console.log(this.escenaFrames);
+
+
+
+      this.frameActual = this.escenaFrames.frames[0];
+      this.escenaFrames.numeroframeActual = 1;
+
+      this.drawimages(this.frameActual.personajes);
+
+   }
+
    generarListaPersonajesEnPantalla() {
-      this.listaPersonajeFrameActual.forEach(obj => {
+
+      this.listaElementosDerecha = [];
+      this.listaElementosIzquierda = [];
+
+      this.frameActual.personajes.forEach(obj => {
          if (obj.id % 2 == 0) {
             this.listaElementosIzquierda.push(obj);
          }
@@ -238,6 +376,13 @@ export class CuentocanvasPage implements OnInit {
 
       }
    }
+
+
+irAFondos(){
+
+
+this.router.navigate(["cuentofondos",])}
+
 
    elejirNumeroFrames5() {
       this.escenaFrames.duracionFrame = 2;
@@ -342,10 +487,30 @@ export class CuentocanvasPage implements OnInit {
 
    nextFrame() {
 
+      if(this.frameActual.numero < this.escenaFrames.numeroFrames)
+      {
+         var numero = this.frameActual.numero; 
+         this.frameActual = this.escenaFrames.frames[numero];
+         this.escenaFrames.numeroframeActual = numero + 1;
+         this.escenaFrames.numeroFrames
+         this.drawimages(this.frameActual.personajes);
+         this.generarListaPersonajesEnPantalla();
+      }
+
       console.log("next");
    }
 
+
    antiNextFrame() {
+
+      if(this.frameActual.numero > 1)
+      {
+         var numero = this.frameActual.numero; 
+         this.frameActual = this.escenaFrames.frames[numero -2 ];
+         this.escenaFrames.numeroframeActual = numero - 1;
+         this.drawimages(this.frameActual.personajes);
+         this.generarListaPersonajesEnPantalla();
+      }
       console.log("antinext");
 
    }
@@ -367,12 +532,13 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
-   dibujarDilogo() {
+   dibujarDilogo(dialogo) {
 
+      this.dialogoActual = dialogo;
       this._CONTEXT.lineWidth = 2;
       this._CONTEXT = this._CANVAS.getContext('2d');
       this._CONTEXT.font = '30px serif';
-      this._CONTEXT.strokeText(this.dialogoActual, 50, 750);
+      this._CONTEXT.strokeText(dialogo, 50, 450);
 
    }
 
@@ -586,7 +752,7 @@ export class CuentocanvasPage implements OnInit {
 
    refreshFondo() {
       var img3 = new Image();
-      img3.src = this.escena.fondo;
+      img3.src = this.escenaFrames.fondo;
       this._CONTEXT = this._CANVAS.getContext('2d');
       var pat = this._CONTEXT.createPattern(img3, "repeat");
       this._CONTEXT.fillStyle = pat;
@@ -1329,13 +1495,13 @@ export class CuentocanvasPage implements OnInit {
       }, 1)
    }
 
-   drawimages(escena) {
+   drawimages(listaPersonajesFrame) {
 
       this.clearCanvas();
       this.refreshFondo();
-      this.lineaTexto();
-      this.dibujarDilogo();
-      escena.forEach(element => {
+      // this.lineaTexto();
+      this.dibujarDilogo(this.frameActual.textos);
+      listaPersonajesFrame.forEach(element => {
          const img = new Image();
          img.src = element.foto;
          img.onload = () => {
@@ -1358,7 +1524,7 @@ export class CuentocanvasPage implements OnInit {
       this.clearCanvas();
       this.refreshFondo();
       this.lineaTexto();
-      this.dibujarDilogo();
+      // this.dibujarDilogo();
       escena.forEach(element => {
          var zoomAncho = element.ancho * 2;
          var zoomAlto = element.alto * 2;

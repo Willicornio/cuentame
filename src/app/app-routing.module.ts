@@ -7,13 +7,22 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
   },
   {
-    path: 'cuentocanvas',
+    path: 'cuentocanvas/:dataObj',
+    loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
+  },
+  {
+    path: 'seleccionpersonaje/:dataObj',
+    loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
+  },
+  {
+    path: 'cuentofondos/:dataObj',
     loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
   },
   {
     path: 'cuentofondos',
     loadChildren: () => import('./pages/cuentofondos/cuentofondos.module').then( m => m.CuentofondosPageModule)
-  },  {
+  },
+  {
     path: 'seleccionpersonaje',
     loadChildren: () => import('./pages/seleccionpersonaje/seleccionpersonaje.module').then( m => m.SeleccionpersonajePageModule)
   }
