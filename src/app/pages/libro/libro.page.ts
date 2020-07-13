@@ -34,13 +34,13 @@ export class LibroPage implements OnInit {
 
   crearlibro(form: NgForm){
     if(form.value.titulo != null){
-      this.libro.titulo == form.value.titulo;
-      console.log("jiji")
-      console.log(this.libro.titulo)
+      this.libro.titulo = form.value.titulo;
+      console.log("jiji");
+      console.log(this.libro.titulo);
     }
       if(form.value.textarea != null){
-        this.libro.resumen == form.value.textarea;
-        console.log(this.libro.resumen)
+        this.libro.resumen = form.value.textarea;
+        console.log(this.libro.resumen);
       }
    
     } 

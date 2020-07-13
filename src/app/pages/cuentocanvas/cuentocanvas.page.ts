@@ -15,7 +15,7 @@ import { Frame } from '../../models/frame';
 import { ThrowStmt } from '@angular/compiler';
 import { ImagenFondo } from '../../models/imagenFondo';
 import { Libro } from '../../models/libro';
-import { AnyTxtRecord } from 'dns';
+
 
 @Component({
    selector: 'app-cuentocanvas',
@@ -108,7 +108,7 @@ export class CuentocanvasPage implements OnInit {
 
          this.pintar = true;
 
-      }2
+      }
 
       this.src = localStorage.getItem("src");
       this.escena = new Escena();
