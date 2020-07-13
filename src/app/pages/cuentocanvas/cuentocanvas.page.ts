@@ -385,6 +385,7 @@ export class CuentocanvasPage implements OnInit {
       this.frameActual.personajes = this.frameActual.personajes.filter(obj => obj.id !== personaje.id);
 
       this.escenaFrames.frames[this.frameActual.numero-1]= this.frameActual;
+      this.generarListaPersonajesEnPantalla();
       this.drawimages(this.frameActual.personajes);
    }
    //ionViewDidEnter
