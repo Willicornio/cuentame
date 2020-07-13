@@ -35,7 +35,6 @@ export class CuentocanvasPage implements OnInit {
    x: any;
    y: any;
    srcq;
-
    fileData: File = null;
    previewUrl: any = null;
    fileUploadProgress: string = null;

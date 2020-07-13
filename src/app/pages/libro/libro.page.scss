@@ -1,21 +1,26 @@
-ion-card{
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.733);
-    text-align: center;
-    padding: 10px;
-    margin-left: 0px;
-}
+ ion-card{
+     width: 100%;
+     background-color: rgb(255, 255, 255);
+   text-align: center;
+     padding: 40px;
+     margin-left: 10px;
+    margin-right: 20px;
+ }
 
-ion-item{
-    --background: rgba(253, 253, 253, 0.575);
-    font-weight: bold;
+ ion-item{
+    --background: rgb(253, 253, 253);
+     font-weight: bold;
 }
 
 ion-content{
 
     
-   background-image: url("/assets/imgs/curntame.png");
-    background-size: cover;
-    --background: rgba(255, 255, 255, 0.5);
+    background-image: url("/assets/imgs/curntame.png");
+      background-size: cover;
+      --background: rgba(255, 255, 255, 0.5);
 
-}
+ }
+ img {
+    width:400px;
+     height:400px;
+ }

@@ -4,22 +4,29 @@ export class Libro{
     autor: any;
     resumen: any;
     portada: any;
-    numeropag: any;
+    titulo:any;
     listaescenas: any;
+    numeropag: any;
+  
   
    
     constructor( 
         autor = '',
         resumen = '',
+        titulo = '',
         portada = '',
-        numeropag = '',
         listaescenas= [],
+        numeropag = ''
+        
+
     ) {
         this.autor = autor,
+        this.titulo = titulo,
         this.resumen = resumen,
         this.portada = portada,
-        this.numeropag = numeropag,
-        this.listaescenas = listaescenas
+        this.listaescenas = listaescenas,
+        this.numeropag = numeropag
+
 
     }
 }
