@@ -8,24 +8,18 @@ export class Libro{
     listaescenas: any;
   
    
-    constructor(
-              
+    constructor( 
         autor = '',
         resumen = '',
         portada = '',
-        numeropag: '',
-        listaescenas: []
-
-        
-
+        numeropag = '',
+        listaescenas= [],
     ) {
         this.autor = autor,
         this.resumen = resumen,
         this.portada = portada,
         this.numeropag = numeropag,
         this.listaescenas = listaescenas
-
-
 
     }
 }

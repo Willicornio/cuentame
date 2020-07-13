@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -14,6 +14,8 @@ import { TextoFrame } from '../../models/textoFrame';
 import { Frame } from '../../models/frame';
 import { ThrowStmt } from '@angular/compiler';
 import { ImagenFondo } from '../../models/imagenFondo';
+import { DataService } from '../../services/data.service';
+import { Libro } from '../../models/libro';
 
 @Component({
    selector: 'app-cuentocanvas',
@@ -72,24 +74,55 @@ export class CuentocanvasPage implements OnInit {
    frameActual: Frame;
 
 
+   i: any = 0;
+   iNumber: number = 0;
+
+
 
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router, privat) {
+   constructor(public router: Router, private dataService: DataService) {
 
    }
-   ngOnInit() {
+
+   ionViewWillEnter(){
+
+      this.src = localStorage.getItem("src");
+
+
+      this.escenaFrames = new EscenaFrames();
 
       this.frameActual = new Frame();
 
-      //Se comprueba y se carga la imagen del personaje cargado
-      if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
+        //Se comprueba que estemos volviendo de recoger elemento para pintar
+        if (localStorage.getItem("idService") != null && localStorage.getItem("idService") != "") {
+         var i = localStorage.getItem("idService");
+         this.iNumber = +i;
+         this.i = i;
+         if (this.dataService.getData(i) != undefined && this.dataService.getData(i) != "undefined") {
+
+            this.escenaFrames = this.dataService.getData(i);
+            if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual -1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1] != "undefined") {
+               this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1];
+               this.drawimages(this.frameActual.personajes);
+
+               console.log("Estamos de vuelta en la Home del cuento");
+               console.log(this.escenaFrames);
+
+               this.i = this.iNumber + 1;
+            }
+         }
+      }
+
+
+       //Se comprueba y se carga la imagen del personaje cargado
+       if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
 
          this.personajeCargado = new PersonajeFrame();
          this.personajeCargado.foto = localStorage.getItem("fotoPersonaje");
          this.personajeCargado.id = localStorage.getItem("idPersonaje");
-         localStorage.setItem("fotoPersonaje","");
-         localStorage.setItem("idPersonaje","");
+         localStorage.setItem("fotoPersonaje", "");
+         localStorage.setItem("idPersonaje", "");
 
          this.imagen = new Image();
          this.imagen.src = this.personajeCargado.foto;
@@ -108,26 +141,22 @@ export class CuentocanvasPage implements OnInit {
          this.pintar = true;
 
       }
+   }
+   ngOnInit() {
+
+
+      this.escenaFrames = new EscenaFrames();
+      this.escenaFrames.maximoFrames = 10;
+
+      this.frameActual = new Frame();
+
+     
+      this.escenaFrames = new EscenaFrames();
+
 
       this.src = localStorage.getItem("src");
       this.escena = new Escena();
-      this.escenaFrames = new EscenaFrames();
 
-      var brujita = new PersonajeFrame();
-      brujita.foto = '../../../assets/imgs/haberlas.png';
-      brujita.id = "1";
-
-      var reina = new PersonajeFrame();
-      reina.foto = '../../../assets/imgs/haberlas.png';
-      reina.id = "2";
-
-      var brujita2 = new PersonajeFrame();
-      brujita2.foto = '../../../assets/imgs/haberlas.png';
-      brujita2.id = "3";
-
-      var reina2 = new PersonajeFrame();
-      reina2.foto = '../../../assets/imgs/haberlas.png';
-      reina2.id = "4";
 
 
       // this.listaPersonajeFrameActual.push(brujita);
@@ -197,7 +226,7 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
-   cargarEscena(){
+   cargarEscena() {
 
 
       this.escenaFrames = new EscenaFrames();
@@ -251,7 +280,7 @@ export class CuentocanvasPage implements OnInit {
 
       var frame4 = new Frame();
       frame4.numero = 4;
-      frame4.textos = "Reina: hoal sola k tla k dise"; 
+      frame4.textos = "Reina: hoal sola k tla k dise";
 
       var brujita = new PersonajeFrame();
       brujita.foto = '../../../assets/imgs/haberlas.png';
@@ -276,7 +305,7 @@ export class CuentocanvasPage implements OnInit {
 
       var frame5 = new Frame();
       frame5.numero = 5;
-      frame5.textos = "Brujita: dejame sola me cago en dios pallasa"; 
+      frame5.textos = "Brujita: dejame sola me cago en dios pallasa";
 
       var brujita = new PersonajeFrame();
       brujita.foto = '../../../assets/imgs/haberlas.png';
@@ -302,7 +331,7 @@ export class CuentocanvasPage implements OnInit {
 
       var frame6 = new Frame();
       frame6.numero = 6;
-      frame6.textos = "Reina: de boi a despedir 1 dia destos"; 
+      frame6.textos = "Reina: de boi a despedir 1 dia destos";
 
 
       var reina = new PersonajeFrame();
@@ -348,17 +377,16 @@ export class CuentocanvasPage implements OnInit {
    }
 
 
-   borrarPersonajeEscena(personaje: Personaje, form: NgForm) {
+   borrarPersonajeEscena(personaje: PersonajeFrame) {
 
       this.listaPersonaje.forEach(obj => {
          if (obj.id == personaje.id) {
-            obj.tiempoSalida = form.value.tiempo;
          }
       });
-      this.escena.personajes = this.listaPersonaje;
+      this.frameActual.personajes = this.frameActual.personajes.filter(obj => obj.id !== personaje.id);
 
-      this.listaPersonajeEscenaActual = this.listaPersonajeEscenaActual.filter(obj => obj.id !== personaje.id);
-      this.drawimages(this.listaPersonajeEscenaActual);
+      this.escenaFrames.frames[this.frameActual.numero-1]= this.frameActual;
+      this.drawimages(this.frameActual.personajes);
    }
    //ionViewDidEnter
    //   ionViewDidLoad
@@ -378,10 +406,22 @@ export class CuentocanvasPage implements OnInit {
    }
 
 
-irAFondos(){
+   irAFondos() {
 
+      localStorage.setItem("idService", this.i);
+      this.dataService.setData(this.i, this.escenaFrames);
+      this.router.navigate(["cuentofondos"]);
 
-this.router.navigate(["cuentofondos",])}
+   }
+
+   irAPersonajes() {
+
+      localStorage.setItem("idService", this.i);
+      this.dataService.setData(this.i, this.escenaFrames);
+      this.router.navigate(["seleccionpersonaje"]);
+
+   }
+
 
 
    elejirNumeroFrames5() {
@@ -467,13 +507,18 @@ this.router.navigate(["cuentofondos",])}
          var personaje = new PersonajeFrame();
          personaje.id = this.personajeCargado.id;
          personaje.foto = this.personajeCargado.foto;
+         personaje.positionX = e.x - this.imagenCargadaWidth / 2;
+         personaje.positionY =  e.y - this.imagenCargadaHeight / 2;
 
+         this.listaPersonajeFrameActual = this.frameActual.personajes;
 
-         this.listaPersonaje.push(personaje);
          this.listaPersonajeFrameActual.push(personaje);
 
          this.frameActual.personajes = this.listaPersonajeFrameActual;
-         this.frameActual.personajes = this.listaPersonaje;
+
+         this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
+         this.generarListaPersonajesEnPantalla();
+
       }
       else {
          console.log("No se ha cargado la imagen aun eh");
@@ -487,9 +532,8 @@ this.router.navigate(["cuentofondos",])}
 
    nextFrame() {
 
-      if(this.frameActual.numero < this.escenaFrames.numeroFrames)
-      {
-         var numero = this.frameActual.numero; 
+      if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
+         var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero];
          this.escenaFrames.numeroframeActual = numero + 1;
          this.escenaFrames.numeroFrames
@@ -503,10 +547,9 @@ this.router.navigate(["cuentofondos",])}
 
    antiNextFrame() {
 
-      if(this.frameActual.numero > 1)
-      {
-         var numero = this.frameActual.numero; 
-         this.frameActual = this.escenaFrames.frames[numero -2 ];
+      if (this.frameActual.numero > 1) {
+         var numero = this.frameActual.numero;
+         this.frameActual = this.escenaFrames.frames[numero - 2];
          this.escenaFrames.numeroframeActual = numero - 1;
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
@@ -517,28 +560,19 @@ this.router.navigate(["cuentofondos",])}
 
    putText(texto: NgForm) {
 
-      var dialogo = new Texto();
-      dialogo.texto = texto.value.name;
-      dialogo.tiempo = texto.value.tiempo;
-
-      this.listaTexto.push(dialogo);
-      this.escena.textos = this.listaTexto;
-
-      this._CONTEXT.lineWidth = 2;
-      this._CONTEXT = this._CANVAS.getContext('2d');
-      this._CONTEXT.font = '48px serif';
-      this._CONTEXT.strokeText(texto.value.name, 50, 750);
-      this.dialogoActual = "";
+      this.dibujarDilogo(texto.value.name);
 
    }
-
    dibujarDilogo(dialogo) {
 
       this.dialogoActual = dialogo;
+      this.frameActual.textos = dialogo;
+      this.escenaFrames.frames[this.frameActual.numero -1] = this.frameActual;
       this._CONTEXT.lineWidth = 2;
       this._CONTEXT = this._CANVAS.getContext('2d');
       this._CONTEXT.font = '30px serif';
       this._CONTEXT.strokeText(dialogo, 50, 450);
+
 
    }
 
@@ -665,7 +699,7 @@ this.router.navigate(["cuentofondos",])}
    setupCanvas() {
 
       this._CONTEXT = this._CANVAS.getContext('2d');
-      if (this.src != null) {
+      if (this.src != null && this.src != "ya fue pintado") {
          var img3 = new Image();
          img3.src = this.src;
          img3.width = 900;
@@ -677,15 +711,19 @@ this.router.navigate(["cuentofondos",])}
          this._CONTEXT.fillStyle = pat;
          this._CONTEXT.fillRect(0, 0, 1100, 800);
 
-         this.escena.fondo = img3.src;
+         this.escenaFrames.fondo = img3.src;
+         this.src="ya fue pintado";
+         localStorage.setItem("src", this.src);  
+
+
       }
       else
          console.log("a por otra cosa mariposa")
 
       //   var pat = this._CONTEXT.createPattern(img3, "repeat");
       //   this._CONTEXT.fillStyle = pat; 
-      this._CONTEXT.fillRect(0, 0, 1900, 1900);
-      this.seleccionarfondo();
+      this._CONTEXT.fillRect(0, 0, 1100, 800);
+      this.drawimages(this.frameActual.personajes);
       //   var img3 = new Image();
       //   img3.crossOrigin = "Anonymous";
       //   img3.src = 'https://static.vecteezy.com/system/resources/previews/000/263/062/non_2x/cartoon-spring-or-summer-landscape-vector.jpg';

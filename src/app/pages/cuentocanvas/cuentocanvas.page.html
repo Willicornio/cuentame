@@ -20,9 +20,9 @@
 
 
 
-        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+        <ion-button expand="block" (click)="irAFondos()"> a los fondos </ion-button>
 
-        <ion-button expand="block" routerLink="/seleccionpersonaje" routerDirection="root"> a los personajes
+        <ion-button expand="block" (click)="irAPersonajes()"> a los personajes
         </ion-button>
 
         <ion-button (click) = "cargarEscena()"> Cargar Escena de prueba
@@ -89,7 +89,7 @@
       <div *ngIf="hiddenPersonajes">
         <ion-col>
           <div *ngFor="let elemento of listaElementosIzquierda">
-            <div (click)="seleccionarfondo(elemento.foto)">
+            <div (click)="borrarPersonajeEscena(elemento)">
               <img src={{elemento.foto}} width="150" height="80">
             </div>
           </div>
@@ -99,7 +99,7 @@
       <div *ngIf="hiddenPersonajes">
         <ion-col>
           <div *ngFor="let elemento of listaElementosDerecha">
-            <div (click)="seleccionarfondo(elemento.foto)">
+            <div (click)="borrarPersonajeEscena(elemento)">
               <img src={{elemento.foto}} width="150" height="80">
             </div>
           </div>

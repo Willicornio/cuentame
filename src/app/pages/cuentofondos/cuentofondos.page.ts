@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImagenFondo } from '../../models/imagenFondo';
 import { Router } from "@angular/router";
+import {DataService} from '../../services/data.service';
 @Component({
   selector: 'app-cuentofondos',
   templateUrl: './cuentofondos.page.html',
@@ -15,10 +16,15 @@ export class CuentofondosPage implements OnInit {
   listaFondosDerechatipo1: ImagenFondo [] = [];
   listaFondosIzquierdatipo1: ImagenFondo [] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
  
+   var i = localStorage.getItem("idService");
+   var escenaFrame  = this.dataService.getData(i);
+   console.log("Estamos en los fondos");
+
+   console.log(escenaFrame);
 
       var imagen = new ImagenFondo();
       imagen.id = 0;
