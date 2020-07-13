@@ -25,7 +25,16 @@ const routes: Routes = [
   {
     path: 'seleccionpersonaje',
     loadChildren: () => import('./pages/seleccionpersonaje/seleccionpersonaje.module').then( m => m.SeleccionpersonajePageModule)
+  },  {
+    path: 'libro',
+    loadChildren: () => import('./pages/libro/libro.module').then( m => m.LibroPageModule)
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   }
+
+  
 
 ];
 @NgModule({

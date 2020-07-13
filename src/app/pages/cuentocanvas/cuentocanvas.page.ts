@@ -75,7 +75,7 @@ export class CuentocanvasPage implements OnInit {
 
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router) {
+   constructor(public router: Router, privat) {
 
    }
    ngOnInit() {
