@@ -8,15 +8,42 @@
   <ion-row>
     <ion-col>
       <ion-card>
-      <div>
-        1 of 3 siiiiiiiiiiiiiii hola
-      </div>
-    </ion-card>
+        <form #postForm="ngForm" (ngSumbit)="crearlibro(libroForm)">
+          <div>
+            <ion-item>
+              <ion-label position="floating">Título</ion-label>
+              <ion-input type="text" [(ngModel)]="titulo" name="titulo"></ion-input>
+
+            </ion-item>
+            <br>
+            <!-- <img src={{libro.fondo}}  /> -->
+          </div>
+          <div>
+            <button ion-button (click)="cargarportada()">Cargar portada</button>
+          </div>
+          <div>
+            <br>
+            <textarea [(ngModel)]="textarea" name="textarea" rows="15" cols="65">Escribe aquí tu resumen</textarea>
+
+
+          </div>
+          <div>
+            <ion-button type="submit" expand="full" (click)="crearlibro(postForm)" >
+              Guardar</ion-button>
+
+          </div>
+
+        </form>
+      </ion-card>
     </ion-col>
     <ion-col>
-      <div>
-        2 of 3
-      </div>
+      <ion-card>
+        <div>
+
+          2 of 3 siiiiiiiiiiiiiii hola
+
+        </div>
+      </ion-card>
     </ion-col>
 
   </ion-row>

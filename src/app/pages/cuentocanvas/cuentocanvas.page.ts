@@ -14,6 +14,8 @@ import { TextoFrame } from '../../models/textoFrame';
 import { Frame } from '../../models/frame';
 import { ThrowStmt } from '@angular/compiler';
 import { ImagenFondo } from '../../models/imagenFondo';
+import { Libro } from '../../models/libro';
+import { AnyTxtRecord } from 'dns';
 
 @Component({
    selector: 'app-cuentocanvas',
@@ -33,7 +35,6 @@ export class CuentocanvasPage implements OnInit {
    x: any;
    y: any;
    srcq;
-
    fileData: File = null;
    previewUrl: any = null;
    fileUploadProgress: string = null;
@@ -75,7 +76,7 @@ export class CuentocanvasPage implements OnInit {
 
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router, privat) {
+   constructor(public router: Router) {
 
    }
    ngOnInit() {
@@ -107,7 +108,7 @@ export class CuentocanvasPage implements OnInit {
 
          this.pintar = true;
 
-      }
+      }2
 
       this.src = localStorage.getItem("src");
       this.escena = new Escena();
