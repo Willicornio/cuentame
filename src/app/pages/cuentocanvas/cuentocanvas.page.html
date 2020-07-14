@@ -25,7 +25,7 @@
         <ion-button expand="block" (click)="irAPersonajes()"> a los personajes
         </ion-button>
 
-        <ion-button (click) = "cargarEscena()"> Cargar Escena de prueba
+        <ion-button (click)="cargarEscena()"> Cargar Escena de prueba
         </ion-button>
 
         <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
@@ -57,6 +57,7 @@
           <div (click)="antiNextFrame()">
             <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
           </div>
+
         </ion-card>
 
       </ion-col>
@@ -70,9 +71,19 @@
       <ion-col>
         <ion-card>
 
-          <div (click)="nextFrame()">
-            <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
+          <div *ngIf="buttonNewFrame">
+
+            <div (click)="newFrame()">
+              <img src="../../assets/imgs/mas.png" width="50" height="50">
+            </div>
           </div>
+          <div *ngIf="!buttonNewFrame">
+
+            <div (click)="nextFrame()">
+              <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
+            </div>
+          </div>
+
         </ion-card>
 
       </ion-col>

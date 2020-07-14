@@ -67,7 +67,8 @@ export class CuentocanvasPage implements OnInit {
    listaFondos: ImagenFondo[] = [];
    listaElementosDerecha: PersonajeFrame[] = [];
    listaElementosIzquierda: PersonajeFrame[] = [];
-
+   
+   buttonNewFrame = true;
 
    escenaFrames: EscenaFrames;
    frameActual: Frame;
@@ -104,7 +105,7 @@ export class CuentocanvasPage implements OnInit {
             if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual -1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1] != "undefined") {
                this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1];
                this.drawimages(this.frameActual.personajes);
-
+               this.listaPersonajeFrameActual = this.frameActual.personajes;
                console.log("Estamos de vuelta en la Home del cuento");
                console.log(this.escenaFrames);
 
@@ -473,7 +474,7 @@ export class CuentocanvasPage implements OnInit {
          this.listaFrames.push(this.frameActual);
          this.escenaFrames.frames = this.listaFrames;
 
-         this.drawimages(this.listaPersonajesFrameAnterior);
+         this.drawimages(this.frameActual.personajes);
 
       }
       else {
@@ -530,6 +531,34 @@ export class CuentocanvasPage implements OnInit {
       this.drawimages(this.listaPersonajeEscenaActual);
    }
 
+   newFrame()
+   {
+
+      var newFrame = new Frame();
+      
+      newFrame.numero = this.frameActual.numero + 1;
+      newFrame.portadaFrame = '';
+      newFrame.textos = '';
+      
+      var listaP = [];
+      this.frameActual.personajes.forEach(element => {
+         listaP.push(element);
+      });
+
+      newFrame.personajes = listaP;
+      this.listaFrames = this.escenaFrames.frames;
+      this.listaFrames.push(newFrame)
+      this.escenaFrames.frames = this.listaFrames;
+      this.escenaFrames.numeroframeActual = newFrame.numero;
+      this.escenaFrames.numeroFrames = this.escenaFrames.numeroFrames + 1;
+
+      this.frameActual = newFrame;
+      this.drawimages(this.frameActual.personajes);
+
+
+
+   }
+
    nextFrame() {
 
       if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
@@ -541,6 +570,17 @@ export class CuentocanvasPage implements OnInit {
          this.generarListaPersonajesEnPantalla();
       }
 
+      if(this.escenaFrames.frames[this.frameActual.numero] == undefined || this.escenaFrames.frames[this.frameActual.numero] == "undefined")
+      {
+         if (this.frameActual.numero == this.escenaFrames.maximoFrames){
+            this.buttonNewFrame = false;
+
+         }
+         else{
+            this.buttonNewFrame = true;
+
+         }
+      }
       console.log("next");
    }
 
@@ -553,6 +593,7 @@ export class CuentocanvasPage implements OnInit {
          this.escenaFrames.numeroframeActual = numero - 1;
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         this.buttonNewFrame = false;
       }
       console.log("antinext");
 
@@ -1538,7 +1579,6 @@ export class CuentocanvasPage implements OnInit {
       this.clearCanvas();
       this.refreshFondo();
       // this.lineaTexto();
-      this.dibujarDilogo(this.frameActual.textos);
       listaPersonajesFrame.forEach(element => {
          const img = new Image();
          img.src = element.foto;
@@ -1553,6 +1593,7 @@ export class CuentocanvasPage implements OnInit {
             this._CONTEXT.stroke();
          }
       });
+      this.dibujarDilogo(this.frameActual.textos);
 
    }
 
