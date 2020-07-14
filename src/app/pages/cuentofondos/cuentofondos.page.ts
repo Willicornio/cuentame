@@ -154,7 +154,7 @@ export class CuentofondosPage implements OnInit {
     img3.height = 900; 
    console.log(img3.src);
    localStorage.setItem("src", src);  
-   this.router.navigateByUrl("");
+   this.router.navigateByUrl("/canvas");
   
 
 

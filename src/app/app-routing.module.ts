@@ -3,9 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'canvas',
     loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
   },
+
   {
     path: 'cuentocanvas/:dataObj',
     loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
@@ -25,12 +26,13 @@ const routes: Routes = [
   {
     path: 'seleccionpersonaje',
     loadChildren: () => import('./pages/seleccionpersonaje/seleccionpersonaje.module').then( m => m.SeleccionpersonajePageModule)
-  },  {
+  },
+  {
     path: 'libro',
     loadChildren: () => import('./pages/libro/libro.module').then( m => m.LibroPageModule)
   },
   {
-    path: 'inicio',
+    path: '',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   }
 

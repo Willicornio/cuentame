@@ -177,7 +177,7 @@ export class SeleccionpersonajePage implements OnInit {
     console.log(img3.src);
     localStorage.setItem("fotoPersonaje", personaje.foto);
     localStorage.setItem("idPersonaje", personaje.id);
-    this.router.navigateByUrl("");
+    this.router.navigateByUrl("/canvas");
 
 
 
