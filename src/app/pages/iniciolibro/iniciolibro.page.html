@@ -1,0 +1,131 @@
+
+
+
+
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>cuento</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+    
+
+
+
+
+
+
+      <ion-grid>
+        <ion-row>
+         
+          <ion-col>
+          <ion-card>
+            <h2>TUS LIBROS CREADOS</h2>
+          <div *ngFor="let libro of listalibros">
+            <div (click)="nada(titulo)">
+              <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col>
+              <ion-col> <h3> {{libro.titulo}} </h3></ion-col>
+       
+         
+            </div>
+          </div>
+      
+        </ion-card>
+          </ion-col>
+        
+          <ion-col>
+            <ion-card>
+              <br>
+              <h3>MENU</h3>
+              <br>
+              <br>
+              <ion-button  expand="block"  (click)="iralibro()"> CREAR NUEVO LIBRO
+              </ion-button>
+              <br>
+              <br>
+              <br>
+              <ion-button  expand="block"  (click)="iracanvas()"> SEGUIR CREANDO
+              </ion-button>
+              <br>
+              <br>
+              <br>
+              <ion-button expand="block" class="custom" (click)="irAPersonajes()"> VER LIBROS DE CLASE
+              </ion-button>
+              <br>
+              <br>
+              <br>
+              <ion-button  expand="block"  class="custom"(click)="irAPersonajes()"> PARTICIPAR EN CONCURSO
+              </ion-button>
+              <br>
+              <br>
+              <br>
+              <ion-button  expand="block" class="custom" (click)="irAPersonajes()"> VER RANKINGS
+              </ion-button>
+              <br>
+              <br>
+              <br>
+           
+          </ion-card>
+            </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-grid>
+  <ion-row>
+
+    <ion-col>
+      <ion-card (click)="iracanvas()">
+        <div>
+          <h3>TUS LIBROS CREADOS</h3>
+
+          <ion-scroll scrollY="true"></ion-scroll>
+       
+          <ion-row *ngFor="let libro of listalibros">
+            <div (click)="iralibro(titulo)">
+              <img src={{libro.portada}} width="165" height="150">
+            </div>
+          </ion-row>
+
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <div>
+          <img src="assets/imgs/librosamigos (1).jpg" height='300' width='400'>
+          <br>
+          <h3>MIS AMIGOS</h3>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+</ion-grid> -->

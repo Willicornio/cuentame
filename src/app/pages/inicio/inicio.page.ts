@@ -15,8 +15,8 @@ export class InicioPage implements OnInit {
   }
 
 
-  iracanvas(){
+  irainiciolibro(){
 
-    this.router.navigate(['/canvas'])
+    this.router.navigate(['/iniciolibro'])
   }
 }
