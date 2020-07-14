@@ -9,7 +9,6 @@
       <ion-col>
 
 
-
         <div class="ion-canvas">
           <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
         </div>
@@ -20,19 +19,21 @@
 
 
 
-        <ion-button expand="block" (click)="irAFondos()"> a los fondos </ion-button>
-
-        <ion-button expand="block" (click)="irAPersonajes()"> a los personajes
+        <ion-button expand="block" (click)="irAFondos()"> SELECCIONAR FONDO</ion-button>
+        <br>
+        <ion-button expand="block" (click)="irAPersonajes()"> SELECCIONAR PERSONAJES
         </ion-button>
-
-        <ion-button (click)="cargarEscena()"> Cargar Escena de prueba
+        <br>
+        <ion-button expand="block"  (click)="cargarEscena()"> Cargar Escena de prueba
         </ion-button>
-
+        <br>
         <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
-
-        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
-        <ion-button expand="block" routerLink="/libro" routerDirection="root"> a los libros </ion-button>
-        <ion-button expand="block" routerLink="/" routerDirection="root"> a inicio </ion-button>
+        <br>
+        <ion-button expand="block" routerLink="/libro" routerDirection="root"> IR A LIBRO </ion-button>
+        <br>
+        <ion-button expand="block" routerLink="/" routerDirection="root"> IR A INICO </ion-button>
+        <br>
+        <ion-button expand="block" routerLink="/" routerDirection="root"> Hello yellow </ion-button>
 
       </ion-col>
 
@@ -47,7 +48,7 @@
             <ion-input ngModel type="name" name="name" placeholder="Añade el dialogo"></ion-input>
           </ion-item>
 
-          <button type="submit" expand="full">Cargar dialogo</button>
+          <ion-button type="submit" expand="full">Cargar dialogo</ion-button>
         </form>
       </ion-card>
 
