@@ -51,6 +51,14 @@ export class IniciolibroPage implements OnInit {
 
   iracanvas(){
 
-    this.router.navigate(['/canvas'])
+    this.router.navigate(['/libro'])
+  }
+
+
+  continuarLibro(libro){
+    this.router.navigate(['/listaescenas' + "/1"])
+
+
+
   }
 }
