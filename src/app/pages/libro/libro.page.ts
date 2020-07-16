@@ -3,6 +3,9 @@ import { Libro } from 'src/app/models/libro';
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { NgModel } from '@angular/forms';
+import {PeticionesapiService} from '../../services/peticionesapi.service';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-libro',
@@ -13,7 +16,7 @@ export class LibroPage implements OnInit {
 
   libro: Libro;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,  private peticionesAPI: PeticionesapiService) { }
 
   ngOnInit() {
 
@@ -42,11 +45,19 @@ export class LibroPage implements OnInit {
         this.libro.resumen = form.value.textarea;
         console.log(this.libro.resumen);
       }
-   
-    } 
+      this.libro.autor = 'aa';
+      this.libro.portada ='aa';
+      
 
-
+         this.peticionesAPI.publicarlibro(this.libro)
+        .subscribe(res => {
+          console.log(res);
+        });
+  
+  
+      }
     }
+    
  
 
 

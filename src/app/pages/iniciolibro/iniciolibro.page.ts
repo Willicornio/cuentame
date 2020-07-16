@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Libro } from 'src/app/models/libro';
 import { Router } from "@angular/router";
+import {PeticionesapiService} from '../../services/peticionesapi.service';
 
 @Component({
   selector: 'app-iniciolibro',
@@ -53,4 +54,7 @@ export class IniciolibroPage implements OnInit {
 
     this.router.navigate(['/canvas'])
   }
+
+
+
 }
