@@ -27,7 +27,7 @@
               <br>
             <h2>TUS LIBROS CREADOS</h2>
           <div *ngFor="let libro of listalibros">
-            <div (click)="nada(titulo)">
+            <div (click)="continuarLibro(titulo)">
               <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col>
               <ion-col> <h3> {{libro.titulo}} </h3></ion-col>
        
