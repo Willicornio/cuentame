@@ -47,7 +47,10 @@ export class LibroPage implements OnInit {
       }
       this.libro.autor = 'aa';
       this.libro.portada ='aa';
-      
+      this.libro.puntuacion = 'nada';
+      this.libro.idAlumno = '2';
+      this.libro.numeropag = '32';
+
 
          this.peticionesAPI.publicarlibro(this.libro)
         .subscribe(res => {

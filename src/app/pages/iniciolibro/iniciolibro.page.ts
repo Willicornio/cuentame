@@ -10,11 +10,12 @@ import {PeticionesapiService} from '../../services/peticionesapi.service';
 })
 export class IniciolibroPage implements OnInit {
 
-
+  idAlumno = 'holaa';
   listalibros: Libro[] = [];
-  constructor( private router: Router) { }
+  constructor( private router: Router, private peticionesAPI: PeticionesapiService) { }
 
   ngOnInit() {
+    
     var libro1 = new Libro();
     libro1.portada = '/assets/imgs/buena.jpg';
     libro1.titulo = 'titullibre1';
@@ -42,7 +43,17 @@ export class IniciolibroPage implements OnInit {
     this.listalibros.push(libro5);
     this.listalibros.push(libro1);
 
+  
     
+  }
+
+  getlibro(){
+
+    this.peticionesAPI.Damelibro(this.idAlumno)
+    .subscribe(res => {
+      console.log(res);
+    });
+
   }
 
   iralibro(){

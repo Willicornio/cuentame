@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResponseContentType, Http} from '@angular/http';
 import { Libro } from '../models/libro';
-import { LibroPage } from '../pages/libro/libro.page';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 
@@ -20,7 +19,7 @@ export class PeticionesapiService {
 
   constructor( private http: HttpClient) { }
 
-  public Damelibro(id: number): Observable<Libro> {
+  public Damelibro(id: string): Observable<Libro> {
      // tslint:disable-next-line:max-line-length
     return this.http.get<Libro>(this.urllibro + '/' + id);
   }

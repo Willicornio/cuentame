@@ -5,17 +5,22 @@
 </ion-header>
 <ion-content fullscreen>
   <ion-grid>
+    
     <ion-row>
-      <ion-col>
+        <ion-col>
+        <ion-card>
 
+          <div class="ion-canvas">
+            <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
+          </div>
 
-        <div class="ion-canvas">
-          <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
-        </div>
-
-
+        </ion-card>
       </ion-col>
+    
+  
       <ion-col>
+        <ion-card>
+
 
 
 
@@ -24,7 +29,7 @@
         <ion-button expand="block" (click)="irAPersonajes()"> SELECCIONAR PERSONAJES
         </ion-button>
         <br>
-        <ion-button expand="block"  (click)="cargarEscena()"> Cargar Escena de prueba
+        <ion-button expand="block" (click)="cargarEscena()"> Cargar Escena de prueba
         </ion-button>
         <br>
         <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
@@ -35,9 +40,11 @@
         <br>
         <ion-button expand="block" routerLink="/" routerDirection="root"> Hello yellow </ion-button>
 
+        </ion-card>
       </ion-col>
 
     </ion-row>
+  
     <ion-row>
 
 
@@ -53,7 +60,7 @@
       </ion-card>
 
 
-      <ion-col offset-3>
+      <!-- <ion-col>
         <ion-card>
 
           <div (click)="antiNextFrame()">
@@ -88,7 +95,7 @@
 
         </ion-card>
 
-      </ion-col>
+      </ion-col> -->
       <ion-col>
       </ion-col>
 

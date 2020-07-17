@@ -1,3 +1,5 @@
+
+
 export class Libro{
 
          
@@ -5,8 +7,11 @@ export class Libro{
     resumen: any;
     portada: any;
     titulo:any;
-    listaescenas: any;
     numeropag: any;
+    idAlumno: any;
+    puntuacion: any;
+    finalizado: any;
+
   
   
    
@@ -15,8 +20,10 @@ export class Libro{
         resumen = '',
         titulo = '',
         portada = '',
-        listaescenas= [],
-        numeropag = ''
+        numeropag = '',
+        idAlumno = '',
+        puntuacion ='',
+        finalizado =''
         
 
     ) {
@@ -24,8 +31,11 @@ export class Libro{
         this.titulo = titulo,
         this.resumen = resumen,
         this.portada = portada,
-        this.listaescenas = listaescenas,
-        this.numeropag = numeropag
+        this.numeropag = numeropag,
+        this.idAlumno = idAlumno,
+        this.puntuacion = puntuacion,
+        this.finalizado = finalizado
+
 
 
     }
