@@ -44,6 +44,7 @@ export class IniciolibroPage implements OnInit {
     this.listalibros.push(libro1);
 
   
+  
     
   }
 

@@ -1,9 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Libro : Nombre del libro </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Libro : Nombre del libro </ion-title>
-    </ion-toolbar>
-  </ion-header>
+
 
   <ion-grid>
     <ion-row>
@@ -13,16 +14,24 @@
           <ion-card>
 
 
-            <ion-row><h1></h1></ion-row>
-            <ion-row><h1></h1></ion-row>
+            <ion-row>
+              <h1></h1>
+            </ion-row>
+            <ion-row>
+              <h1></h1>
+            </ion-row>
 
 
 
             <h3>Juramentada</h3>
             <h3>Autor: Brandom Sanderson</h3>
 
-            <ion-row><h1></h1></ion-row>
-            <ion-row><h1></h1></ion-row>
+            <ion-row>
+              <h1></h1>
+            </ion-row>
+            <ion-row>
+              <h1></h1>
+            </ion-row>
 
 
           </ion-card>
@@ -34,29 +43,25 @@
 
 
     </ion-row>
- 
+
     <ion-row>
 
       <ion-col>
-          <h3>Escenas</h3>
+        <h3>Escenas</h3>
 
-         
-
-
-              <ion-col>
-                <ion-grid>
-                  <ion-row>
-                    <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of listaEscenas">
-                      <div class="img-wrapper" [style.background-image]="'url(/assets/imgs/nuevolibro.jpg)'"></div>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-      
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" *ngFor="let escena of listaEscenas">
+              <div (click)=clickEscena(escena)>
+                <img width="200" height="200" [src]="escena.fondo" />
+              </div>>
             </ion-col>
+          </ion-row>
+        </ion-grid>
 
-          
-        
       </ion-col>
     </ion-row>
 
   </ion-grid>
+
+</ion-content>

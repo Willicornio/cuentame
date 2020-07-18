@@ -41,11 +41,30 @@ export class ListaescenasPage implements OnInit {
     var escena5 = new EscenaFrames();
     escena5.fondo = '/assets/imgs/nuevolibro.jpg';
 
+    var escena6 = new EscenaFrames();
+    escena6.fondo = '/assets/imgs/nuevolibro.jpg';
+
+    var escena7 = new EscenaFrames();
+    escena7.fondo = '/assets/imgs/nuevolibro.jpg';
+
+    var escena8 = new EscenaFrames();
+    escena8.fondo = '/assets/imgs/nuevolibro.jpg';
+
     this.listaEscenas.push(escena);
     this.listaEscenas.push(escena2);
     this.listaEscenas.push(escena3);
     this.listaEscenas.push(escena4);
     this.listaEscenas.push(escena5);
+    this.listaEscenas.push(escena6);
+    this.listaEscenas.push(escena7);
+    this.listaEscenas.push(escena8);
+
+
+    var crearEscena = new EscenaFrames();
+    crearEscena.fondo = '../../assets/imgs/mas.png';
+    crearEscena.duracionFrame = "No";
+
+    this.listaEscenas.push(crearEscena);
 
   }
 
