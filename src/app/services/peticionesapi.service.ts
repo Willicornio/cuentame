@@ -3,6 +3,7 @@ import { Observable, Subject, of } from 'rxjs';
 import { ResponseContentType, Http} from '@angular/http';
 import { Libro } from '../models/libro';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { SeleccionpersonajePageRoutingModule } from '../pages/seleccionpersonaje/seleccionpersonaje-routing.module';
 
 
 
@@ -15,11 +16,12 @@ export class PeticionesapiService {
 
   private urllibro = this.base + '3000/api/libro';
   private urlescena = this.base +  '3000/api/escena';
-
+  private urlalumno = this.base + '3000/api/Alumnos';
+ 
 
   constructor( private http: HttpClient) { }
 
-  public Damelibro(id: string): Observable<Libro> {
+  public Damelibro( idalumno: string, id: string): Observable<Libro> {
      // tslint:disable-next-line:max-line-length
     return this.http.get<Libro>(this.urllibro + '/' + id);
   }
@@ -27,8 +29,8 @@ export class PeticionesapiService {
   // public Dameescena(id: number): Observable<Escena> {
   //   return this.http.get<Escena>(this.urlescena + '/' + id);
   // }
-  public publicarlibro(libro: Libro): Observable<Libro>{
-    return this.http.post<Libro>(this.urllibro, libro);
+  public publicarlibro(idalumno: string, libro: Libro): Observable<Libro>{
+    return this.http.post<Libro>(this.urlalumno + '/' + idalumno + '/libro', libro);
   }
 
 

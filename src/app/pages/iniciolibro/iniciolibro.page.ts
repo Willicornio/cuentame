@@ -43,18 +43,19 @@ export class IniciolibroPage implements OnInit {
     this.listalibros.push(libro5);
     this.listalibros.push(libro1);
 
+    var idalumno= localStorage.getItem("idAlumno");
   
     
   }
 
-  getlibro(){
+  // getlibro(){
 
-    this.peticionesAPI.Damelibro(this.idAlumno)
-    .subscribe(res => {
-      console.log(res);
-    });
+  //   this.peticionesAPI.Damelibro(this.idAlumno)
+  //   .subscribe(res => {
+  //     console.log(res);
+  //   });
 
-  }
+  // }
 
   iralibro(){
 
