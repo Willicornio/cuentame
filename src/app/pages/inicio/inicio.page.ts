@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 export class InicioPage implements OnInit {
 
   constructor(public router: Router) { }
-
+    idalumno = '1';
   ngOnInit() {
+    localStorage.setItem("idAlumno", this.idalumno);  
+
   }
 
 

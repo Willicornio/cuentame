@@ -15,12 +15,12 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 export class LibroPage implements OnInit {
 
   libro: Libro;
-
+  
   constructor(private router: Router,  private peticionesAPI: PeticionesapiService) { }
 
   ngOnInit() {
 
- 
+  
    
     this.libro = new Libro();
     this.libro.portada = '/assets/imgs/portada.jpg';
@@ -36,6 +36,8 @@ export class LibroPage implements OnInit {
     }
 
   crearlibro(form: NgForm){
+
+    var idalumno= localStorage.getItem("idAlumno");
     if(form.value.titulo != null){
       this.libro.titulo = form.value.titulo;
       console.log("jiji");
@@ -52,7 +54,7 @@ export class LibroPage implements OnInit {
       this.libro.numeropag = '32';
 
 
-         this.peticionesAPI.publicarlibro(this.libro)
+         this.peticionesAPI.publicarlibro( idalumno  ,this.libro)
         .subscribe(res => {
           console.log(res);
         });
