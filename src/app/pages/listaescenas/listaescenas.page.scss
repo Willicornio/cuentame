@@ -4,3 +4,10 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+ion-card{
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    width: 100% !important; 
+  }

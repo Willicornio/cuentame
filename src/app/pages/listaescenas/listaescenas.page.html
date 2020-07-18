@@ -3,7 +3,7 @@
     <ion-title>Libro : Nombre del libro </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content  #content >
 
 
   <ion-grid>
@@ -54,7 +54,7 @@
             <ion-col size="3" *ngFor="let escena of listaEscenas">
               <div (click)=clickEscena(escena)>
                 <img width="200" height="200" [src]="escena.fondo" />
-              </div>>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -62,6 +62,43 @@
       </ion-col>
     </ion-row>
 
+
+
+    <ion-row>
+        <ion-col *ngIf="creacion">
+        
+          <ion-item>
+            <ion-label>Segundos por frame</ion-label>
+            <ion-select id="sFramesId">
+              <ion-select-option value="2">2 segundos</ion-select-option>
+              <ion-select-option value="5">5 segundos</ion-select-option>
+              <ion-select-option value="10">10 segundos</ion-select-option>
+             
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col *ngIf="creacion">
+
+          <ion-item>
+            <ion-label>Número de frames</ion-label>
+            <ion-select id="nFramesId">
+              <ion-select-option value="2">2 frames</ion-select-option>
+              <ion-select-option value="5">5 frames</ion-select-option>
+              <ion-select-option value="10">10 frames</ion-select-option>
+            
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col *ngIf="creacion">
+
+          <ion-button expand="block" (click)="crearEscena()" >Crear Escena!</ion-button>
+        </ion-col>
+
+
+
+    </ion-row>
+
   </ion-grid>
 
 </ion-content>
+
