@@ -68,4 +68,16 @@ export class ListaescenasPage implements OnInit {
 
   }
 
+
+
+
+  clickEscena(escena : EscenaFrames)
+  {
+    if(escena.duracionFrame = "No")
+    {
+      
+    }
+
+  }
+
 }
