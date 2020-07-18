@@ -21,10 +21,24 @@ export class PeticionesapiService {
 
   constructor( private http: HttpClient) { }
 
-  public Damelibro( idalumno: string, id: string): Observable<Libro> {
+  public Damelibro( idalumno: string, idlibro: string): Observable<Libro> {
      // tslint:disable-next-line:max-line-length
-    return this.http.get<Libro>(this.urllibro + '/' + id);
+    return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro');
   }
+
+  public Damelistalibros(idalumno: string){
+
+    return this.http.get<Libro[]>(this.urlalumno + '/' + idalumno + '/libro');
+
+  }
+
+
+
+
+
+
+
+
 
   // public Dameescena(id: number): Observable<Escena> {
   //   return this.http.get<Escena>(this.urlescena + '/' + id);

@@ -11,6 +11,7 @@ export class Libro{
     idAlumno: any;
     puntuacion: any;
     finalizado: any;
+    id: any;
 
   
   
