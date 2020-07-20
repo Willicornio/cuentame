@@ -4,6 +4,7 @@ import { ResponseContentType, Http} from '@angular/http';
 import { Libro } from '../models/libro';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { SeleccionpersonajePageRoutingModule } from '../pages/seleccionpersonaje/seleccionpersonaje-routing.module';
+import { Escena } from '../models/escena';
 
 
 
@@ -23,12 +24,18 @@ export class PeticionesapiService {
 
   public Damelibro( idalumno: string, idlibro: string): Observable<Libro> {
      // tslint:disable-next-line:max-line-length
-    return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro');
+    return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro'+ '/' +   idlibro);
   }
 
   public Damelistalibros(idalumno: string){
 
     return this.http.get<Libro[]>(this.urlalumno + '/' + idalumno + '/libro');
+
+  }
+
+  public Damelistaescenas(idlibro: string){
+
+    return this.http.get<Escena[]>(this.urllibro + '/' + idlibro + '/escenas');
 
   }
 

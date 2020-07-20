@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
+import {PeticionesapiService} from '../../services/peticionesapi.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { EscenaFrames } from 'src/app/models/escenaFrames';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor( private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor( private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
   @ViewChild('content') content:any;
 
 
@@ -63,9 +64,29 @@ export class ListaescenasPage implements OnInit {
     this.listaEscenas.push(escena8);
 
 
+    var crearEscena = new EscenaFrames();
+    crearEscena.fondo = '../../assets/imgs/mas.png';
+    crearEscena.duracionFrame = "No";
+
+    this.listaEscenas.push(crearEscena);
+    this.damelibro();
+
     this.creacion = false;
 
   }
+
+  damelibro(){
+    var idalumno= localStorage.getItem("idAlumno");
+
+    this.peticionesAPI.Damelibro(idalumno, this.idLibro)
+    .subscribe(res => {
+      console.log(res);
+     
+          
+    });
+  
+
+   }
 
 
 
@@ -96,8 +117,8 @@ export class ListaescenasPage implements OnInit {
     // var n = document.getElementById("nFramesId");
     // var s = document.getElementById("sFramesId");
 
-    // var numero = n.value;
-    // var segundos = s.value;
+    // // var numero = n.value;
+    // // var segundos = s.value;
 
     // console.log(numero + "                : " + segundos);
 
