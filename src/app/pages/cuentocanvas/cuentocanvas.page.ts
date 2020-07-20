@@ -393,8 +393,8 @@ export class CuentocanvasPage implements OnInit {
    //   ionViewDidLoad
    ionViewDidEnter() {
       this._CANVAS = this.canvasEl.nativeElement;
-      this._CANVAS.width = 850;
-      this._CANVAS.height = 500;
+      this._CANVAS.width = 900;
+      this._CANVAS.height = 600;
 
       this.initialiseCanvas();
 
@@ -406,7 +406,17 @@ export class CuentocanvasPage implements OnInit {
       }
    }
 
+   guardar(){
+          
+         var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
+         var dataURL = micanvas.toDataURL();
+         return dataURL;
+      
+                     
+    
 
+
+   }
    irAFondos() {
 
       localStorage.setItem("idService", this.i);
@@ -461,7 +471,7 @@ export class CuentocanvasPage implements OnInit {
 
    nuevoFrame() {
 
-      this.frameActual.portadaFrame = this.guardarcanvas();
+      this.frameActual.portadaFrame = this.guardar();
       this.listaFrames[this.frameActual.numero - 1] = this.frameActual;
       var numeroFrames = this.escenaFrames.numeroFrames + 1;
       if (this.escenaFrames.maximoFrames >= numeroFrames) {
@@ -482,6 +492,7 @@ export class CuentocanvasPage implements OnInit {
       }
 
    }
+ 
 
 
    fireEvent(e) {
@@ -822,11 +833,6 @@ export class CuentocanvasPage implements OnInit {
    }
 
 
-   guardarcanvas() {
-      var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
-      var dataURL = micanvas.toDataURL();
-      return dataURL;
-   }
 
 
    refreshFondo() {
