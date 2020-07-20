@@ -63,12 +63,6 @@ export class ListaescenasPage implements OnInit {
     this.listaEscenas.push(escena8);
 
 
-    var crearEscena = new EscenaFrames();
-    crearEscena.fondo = '../../assets/imgs/mas.png';
-    crearEscena.duracionFrame = "No";
-
-    this.listaEscenas.push(crearEscena);
-
     this.creacion = false;
 
   }

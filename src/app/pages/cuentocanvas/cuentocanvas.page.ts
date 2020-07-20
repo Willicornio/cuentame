@@ -825,6 +825,7 @@ export class CuentocanvasPage implements OnInit {
    guardarcanvas() {
       var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
       var dataURL = micanvas.toDataURL();
+      console.log(dataURL);
       return dataURL;
    }
 

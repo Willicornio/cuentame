@@ -4,48 +4,138 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <ion-card>
-        <form #postForm="ngForm" (ngSumbit)="crearlibro(libroForm)">
-          <div>
-            <ion-item>
-              <ion-label position="floating">Título</ion-label>
-              <ion-input type="text" [(ngModel)]="titulo" name="titulo"></ion-input>
+  <ion-grid>
+    <ion-row>
 
-            </ion-item>
-            <br>
-            <!-- <img src={{libro.fondo}}  /> -->
-          </div>
-          <div>
-            <button ion-button  (click)="cargarportada()">Cargar portada</button>
-          </div>
-          <div>
-            <br>
-            <textarea [(ngModel)]="textarea" name="textarea" rows="15" cols="65">Escribe aquí tu resumen</textarea>
+      <ion-col size=6>
+        <ion-row>
+          <ion-card>
+            <form #postForm="ngForm" (ngSumbit)="crearlibro(libroForm)">
+              <div>
+                <ion-item>
+                  <ion-label position="floating">Título</ion-label>
+                  <ion-input type="text" [(ngModel)]="titulo" name="titulo"></ion-input>
+
+                </ion-item>
+                <br>
+                <!-- <img src={{libro.fondo}}  /> -->
+              </div>
+
+              <div>
+                <br>
+                <textarea [(ngModel)]="textarea" name="textarea" rows="5" cols="65">Escribe aquí tu resumen</textarea>
 
 
-          </div>
-          <div>
-            <ion-button  type="submit" expand="full" (click)="crearlibro(postForm)" round >
-              Guardar </ion-button>
+              </div>
+              <div>
+                <ion-button type="submit" expand="full" (click)="crearlibro(postForm)" round>
+                  Guardar </ion-button>
 
-          </div>
+              </div>
 
-        </form>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card>
-        <div>
+            </form>
+          </ion-card>
+        </ion-row>
 
-          2 of 3 siiiiiiiiiiiiiii hola
 
-        </div>
-      </ion-card>
-    </ion-col>
+        <h3>Tamaño y fuente nombre autor</h3>
+        <ion-row>
+          <ion-col>
+            <ion-card>
 
-  </ion-row>
-</ion-grid>
+              <div (click)="fontAnterior()">
+                <img src="../../assets/imgs/flechaizquierda.png" width="30" height="30">
+              </div>
+            </ion-card>
+          </ion-col>
+
+          <ion-col>
+            <ion-card>
+              <h1>{{font}}</h1>
+            </ion-card>
+          </ion-col>
+          <ion-col>
+
+            <ion-card>
+
+              <div (click)="siguienteFont()">
+                <img src="../../assets/imgs/flechaderecha.png" width="30" height="30">
+              </div>
+            </ion-card>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col>
+            <ion-card>
+
+              <div (click)="menosPX()">
+                <img src="../../assets/imgs/menos.png" width="30" height="30">
+              </div>
+            </ion-card>
+          </ion-col>
+          <ion-col>
+            <ion-card>
+              <h1>{{fontPX}}</h1>
+            </ion-card>
+          </ion-col>
+          <ion-col>
+
+            <ion-card>
+
+              <div (click)="masPX()">
+                <img src="../../assets/imgs/mas.png" width="30" height="30">
+              </div>
+            </ion-card>
+
+          </ion-col>
+
+        </ion-row>
+
+
+
+        <ion-row>
+          <ion-card>
+            <ion-label position="floating">Tamaño y fuente titulo</ion-label>
+
+          </ion-card>
+        </ion-row>
+
+      </ion-col>
+
+      <ion-col size=6>
+        <ion-row>
+          <ion-card>
+
+            <div class="ion-canvas">
+              <canvas #canvas id="micanvas"></canvas>
+            </div>
+
+          </ion-card>
+        </ion-row>
+
+
+        <ion-row>
+
+          <ion-col size=12>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6" *ngFor="let fondo of listaEscenas">
+                  <div (click)=cargarFondo(fondo)>
+                    <img width="200" height="200" [src]="fondo" />
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-col>
+
+        </ion-row>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
