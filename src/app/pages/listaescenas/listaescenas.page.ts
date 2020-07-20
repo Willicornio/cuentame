@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
-import { literalArr } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -100,13 +99,13 @@ export class ListaescenasPage implements OnInit {
 
   crearEscena(){
 
-    var n = document.getElementById("nFramesId");
-    var s = document.getElementById("sFramesId");
+    // var n = document.getElementById("nFramesId");
+    // var s = document.getElementById("sFramesId");
 
-    var numero = n.value;
-    var segundos = s.value;
+    // var numero = n.value;
+    // var segundos = s.value;
 
-    console.log(numero + "                : " + segundos);
+    // console.log(numero + "                : " + segundos);
 
   }
 
