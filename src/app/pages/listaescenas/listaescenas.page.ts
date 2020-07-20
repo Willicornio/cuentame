@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
@@ -11,13 +11,17 @@ import {PeticionesapiService} from '../../services/peticionesapi.service';
   selector: 'app-listaescenas',
   templateUrl: './listaescenas.page.html',
   styleUrls: ['./listaescenas.page.scss'],
+
 })
 export class ListaescenasPage implements OnInit {
 
   constructor( private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
+  @ViewChild('content') content:any;
+
 
   idLibro : any;
   listaEscenas: EscenaFrames[] = [];
+  creacion : any = false;
 
   ngOnInit() {
 
@@ -67,6 +71,9 @@ export class ListaescenasPage implements OnInit {
 
     this.listaEscenas.push(crearEscena);
     this.damelibro();
+
+    this.creacion = false;
+
   }
 
   damelibro(){
@@ -89,8 +96,32 @@ export class ListaescenasPage implements OnInit {
   {
     if(escena.duracionFrame = "No")
     {
-      
+
+
+      this.creacion = true;
+
+      this.bajarEscena();
     }
+
+  }
+
+  bajarEscena(){
+    this.content.scrollToBottom(0);//300ms animation speed
+
+    this.content.scrollToBottom(0);//300ms animation speed
+    this.content.scrollToBottom(0);//300ms animation speed
+
+  }
+
+  crearEscena(){
+
+    var n = document.getElementById("nFramesId");
+    var s = document.getElementById("sFramesId");
+
+    // // var numero = n.value;
+    // // var segundos = s.value;
+
+    // console.log(numero + "                : " + segundos);
 
   }
 
