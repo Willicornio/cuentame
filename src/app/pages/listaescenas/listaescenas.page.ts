@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
 import { literalArr } from '@angular/compiler/src/output/output_ast';
+import {PeticionesapiService} from '../../services/peticionesapi.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { literalArr } from '@angular/compiler/src/output/output_ast';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor( private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor( private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
 
   idLibro : any;
   listaEscenas: EscenaFrames[] = [];
@@ -65,8 +66,21 @@ export class ListaescenasPage implements OnInit {
     crearEscena.duracionFrame = "No";
 
     this.listaEscenas.push(crearEscena);
-
+    this.damelibro();
   }
+
+  damelibro(){
+    var idalumno= localStorage.getItem("idAlumno");
+
+    this.peticionesAPI.Damelibro(idalumno, this.idLibro)
+    .subscribe(res => {
+      console.log(res);
+     
+          
+    });
+  
+
+   }
 
 
 
