@@ -16,6 +16,9 @@ import { ThrowStmt } from '@angular/compiler';
 import { ImagenFondo } from '../../models/imagenFondo';
 import { DataService } from '../../services/data.service';
 import { Libro } from '../../models/libro';
+import { ImagenFrame } from '../../models/imagenFrame';
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
+
 
 @Component({
    selector: 'app-cuentocanvas',
@@ -67,6 +70,7 @@ export class CuentocanvasPage implements OnInit {
    listaFondos: ImagenFondo[] = [];
    listaElementosDerecha: PersonajeFrame[] = [];
    listaElementosIzquierda: PersonajeFrame[] = [];
+   listaFotosFrame: ImagenFrame[]=[];
    
    buttonNewFrame = true;
 
@@ -388,6 +392,8 @@ export class CuentocanvasPage implements OnInit {
       this.escenaFrames.frames[this.frameActual.numero-1]= this.frameActual;
       this.generarListaPersonajesEnPantalla();
       this.drawimages(this.frameActual.personajes);
+
+      this.guardarFoto();
    }
    //ionViewDidEnter
    //   ionViewDidLoad
@@ -405,16 +411,40 @@ export class CuentocanvasPage implements OnInit {
 
       }
    }
+   guardarFoto(){
+          
+      var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
+      var dataURL = micanvas.toDataURL();
+
+      var fotoFrame = new ImagenFrame();
+      fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + this.frameActual.numero;
+      fotoFrame.foto = dataURL;
+      var numeroFrameActual = this.frameActual.numero -1;
+
+      if(!this.listaFotosFrame[numeroFrameActual]) 
+      {
+
+         this.listaFotosFrame.push(fotoFrame);
+
+      }
+      else {
+         this.listaFotosFrame[numeroFrameActual] = fotoFrame;
+      }
+}
 
    guardar(){
           
          var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
          var dataURL = micanvas.toDataURL();
-         return dataURL;
-      
-                     
-    
+         console.log(dataURL);
 
+
+         // this.base64toBlob(dataURL, 'png');
+
+
+
+  var file = this.dataURLtoFile(dataURL, 'a.png');
+  console.log(file);
 
    }
    irAFondos() {
@@ -512,6 +542,8 @@ export class CuentocanvasPage implements OnInit {
 
             this._CONTEXT.drawImage(this.imagen, e.x - this.imagenCargadaWidth / 2, e.y - this.imagenCargadaHeight / 2);
             this._CONTEXT.stroke();
+            this.guardarFoto();
+
          };
          ima.src = this.personajeCargado.foto;
          this.pintar = false;
@@ -624,6 +656,8 @@ export class CuentocanvasPage implements OnInit {
       this._CONTEXT = this._CANVAS.getContext('2d');
       this._CONTEXT.font = '30px serif';
       this._CONTEXT.strokeText(dialogo, 50, 450);
+
+      this.guardarFoto();
 
 
    }
@@ -1640,4 +1674,31 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, {type:mime});
+  }
+  
+  //Usage example:
+  
+//     base64toBlob(base64Data, contentType) {
+     
+//       var png = base64Data.split(',')[1];
+      
+//       var the_file = new Blob([window.atob(png)],{type: 'image/png'});
+      
+//       var fr = new FileReader();
+//       fr.onload = function ( oFREvent ) {
+//           var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
+//           v = atob(v);
+//           var good_b64 = btoa(decodeURIComponent(escape(v)));
+//          //  document.getElementById("uploadPreview").src = "data:image/png;base64," + good_b64;
+//       };
+//       fr.readAsDataURL(the_file);
+//   }
 }

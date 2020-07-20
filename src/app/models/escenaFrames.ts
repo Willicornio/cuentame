@@ -6,6 +6,7 @@ export class EscenaFrames{
     maximoFrames: any;
     numeroFrames: any;
     numeroframeActual: any;
+    numeroEscena: any;
    
     constructor(
         fondo = '',
@@ -13,7 +14,8 @@ export class EscenaFrames{
         duracionFrame ='',
         maximoFrames = 1,
         numeroFrames = 1,
-        numeroframeActual = 1
+        numeroframeActual = 1,
+        numeroEscena = '',
 
     ) {
 
@@ -22,6 +24,7 @@ export class EscenaFrames{
      this.duracionFrame = duracionFrame,
      this.maximoFrames = maximoFrames,
      this.numeroFrames = numeroFrames,
-     this.numeroframeActual = numeroframeActual
+     this.numeroframeActual = numeroframeActual,
+     this.numeroEscena = numeroEscena
     }
 }
