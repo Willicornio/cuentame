@@ -18,6 +18,9 @@ export class PeticionesapiService {
   private urllibro = this.base + '3000/api/libro';
   private urlescena = this.base +  '3000/api/escena';
   private urlalumno = this.base + '3000/api/Alumnos';
+  private urlimagenesWithLevel = this.base + '3000/api/Imagenes/Nivel1';
+  private urlimagenes = this.base + '3000/api/imagenes';
+
  
 
   constructor( private http: HttpClient) { }
@@ -39,7 +42,15 @@ export class PeticionesapiService {
 
   }
 
+  public postImage(formData: FormData): Observable<any>{
+    return this.http.post<any>(this.urlimagenesWithLevel + '/upload', formData);
 
+  }
+
+  public createFolder(name : any): Observable<any>{
+    return this.http.post<any>(this.urlimagenes, name);
+
+  }
 
 
 

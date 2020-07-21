@@ -19,6 +19,8 @@ import { Libro } from '../../models/libro';
 import { ImagenFrame } from '../../models/imagenFrame';
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
+import { PeticionesapiService } from '../../services/peticionesapi.service';
+
 
 @Component({
    selector: 'app-cuentocanvas',
@@ -70,8 +72,8 @@ export class CuentocanvasPage implements OnInit {
    listaFondos: ImagenFondo[] = [];
    listaElementosDerecha: PersonajeFrame[] = [];
    listaElementosIzquierda: PersonajeFrame[] = [];
-   listaFotosFrame: ImagenFrame[]=[];
-   
+   listaFotosFrame: ImagenFrame[] = [];
+
    buttonNewFrame = true;
 
    escenaFrames: EscenaFrames;
@@ -85,11 +87,11 @@ export class CuentocanvasPage implements OnInit {
 
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router, private dataService: DataService) {
+   constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService) {
 
    }
 
-   ionViewWillEnter(){
+   ionViewWillEnter() {
 
       this.src = localStorage.getItem("src");
 
@@ -98,16 +100,16 @@ export class CuentocanvasPage implements OnInit {
 
       this.frameActual = new Frame();
 
-        //Se comprueba que estemos volviendo de recoger elemento para pintar
-        if (localStorage.getItem("idService") != null && localStorage.getItem("idService") != "") {
+      //Se comprueba que estemos volviendo de recoger elemento para pintar
+      if (localStorage.getItem("idService") != null && localStorage.getItem("idService") != "") {
          var i = localStorage.getItem("idService");
          this.iNumber = +i;
          this.i = i;
          if (this.dataService.getData(i) != undefined && this.dataService.getData(i) != "undefined") {
 
             this.escenaFrames = this.dataService.getData(i);
-            if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual -1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1] != "undefined") {
-               this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual-1];
+            if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != "undefined") {
+               this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1];
                this.drawimages(this.frameActual.personajes);
                this.listaPersonajeFrameActual = this.frameActual.personajes;
                console.log("Estamos de vuelta en la Home del cuento");
@@ -119,8 +121,8 @@ export class CuentocanvasPage implements OnInit {
       }
 
 
-       //Se comprueba y se carga la imagen del personaje cargado
-       if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
+      //Se comprueba y se carga la imagen del personaje cargado
+      if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
 
          this.personajeCargado = new PersonajeFrame();
          this.personajeCargado.foto = localStorage.getItem("fotoPersonaje");
@@ -154,7 +156,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.frameActual = new Frame();
 
-     
+
       this.escenaFrames = new EscenaFrames();
 
 
@@ -389,7 +391,7 @@ export class CuentocanvasPage implements OnInit {
       });
       this.frameActual.personajes = this.frameActual.personajes.filter(obj => obj.id !== personaje.id);
 
-      this.escenaFrames.frames[this.frameActual.numero-1]= this.frameActual;
+      this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
       this.generarListaPersonajesEnPantalla();
       this.drawimages(this.frameActual.personajes);
 
@@ -411,18 +413,17 @@ export class CuentocanvasPage implements OnInit {
 
       }
    }
-   guardarFoto(){
-          
+   guardarFoto() {
+
       var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
       var dataURL = micanvas.toDataURL();
 
       var fotoFrame = new ImagenFrame();
       fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + this.frameActual.numero;
       fotoFrame.foto = dataURL;
-      var numeroFrameActual = this.frameActual.numero -1;
+      var numeroFrameActual = this.frameActual.numero - 1;
 
-      if(!this.listaFotosFrame[numeroFrameActual]) 
-      {
+      if (!this.listaFotosFrame[numeroFrameActual]) {
 
          this.listaFotosFrame.push(fotoFrame);
 
@@ -430,23 +431,48 @@ export class CuentocanvasPage implements OnInit {
       else {
          this.listaFotosFrame[numeroFrameActual] = fotoFrame;
       }
-}
+   }
 
-   guardar(){
-          
-         var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
-         var dataURL = micanvas.toDataURL();
-         console.log(dataURL);
+   guardar() {
+
+      var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
+      var dataURL = micanvas.toDataURL();
+      console.log(dataURL);
+
+      const formData: FormData = new FormData();
+      var file = this.dataURLtoFile(dataURL, 'a.png');
+
+      formData.append('Nombre1', file);
+
+      this.peticionesApiService.postImage(formData)
+         .subscribe((res) =>
+
+            console.log(res)
+         );
+
+      // this.base64toBlob(dataURL, 'png');
 
 
-         // this.base64toBlob(dataURL, 'png');
 
-
-
-  var file = this.dataURLtoFile(dataURL, 'a.png');
-  console.log(file);
+      console.log(file);
 
    }
+
+   crearRepo()
+      {
+
+         const name = {
+            "name" : "nivel2"
+         }
+
+         this.peticionesApiService.createFolder(name)
+         .subscribe((res)=> 
+         console.log(res),
+         
+         (err) => (console.log(err))
+         )
+      }
+   
    irAFondos() {
 
       localStorage.setItem("idService", this.i);
@@ -522,7 +548,7 @@ export class CuentocanvasPage implements OnInit {
       }
 
    }
- 
+
 
 
    fireEvent(e) {
@@ -552,7 +578,7 @@ export class CuentocanvasPage implements OnInit {
          personaje.id = this.personajeCargado.id;
          personaje.foto = this.personajeCargado.foto;
          personaje.positionX = e.x - this.imagenCargadaWidth / 2;
-         personaje.positionY =  e.y - this.imagenCargadaHeight / 2;
+         personaje.positionY = e.y - this.imagenCargadaHeight / 2;
 
          this.listaPersonajeFrameActual = this.frameActual.personajes;
 
@@ -574,15 +600,14 @@ export class CuentocanvasPage implements OnInit {
       this.drawimages(this.listaPersonajeEscenaActual);
    }
 
-   newFrame()
-   {
+   newFrame() {
 
       var newFrame = new Frame();
-      
+
       newFrame.numero = this.frameActual.numero + 1;
       newFrame.portadaFrame = '';
       newFrame.textos = '';
-      
+
       var listaP = [];
       this.frameActual.personajes.forEach(element => {
          listaP.push(element);
@@ -613,13 +638,12 @@ export class CuentocanvasPage implements OnInit {
          this.generarListaPersonajesEnPantalla();
       }
 
-      if(this.escenaFrames.frames[this.frameActual.numero] == undefined || this.escenaFrames.frames[this.frameActual.numero] == "undefined")
-      {
-         if (this.frameActual.numero == this.escenaFrames.maximoFrames){
+      if (this.escenaFrames.frames[this.frameActual.numero] == undefined || this.escenaFrames.frames[this.frameActual.numero] == "undefined") {
+         if (this.frameActual.numero == this.escenaFrames.maximoFrames) {
             this.buttonNewFrame = false;
 
          }
-         else{
+         else {
             this.buttonNewFrame = true;
 
          }
@@ -651,7 +675,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.dialogoActual = dialogo;
       this.frameActual.textos = dialogo;
-      this.escenaFrames.frames[this.frameActual.numero -1] = this.frameActual;
+      this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
       this._CONTEXT.lineWidth = 2;
       this._CONTEXT = this._CANVAS.getContext('2d');
       this._CONTEXT.font = '30px serif';
@@ -798,8 +822,8 @@ export class CuentocanvasPage implements OnInit {
          this._CONTEXT.fillRect(0, 0, 1100, 800);
 
          this.escenaFrames.fondo = img3.src;
-         this.src="ya fue pintado";
-         localStorage.setItem("src", this.src);  
+         this.src = "ya fue pintado";
+         localStorage.setItem("src", this.src);
 
 
       }
@@ -1675,30 +1699,30 @@ export class CuentocanvasPage implements OnInit {
    }
 
 
-    dataURLtoFile(dataurl, filename) {
+   dataURLtoFile(dataurl, filename) {
       var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-      while(n--){
-          u8arr[n] = bstr.charCodeAt(n);
+         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while (n--) {
+         u8arr[n] = bstr.charCodeAt(n);
       }
-      return new File([u8arr], filename, {type:mime});
-  }
-  
-  //Usage example:
-  
-//     base64toBlob(base64Data, contentType) {
-     
-//       var png = base64Data.split(',')[1];
-      
-//       var the_file = new Blob([window.atob(png)],{type: 'image/png'});
-      
-//       var fr = new FileReader();
-//       fr.onload = function ( oFREvent ) {
-//           var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
-//           v = atob(v);
-//           var good_b64 = btoa(decodeURIComponent(escape(v)));
-//          //  document.getElementById("uploadPreview").src = "data:image/png;base64," + good_b64;
-//       };
-//       fr.readAsDataURL(the_file);
-//   }
+      return new File([u8arr], filename, { type: mime });
+   }
+
+   //Usage example:
+
+   //     base64toBlob(base64Data, contentType) {
+
+   //       var png = base64Data.split(',')[1];
+
+   //       var the_file = new Blob([window.atob(png)],{type: 'image/png'});
+
+   //       var fr = new FileReader();
+   //       fr.onload = function ( oFREvent ) {
+   //           var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
+   //           v = atob(v);
+   //           var good_b64 = btoa(decodeURIComponent(escape(v)));
+   //          //  document.getElementById("uploadPreview").src = "data:image/png;base64," + good_b64;
+   //       };
+   //       fr.readAsDataURL(the_file);
+   //   }
 }
