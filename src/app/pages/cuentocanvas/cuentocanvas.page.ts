@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -87,7 +87,7 @@ export class CuentocanvasPage implements OnInit {
 
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService) {
+   constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute) {
 
    }
 
@@ -148,17 +148,18 @@ export class CuentocanvasPage implements OnInit {
 
       }
    }
-   ngOnInit() {
-
+   async ngOnInit() {
 
       this.escenaFrames = new EscenaFrames();
-      this.escenaFrames.maximoFrames = 10;
-
       this.frameActual = new Frame();
 
 
-      this.escenaFrames = new EscenaFrames();
+      if (this.activatedRoute.snapshot.paramMap.get('id')) {
+         var id = this.activatedRoute.snapshot.paramMap.get('id');
+         await this.getEscena(id);
 
+         this.frameActual = this.escenaFrames.frames[0];
+      }
 
       this.src = localStorage.getItem("src");
       this.escena = new Escena();
@@ -230,6 +231,16 @@ export class CuentocanvasPage implements OnInit {
 
       //   this.generarListaFondos();
 
+   }
+
+   async getEscena(id) {
+
+      this.peticionesApiService.getEscena(id).subscribe((res) => {
+         this.escenaFrames = res as EscenaFrames;
+
+      }, (err) => {
+         console.log(err);
+      })
    }
 
    cargarEscena() {
@@ -417,11 +428,12 @@ export class CuentocanvasPage implements OnInit {
 
       var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
       var dataURL = micanvas.toDataURL();
-
+      var numeroFrame = this.frameActual.numero;
       var fotoFrame = new ImagenFrame();
-      fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + this.frameActual.numero;
+      fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + numeroFrame;
       fotoFrame.foto = dataURL;
-      var numeroFrameActual = this.frameActual.numero - 1;
+      fotoFrame.numeroFrame = numeroFrame;
+      var numeroFrameActual = numeroFrame - 1;
 
       if (!this.listaFotosFrame[numeroFrameActual]) {
 
@@ -433,46 +445,55 @@ export class CuentocanvasPage implements OnInit {
       }
    }
 
-   guardar() {
+   async guardar() {
 
-      var micanvas = document.getElementById("micanvas") as HTMLCanvasElement;
-      var dataURL = micanvas.toDataURL();
-      console.log(dataURL);
+      this.listaFotosFrame.forEach(async element => {
+         const formData: FormData = new FormData();
+         var file = this.dataURLtoFile(element.foto, element.codigo + '.png');
 
-      const formData: FormData = new FormData();
-      var file = this.dataURLtoFile(dataURL, 'a.png');
+         formData.append('fotoFrame', file);
 
-      formData.append('Nombre1', file);
+         await this.postFotoFrame(formData, element);
 
-      this.peticionesApiService.postImage(formData)
-         .subscribe((res) =>
+      });
 
+      this.peticionesApiService.postEscena(this.escenaFrames)
+         .subscribe((res) => {
             console.log(res)
+
+         }, (err) => { console.log(err); }
          );
 
-      // this.base64toBlob(dataURL, 'png');
-
-
-
-      console.log(file);
 
    }
 
-   crearRepo()
-      {
+   async postFotoFrame(formData: FormData, element: ImagenFrame) {
 
-         const name = {
-            "name" : "nivel2"
+      this.peticionesApiService.postImage(formData)
+         .subscribe((res) => {
+            var frame = this.escenaFrames.frames[element.numeroFrame - 1] as Frame;
+            frame.portadaFrame = element.codigo + '.png';
          }
+            , (err) => {
+               console.log("error al subir la imagem");
+               console.log('Error : ' + err);
+            });
+   }
 
-         this.peticionesApiService.createFolder(name)
-         .subscribe((res)=> 
-         console.log(res),
-         
-         (err) => (console.log(err))
-         )
+   crearRepo() {
+
+      const name = {
+         "name": "nivel2"
       }
-   
+
+      this.peticionesApiService.createFolder(name)
+         .subscribe((res) =>
+            console.log(res),
+
+            (err) => (console.log(err))
+         )
+   }
+
    irAFondos() {
 
       localStorage.setItem("idService", this.i);

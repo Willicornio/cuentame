@@ -4,6 +4,8 @@ export class Frame{
     textos: any;
     portadaFrame: any;
     numero: any;
+    id: any;
+    escenaid: any;
    
     constructor(
         portadaFrame = '',

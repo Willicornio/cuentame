@@ -7,6 +7,8 @@ export class EscenaFrames{
     numeroFrames: any;
     numeroframeActual: any;
     numeroEscena: any;
+    id: any;
+    idLibro: any;
    
     constructor(
         fondo = '',

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'cuentocanvas/:dataObj',
+    path: 'cuentocanvas/:id',
     loadChildren: () => import('./pages/cuentocanvas/cuentocanvas.module').then( m => m.CuentocanvasPageModule)
   },
   {
