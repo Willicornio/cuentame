@@ -11,10 +11,25 @@ ion-item{
     font-weight: bold;
 }
 
+
+
+ion-button {
+    --background: rgb(192, 219, 117);
+    --background-hover: #ffb6c1;
+    --background-activated: green;
+    --color: #222;
+    --color-activated: white;
+    --opacity: 1;
+    --font-size: 24px;    
+    --padding-start: 10px;
+    --padding-end: 10px;
+    
+  }
+
 ion-content{
 
     
-   background-image: url("/assets/imgs/curntame.png");
+   background-image: url("/assets/imgs/fondoinicio.png");
     background-size: cover;
     --background: rgba(255, 255, 255, 0.5);
 

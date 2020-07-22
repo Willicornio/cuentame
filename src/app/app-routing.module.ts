@@ -42,7 +42,12 @@ const routes: Routes = [
   {
     path: 'listaescenas/:id',
     loadChildren: () => import('./pages/listaescenas/listaescenas.module').then( m => m.ListaescenasPageModule)
+  },
+  {
+    path: 'reproductor',
+    loadChildren: () => import('./pages/reproductor/reproductor.module').then( m => m.ReproductorPageModule)
   }
+
 
 
   

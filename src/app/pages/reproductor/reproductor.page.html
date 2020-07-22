@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reproductor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-col size="6" *ngFor="let libro of listalibros">
+  <div (click)="continuarLibro(libro)">
+    <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
+     <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col> -->
+    <!-- <ion-col>
+      <h3> {{libro.titulo}} </h3>
+    </ion-col>
+  </div>
+
+</ion-col> --> 
+
+
+<ion-content>
+  <ion-card>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide>
+      <img src= '/assets/imgs/vulpix.png' width="400" height="400" class="center">
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+</ion-card>
+  
+</ion-content>
