@@ -21,6 +21,10 @@ export class PeticionesapiService {
   private urlimagenesWithLevel = this.base + '3000/api/Imagenes/Nivel1';
   private urlimagenes = this.base + '3000/api/imagenes';
 
+
+  private urlParaEscenaPruebas = this.base + '3000/api/escenas';
+
+
  
 
   constructor( private http: HttpClient) { }
@@ -52,8 +56,19 @@ export class PeticionesapiService {
 
   }
 
+  public postEscena(escena : any): Observable<any>{
+    return this.http.put<any>(this.urlescena + '/' + escena.id , escena);
 
+  }
 
+  public postEscenaPruebas(escena : any): Observable<any>{
+    return this.http.put<any>(this.urlParaEscenaPruebas, escena);
+
+  }
+
+  public getEscena(id): Observable<any>{
+    return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id);
+  }
 
 
 

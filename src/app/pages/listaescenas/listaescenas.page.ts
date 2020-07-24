@@ -1,9 +1,9 @@
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
-import {PeticionesapiService} from '../../services/peticionesapi.service';
+import { PeticionesapiService } from '../../services/peticionesapi.service';
 
 
 @Component({
@@ -14,17 +14,17 @@ import {PeticionesapiService} from '../../services/peticionesapi.service';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor( private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
-  @ViewChild('content') content:any;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
+  @ViewChild('content') content: any;
 
 
-  idLibro : any;
+  idLibro: any;
   listaEscenas: EscenaFrames[] = [];
-  creacion : any = false;
+  creacion: any = false;
 
   ngOnInit() {
 
-    this.idLibro  = this.activatedRoute.snapshot.paramMap.get('id');
+    this.idLibro = this.activatedRoute.snapshot.paramMap.get('id');
     console.log("id libro : " + this.idLibro);
 
     var escena = new EscenaFrames();
@@ -75,26 +75,24 @@ export class ListaescenasPage implements OnInit {
 
   }
 
-  damelibro(){
-    var idalumno= localStorage.getItem("idAlumno");
+  damelibro() {
+    var idalumno = localStorage.getItem("idAlumno");
 
     this.peticionesAPI.Damelibro(idalumno, this.idLibro)
-    .subscribe(res => {
-      console.log(res);
-     
-          
-    });
-  
-
-   }
+      .subscribe(res => {
+        console.log(res);
 
 
+      });
 
 
-  clickEscena(escena : EscenaFrames)
-  {
-    if(escena.duracionFrame = "No")
-    {
+  }
+
+
+
+
+  clickEscena(escena: EscenaFrames) {
+    if (escena.duracionFrame = "No") {
 
 
       this.creacion = true;
@@ -104,7 +102,7 @@ export class ListaescenasPage implements OnInit {
 
   }
 
-  bajarEscena(){
+  bajarEscena() {
     this.content.scrollToBottom(0);//300ms animation speed
 
     this.content.scrollToBottom(0);//300ms animation speed
@@ -112,8 +110,28 @@ export class ListaescenasPage implements OnInit {
 
   }
 
-  crearEscena(){
+  crearEscena() {
 
+
+    const escena = {
+
+      "fondo": "nada",
+      "duracionFrame": "2",
+      "maximoFrames": "10",
+      "numeroFrames": "0",
+      "numeroframeActual": "0",
+      "numeroEscena": "1"
+
+    }
+
+    this.peticionesAPI.postEscenaPruebas(escena)
+      .subscribe((res) => {
+        console.log(res);
+
+        this.router.navigate(['/cuentocanvas' + "/" + res.id])
+      }, (err) => {
+        console.log(err);
+      })
     // var n = document.getElementById("nFramesId");
     // var s = document.getElementById("sFramesId");
 
