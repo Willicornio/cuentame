@@ -1,7 +1,8 @@
 {
   "name": "cuentame",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

@@ -46,7 +46,11 @@ const routes: Routes = [
   {
     path: 'reproductor',
     loadChildren: () => import('./pages/reproductor/reproductor.module').then( m => m.ReproductorPageModule)
+  },  {
+    path: 'media',
+    loadChildren: () => import('./pages/media/media.module').then( m => m.MediaPageModule)
   }
+
 
 
 
