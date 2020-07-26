@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>media</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Prueba de la cámara
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-button (click)="hacerFoto()">Hacer foto</ion-button>
+    <img [src]="foto" *ngIf="foto" />
+  </ion-content>
+</ion-content>
