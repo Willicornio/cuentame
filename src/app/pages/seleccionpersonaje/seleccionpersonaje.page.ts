@@ -24,6 +24,7 @@ export class SeleccionpersonajePage implements OnInit {
   listamosntruosDerecha: PersonajeFrame[] = [];
   listamosntruosIzquiera: PersonajeFrame[] = [];
 
+  
   // //listaFondos: ImagenFondo [] = [];
   // listaFondosDerecha: ImagenFondo [] = [];
   // listaFondosIzquierda: ImagenFondo [] = [];
@@ -177,7 +178,8 @@ export class SeleccionpersonajePage implements OnInit {
     console.log(img3.src);
     localStorage.setItem("fotoPersonaje", personaje.foto);
     localStorage.setItem("idPersonaje", personaje.id);
-    this.router.navigateByUrl("/canvas");
+    var idEscena = localStorage.getItem("idEscena");
+    this.router.navigateByUrl("/cuentocanvas/" + idEscena);
 
 
 
