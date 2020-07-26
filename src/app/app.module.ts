@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
+// import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     StatusBar,
     SplashScreen,
     HttpClientModule,
+    // ImageResizer,
     Camera,
    
      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
