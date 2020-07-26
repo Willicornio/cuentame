@@ -66,7 +66,7 @@ export class ListaescenasPage implements OnInit {
 
     var crearEscena = new EscenaFrames();
     crearEscena.fondo = '../../assets/imgs/mas.png';
-    crearEscena.duracionFrame = "No";
+    crearEscena.duracionFrame = 0;
 
     this.listaEscenas.push(crearEscena);
     this.damelibro();
@@ -92,7 +92,7 @@ export class ListaescenasPage implements OnInit {
 
 
   clickEscena(escena: EscenaFrames) {
-    if (escena.duracionFrame = "No") {
+    if (escena.duracionFrame = 0) {
 
 
       this.creacion = true;

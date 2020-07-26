@@ -20,6 +20,9 @@ import { ImagenFrame } from '../../models/imagenFrame';
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 import { PeticionesapiService } from '../../services/peticionesapi.service';
+import { createNgModule } from '@angular/compiler/src/core';
+import { runInThisContext } from 'vm';
+import { element } from 'protractor';
 
 
 @Component({
@@ -73,6 +76,7 @@ export class CuentocanvasPage implements OnInit {
    listaElementosDerecha: PersonajeFrame[] = [];
    listaElementosIzquierda: PersonajeFrame[] = [];
    listaFotosFrame: ImagenFrame[] = [];
+   listaFotosFrameBackend: File[] = [];
 
    buttonNewFrame = true;
 
@@ -91,13 +95,12 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
-   ionViewWillEnter() {
+   async ionViewWillEnter() {
 
       this.src = localStorage.getItem("src");
-
+      var pedirAPI = false;
 
       this.escenaFrames = new EscenaFrames();
-
       this.frameActual = new Frame();
 
       //Se comprueba que estemos volviendo de recoger elemento para pintar
@@ -118,8 +121,20 @@ export class CuentocanvasPage implements OnInit {
                this.i = this.iNumber + 1;
             }
          }
+         else { pedirAPI = true }
       }
+      else { pedirAPI = true }
 
+      if (pedirAPI == true) {
+
+         if (this.activatedRoute.snapshot.paramMap.get('id')) {
+            var id = this.activatedRoute.snapshot.paramMap.get('id');
+            localStorage.setItem("idEscena", id);
+
+            await this.getEscena(id);
+
+         }
+      }
 
       //Se comprueba y se carga la imagen del personaje cargado
       if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
@@ -156,9 +171,8 @@ export class CuentocanvasPage implements OnInit {
 
       if (this.activatedRoute.snapshot.paramMap.get('id')) {
          var id = this.activatedRoute.snapshot.paramMap.get('id');
-         await this.getEscena(id);
+         // await this.getEscena(id);
 
-         this.frameActual = this.escenaFrames.frames[0];
       }
 
       this.src = localStorage.getItem("src");
@@ -235,14 +249,107 @@ export class CuentocanvasPage implements OnInit {
 
    async getEscena(id) {
 
-      this.peticionesApiService.getEscena(id).subscribe((res) => {
+      this.peticionesApiService.getEscena(id).subscribe(async (res) => {
          this.escenaFrames = res as EscenaFrames;
+         await this.getFrames(id);
 
       }, (err) => {
          console.log(err);
       })
    }
 
+   async getFrames(id) {
+
+      this.peticionesApiService.getFramesByEscenaId(id).subscribe((res) => {
+
+         var listaFrames: Frame[] = [];
+
+         if (res.length == 0) {
+            var newFrame = new Frame();
+            newFrame.numero = 1;
+            this.frameActual = newFrame;
+
+            listaFrames.push(newFrame);
+            this.escenaFrames.frames = listaFrames;
+
+            this.peticionesApiService.postFrame(this.escenaFrames.id, newFrame).subscribe(async (res) => {
+
+               this.frameActual.id = res.id;
+               await this.uploadNumeroFrameEscena();
+
+            }, (err) => {
+               console.log(err);
+            })
+         }
+         else if (res.length != 0) {
+            res.forEach(element => {
+               listaFrames.push(element as Frame);
+
+            });
+
+            this.escenaFrames.frames = listaFrames;
+
+            this.frameActual = this.escenaFrames.frames[0];
+            if (this.escenaFrames.frames.length != 1) {
+               this.buttonNewFrame = false;
+               this.firstDrawImages(this.frameActual.personajes);
+            }
+
+            listaFrames.forEach(element => {
+               this.peticionesApiService.getImage(element.portadaFrame).subscribe((res)=>{
+                     this.listaFotosFrameBackend.push(res);
+                     console.log(res);
+               }, (err)=>{
+
+               })
+            })
+         }
+      }
+         , (err) => {
+            console.log(err);
+         })
+   }
+
+   uploadNumeroFrameEscena() {
+
+      var newEscenaNumeroFrames = this.escenaFrames.numeroFrames;
+      newEscenaNumeroFrames = newEscenaNumeroFrames + 1;
+      this.escenaFrames.numeroFrames = newEscenaNumeroFrames;
+      this.peticionesApiService.putEscena(this.escenaFrames.id, this.escenaFrames)
+         .subscribe((res) => {
+
+         }, (err) => {
+
+         })
+   }
+
+   saveTheFrames() {
+
+      // var i = 0;
+      // this.listaFotosFrame.forEach(element => {
+
+      //    this.peticionesApiService.postImage(this.escenaFrames.id,element.numeroFrame, element)
+      //    .subscribe((res) => {
+
+
+      //    }, (err) => {
+
+      //       console.log(err);
+      //    })
+
+      // });
+
+      this.escenaFrames.frames.forEach(element => {
+
+         this.peticionesApiService.putFrame(this.escenaFrames.id,element.id, element)
+            .subscribe((res) => {
+
+            }, (err) => {
+
+               console.log(err);
+            })
+      });
+   }
    cargarEscena() {
 
 
@@ -325,7 +432,7 @@ export class CuentocanvasPage implements OnInit {
       frame5.textos = "Brujita: dejame sola me cago en dios pallasa";
 
       var brujita = new PersonajeFrame();
-      brujita.foto = '../../../assets/imgs/haberlas.png';
+      brujita.foto = 'c';
       brujita.positionX = 800;
       brujita.positionY = 100;
       brujita.id = 0;
@@ -467,12 +574,26 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   async putPortadaFrame(frame: Frame)
+   {
+      this.peticionesApiService.putFrame(this.escenaFrames.id, frame.id, frame)
+      .subscribe((res) => {
+        
+      }
+         , (err) => {
+   
+         });
+   }
+
    async postFotoFrame(formData: FormData, element: ImagenFrame) {
 
       this.peticionesApiService.postImage(formData)
          .subscribe((res) => {
             var frame = this.escenaFrames.frames[element.numeroFrame - 1] as Frame;
             frame.portadaFrame = element.codigo + '.png';
+            this.escenaFrames.frames[element.numeroFrame - 1] = frame;
+            this.putPortadaFrame(frame);
+
          }
             , (err) => {
                console.log("error al subir la imagem");
@@ -645,6 +766,13 @@ export class CuentocanvasPage implements OnInit {
       this.drawimages(this.frameActual.personajes);
 
 
+      this.peticionesApiService.postFrame(this.escenaFrames.id, newFrame).subscribe(async (res) => {
+
+         this.frameActual.id = res.id;
+         await this.uploadNumeroFrameEscena()
+      }, (err) => {
+         console.log(err);
+      })
 
    }
 
@@ -689,10 +817,21 @@ export class CuentocanvasPage implements OnInit {
 
    putText(texto: NgForm) {
 
-      this.dibujarDilogo(texto.value.name);
+      this.dibujarDilogoSaveImage(texto.value.name);
 
    }
    dibujarDilogo(dialogo) {
+
+      this.dialogoActual = dialogo;
+      this.frameActual.textos = dialogo;
+      this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
+      this._CONTEXT.lineWidth = 2;
+      this._CONTEXT = this._CANVAS.getContext('2d');
+      this._CONTEXT.font = '30px serif';
+      this._CONTEXT.strokeText(dialogo, 50, 450);
+   }
+
+   dibujarDilogoSaveImage(dialogo) {
 
       this.dialogoActual = dialogo;
       this.frameActual.textos = dialogo;
@@ -706,7 +845,6 @@ export class CuentocanvasPage implements OnInit {
 
 
    }
-
 
 
 
@@ -1657,6 +1795,12 @@ export class CuentocanvasPage implements OnInit {
             this.timeLeft = 60;
          }
       }, 1)
+   }
+
+   firstDrawImages(listaPersonajesFrame)
+   {   
+         this.refreshFondo();
+         this.drawimages(listaPersonajesFrame);
    }
 
    drawimages(listaPersonajesFrame) {

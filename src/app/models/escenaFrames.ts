@@ -2,10 +2,10 @@ export class EscenaFrames{
 
     fondo: any;
     frames: any;
-    duracionFrame: any;
-    maximoFrames: any;
-    numeroFrames: any;
-    numeroframeActual: any;
+    duracionFrame: number;
+    maximoFrames: number;
+    numeroFrames: number;
+    numeroframeActual: number;
     numeroEscena: any;
     id: any;
     idLibro: any;
@@ -13,7 +13,7 @@ export class EscenaFrames{
     constructor(
         fondo = '',
         frames = [],
-        duracionFrame ='',
+        duracionFrame =1,
         maximoFrames = 1,
         numeroFrames = 1,
         numeroframeActual = 1,

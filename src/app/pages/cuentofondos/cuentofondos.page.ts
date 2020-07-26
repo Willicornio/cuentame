@@ -21,6 +21,7 @@ export class CuentofondosPage implements OnInit {
   ngOnInit() {
  
    var i = localStorage.getItem("idService");
+
    var escenaFrame  = this.dataService.getData(i);
    console.log("Estamos en los fondos");
 
@@ -154,7 +155,8 @@ export class CuentofondosPage implements OnInit {
     img3.height = 900; 
    console.log(img3.src);
    localStorage.setItem("src", src);  
-   this.router.navigateByUrl("/canvas");
+   var idEscena = localStorage.getItem("idEscena");
+   this.router.navigateByUrl("/cuentocanvas/" + idEscena);
   
 
 
