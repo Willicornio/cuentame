@@ -49,6 +49,10 @@ const routes: Routes = [
   },  {
     path: 'media',
     loadChildren: () => import('./pages/media/media.module').then( m => m.MediaPageModule)
+  },
+  {
+    path: 'todoslibros',
+    loadChildren: () => import('./pages/todoslibros/todoslibros.module').then( m => m.TodoslibrosPageModule)
   }
 
 
