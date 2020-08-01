@@ -7,6 +7,7 @@ import {PeticionesapiService} from '../../services/peticionesapi.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
+import { Alumno } from 'src/app/models/alumno';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { EscenaFrames } from 'src/app/models/escenaFrames';
   styleUrls: ['./libro.page.scss'],
 })
 export class LibroPage implements OnInit {
-
+  
+  alumno: Alumno;
   libro: Libro;
   @ViewChild('canvas') canvasEl: ElementRef;
   private _CANVAS: any;
@@ -74,13 +76,25 @@ export class LibroPage implements OnInit {
     this.listaEscenas.push(escena7);
     this.listaEscenas.push(escena8);
 
+    this.Damealumno();
+
   }
   cargarportada(){
 
  
-
-
     }
+
+  Damealumno(){
+    var idalumno= localStorage.getItem("idAlumno");
+    this.peticionesAPI.Damealumno(idalumno)
+    .subscribe(res => {
+     this.alumno = res;
+  
+              
+    });
+
+  }
+
 
   crearlibro(form: NgForm){
 
@@ -94,10 +108,10 @@ export class LibroPage implements OnInit {
         this.libro.resumen = form.value.textarea;
         console.log(this.libro.resumen);
       }
-      this.libro.autor = 'aa';
+      this.libro.autor = this.alumno.Nombre;
       this.libro.portada ='aa';
       this.libro.puntuacion = 'nada';
-      this.libro.idAlumno = '2';
+      this.libro.idAlumno = this.alumno.id;
       this.libro.numeropag = '32';
 
 

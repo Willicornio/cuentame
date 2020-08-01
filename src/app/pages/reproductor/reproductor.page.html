@@ -33,3 +33,19 @@
 </ion-card>
 
 </ion-content>
+<div>
+  <ion-item>
+    <ion-select multiple="false" placeholder="Puntua!" okText="Ok" cancelText="Cancelar" type="text"
+      [(ngModel)]="score" name="score">
+      <ion-select-option value="1">1</ion-select-option>
+      <ion-select-option value="2 ">2</ion-select-option>
+      <ion-select-option value="3">3</ion-select-option>
+      <ion-select-option value="4">4</ion-select-option>
+      <ion-select-option value="5">5</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="pushScore(scoreForm)">
+      Puntuar</ion-button>
+  </ion-item>
+</div>

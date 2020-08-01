@@ -52,6 +52,7 @@ export class IniciolibroPage implements OnInit {
   }
 
   getlibros(){
+    
     var idalumno= localStorage.getItem("idAlumno");
 
     this.peticionesAPI.Damelistalibros(idalumno)

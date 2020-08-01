@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+  
+
+
   <ion-card>
   <ion-col size="6" *ngFor="let libro of listalibros">
     <div (click)="verlibro(libro)">
@@ -13,6 +16,26 @@
       <ion-col>
         <h3> {{libro.titulo}} </h3>
         <h3> {{libro.puntuacion}} </h3>
+
+        <!-- <rating [(ngModel)]= "rate"
+        readonly="false" 
+        size="default" 
+        (ngModelChange)="onRateChange($event)">
+        </rating> -->
+
+        <ion-row>
+         
+        </ion-row>
+
+
+
+
+
+
+
+
+
+
         <h3> {{libro.autor}} </h3>
         
 

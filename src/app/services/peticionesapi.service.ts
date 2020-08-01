@@ -7,6 +7,7 @@ import { SeleccionpersonajePageRoutingModule } from '../pages/seleccionpersonaje
 import { Escena } from '../models/escena';
 import { Frame } from '../models/frame';
 import { EscenaFrames } from '../models/escenaFrames';
+import { Alumno } from '../models/alumno';
 
 
 
@@ -36,6 +37,12 @@ export class PeticionesapiService {
   public Damelibro( idalumno: string, idlibro: string): Observable<Libro> {
      // tslint:disable-next-line:max-line-length
     return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro'+ '/' +   idlibro);
+  }
+
+  public Damealumno(idalumno: string){
+
+    return this.http.get<Alumno>(this.urlalumno + '/' + idalumno);
+
   }
 
   public Damelistalibros(idalumno: string){

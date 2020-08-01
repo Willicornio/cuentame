@@ -9,13 +9,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
+import { IonicRatingModule } from 'ionic4-rating';
 // import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpModule, HttpClientModule],
+  imports: [BrowserModule, IonicRatingModule, IonicModule.forRoot(), AppRoutingModule,HttpModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
