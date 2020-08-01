@@ -117,12 +117,26 @@ export class LibroPage implements OnInit {
 
          this.peticionesAPI.publicarlibro( idalumno  ,this.libro)
         .subscribe(res => {
-          console.log(res);
+         console.log(res);
+          this.crearCarpeta();
         });
   
   
       }
+      crearCarpeta() {
 
+        const name = {
+           "name": this.libro.titulo,
+        }
+  
+        this.peticionesAPI.createFolder(name)
+           .subscribe((res) =>
+              console.log(res),
+  
+              (err) => (console.log(err))
+          )
+          localStorage.setItem("contedor", this.libro.titulo );
+     }
    
 
 
