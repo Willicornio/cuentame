@@ -118,12 +118,12 @@ export class LibroPage implements OnInit {
          this.peticionesAPI.publicarlibro( idalumno  ,this.libro)
         .subscribe(res => {
          console.log(res);
-          this.crearCarpeta();
+          this.crearCarpeta(res.id);
         });
   
   
       }
-      crearCarpeta() {
+      crearCarpeta(id) {
 
         const name = {
            "name": this.libro.titulo,
@@ -131,11 +131,15 @@ export class LibroPage implements OnInit {
   
         this.peticionesAPI.createFolder(name)
            .subscribe((res) =>
-              console.log(res),
+           {              
+             console.log(res);
+             this.router.navigate(["listaescenas/" + id]);
+
+            },
   
               (err) => (console.log(err))
           )
-          localStorage.setItem("contedor", this.libro.titulo );
+          localStorage.setItem("contenedor", this.libro.titulo );
      }
    
 

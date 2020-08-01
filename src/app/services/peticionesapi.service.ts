@@ -25,7 +25,6 @@ export class PeticionesapiService {
   private urlimagenesWithLevel = this.base + '3000/api/Imagenes/libro1Pruebas';
   private urlimagenes = this.base + '3000/api/imagenes';
 
-
   private urlParaEscenaPruebas = this.base + '3000/api/escenas';
 
 
@@ -62,8 +61,8 @@ export class PeticionesapiService {
 
   }
 
-  public postImage(formData: FormData): Observable<any>{
-    return this.http.post<any>(this.urlimagenesWithLevel + '/upload', formData);
+  public postImage(contenedor: string ,formData: FormData): Observable<any>{
+    return this.http.post<any>(this.urlimagenes + '/' + contenedor + '/upload', formData);
 
   }
 

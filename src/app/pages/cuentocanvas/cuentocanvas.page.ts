@@ -537,7 +537,7 @@ export class CuentocanvasPage implements OnInit {
       var dataURL = micanvas.toDataURL();
       var numeroFrame = this.frameActual.numero;
       var fotoFrame = new ImagenFrame();
-      fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + numeroFrame;
+      fotoFrame.codigo = this.escenaFrames.numeroEscena + "-" + numeroFrame + '-' + this.frameActual.id;
       fotoFrame.foto = dataURL;
       fotoFrame.numeroFrame = numeroFrame;
       var numeroFrameActual = numeroFrame - 1;
@@ -587,7 +587,9 @@ export class CuentocanvasPage implements OnInit {
 
    async postFotoFrame(formData: FormData, element: ImagenFrame) {
 
-      this.peticionesApiService.postImage(formData)
+      var contenedor = localStorage.getItem("contenedor");
+
+      this.peticionesApiService.postImage(contenedor, formData)
          .subscribe((res) => {
             var frame = this.escenaFrames.frames[element.numeroFrame - 1] as Frame;
             frame.portadaFrame = element.codigo + '.png';

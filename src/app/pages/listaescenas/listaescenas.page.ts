@@ -21,6 +21,8 @@ export class ListaescenasPage implements OnInit {
   idLibro: any;
   listaEscenas: EscenaFrames[] = [];
   creacion: any = false;
+  titulo: any = '';
+  autor: any = '';
 
   ngOnInit() {
 
@@ -83,6 +85,8 @@ export class ListaescenasPage implements OnInit {
       .subscribe(res => {
         console.log(res);
 
+        this.titulo = res.titulo;
+        this.autor = res.autor;
 
       });
 
