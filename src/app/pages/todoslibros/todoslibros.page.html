@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>todoslibros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+  <ion-col size="6" *ngFor="let libro of listalibros">
+    <div (click)="verlibro(libro)">
+      <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
+      <!-- <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col> -->
+      <ion-col>
+        <h3> {{libro.titulo}} </h3>
+        <h3> {{libro.puntuacion}} </h3>
+        <h3> {{libro.autor}} </h3>
+        
+
+      </ion-col>
+    </div>
+
+  </ion-col>
+</ion-card>
+
+</ion-content>

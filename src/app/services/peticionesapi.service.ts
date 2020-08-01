@@ -43,7 +43,13 @@ export class PeticionesapiService {
     return this.http.get<Libro[]>(this.urlalumno + '/' + idalumno + '/libro');
 
   }
+ 
+  public Damelistalibrosclase(){
 
+    return this.http.get<Libro[]>(this.urllibro);
+
+  }
+  
   public Damelistaescenas(idlibro: string){
 
     return this.http.get<Escena[]>(this.urllibro + '/' + idlibro + '/escenas');
