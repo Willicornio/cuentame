@@ -27,48 +27,49 @@ export class ListaescenasPage implements OnInit {
     this.idLibro = this.activatedRoute.snapshot.paramMap.get('id');
     console.log("id libro : " + this.idLibro);
 
-    var escena = new EscenaFrames();
-    escena.fondo = '/assets/imgs/nuevolibro.jpg';
+    this.dameEscenas();
+    // var escena = new EscenaFrames();
+    // escena.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena2 = new EscenaFrames();
-    escena2.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena2 = new EscenaFrames();
+    // escena2.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena3 = new EscenaFrames();
-    escena3.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena3 = new EscenaFrames();
+    // escena3.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena4 = new EscenaFrames();
-    escena4.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena4 = new EscenaFrames();
+    // escena4.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena4 = new EscenaFrames();
-    escena4.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena4 = new EscenaFrames();
+    // escena4.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena5 = new EscenaFrames();
-    escena5.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena5 = new EscenaFrames();
+    // escena5.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena6 = new EscenaFrames();
-    escena6.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena6 = new EscenaFrames();
+    // escena6.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena7 = new EscenaFrames();
-    escena7.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena7 = new EscenaFrames();
+    // escena7.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    var escena8 = new EscenaFrames();
-    escena8.fondo = '/assets/imgs/nuevolibro.jpg';
+    // var escena8 = new EscenaFrames();
+    // escena8.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    this.listaEscenas.push(escena);
-    this.listaEscenas.push(escena2);
-    this.listaEscenas.push(escena3);
-    this.listaEscenas.push(escena4);
-    this.listaEscenas.push(escena5);
-    this.listaEscenas.push(escena6);
-    this.listaEscenas.push(escena7);
-    this.listaEscenas.push(escena8);
+    // this.listaEscenas.push(escena);
+    // this.listaEscenas.push(escena2);
+    // this.listaEscenas.push(escena3);
+    // this.listaEscenas.push(escena4);
+    // this.listaEscenas.push(escena5);
+    // this.listaEscenas.push(escena6);
+    // this.listaEscenas.push(escena7);
+    // this.listaEscenas.push(escena8);
 
 
-    var crearEscena = new EscenaFrames();
-    crearEscena.fondo = '../../assets/imgs/mas.png';
-    crearEscena.duracionFrame = 0;
+    // var crearEscena = new EscenaFrames();
+    // crearEscena.fondo = '../../assets/imgs/mas.png';
+    // crearEscena.duracionFrame = 0;
 
-    this.listaEscenas.push(crearEscena);
+    // this.listaEscenas.push(crearEscena);
     this.damelibro();
 
     this.creacion = false;
@@ -88,16 +89,43 @@ export class ListaescenasPage implements OnInit {
 
   }
 
+  dameEscenas() {
+
+    this.peticionesAPI.dameEscenasLibro(this.idLibro)
+      .subscribe(res => {
+        console.log(res);
+
+        this.listaEscenas = [];
+        res.forEach(element => {
+          element.fondo = '../../assets/imgs/2.png';
+          this.listaEscenas.push(element);
+        });
+
+        var crearEscena = new EscenaFrames();
+        crearEscena.fondo = '../../assets/imgs/mas.png';
+        crearEscena.duracionFrame = 3000000;
+    
+        this.listaEscenas.push(crearEscena);
+
+      });
+
+
+  }
 
 
 
   clickEscena(escena: EscenaFrames) {
-    if (escena.duracionFrame = 0) {
+    if (escena.duracionFrame == 3000000) {
 
 
       this.creacion = true;
 
       this.bajarEscena();
+    }
+    else
+    {
+      this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
     }
 
   }
@@ -113,22 +141,16 @@ export class ListaescenasPage implements OnInit {
   crearEscena() {
 
 
-    const escena = {
+    var escenaNew = new EscenaFrames();
+    escenaNew.duracionFrame = 2;
+    escenaNew.maximoFrames = 10;
+    escenaNew.numeroEscena = this.listaEscenas.length;
 
-      "fondo": "nada",
-      "duracionFrame": "2",
-      "maximoFrames": "10",
-      "numeroFrames": "0",
-      "numeroframeActual": "0",
-      "numeroEscena": "1"
-
-    }
-
-    this.peticionesAPI.postEscenaPruebas(escena)
+    this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
       .subscribe((res) => {
         console.log(res);
 
-        this.router.navigate(['/cuentocanvas' + "/" + res.id])
+        this.dameEscenas();
       }, (err) => {
         console.log(err);
       })

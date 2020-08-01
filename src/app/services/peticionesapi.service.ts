@@ -35,7 +35,6 @@ export class PeticionesapiService {
   constructor( private http: HttpClient) { }
 
   public Damelibro( idalumno: string, idlibro: string): Observable<Libro> {
-     // tslint:disable-next-line:max-line-length
     return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro'+ '/' +   idlibro);
   }
 
@@ -88,6 +87,8 @@ export class PeticionesapiService {
 
   }
 
+ 
+
   public getEscena(id): Observable<any>{
     return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id);
   }
@@ -118,6 +119,15 @@ export class PeticionesapiService {
   public putFrame(id: string,fk : string, frame: Frame): Observable<Frame>{
     return this.http.put<Frame>(this.urlParaEscenaPruebas + '/' + id +'/frames/' + fk, frame);
   }
+
+  public dameEscenasLibro(idlibro: string): Observable<any> {
+    return this.http.get<any>(this.urllibro + '/' + idlibro + '/escenas');
+  }
+
+  public postEscenaLibro(idlibro: string, escena : any): Observable<any> {
+    return this.http.post<any>(this.urllibro + '/' + idlibro + '/escenas', escena);
+  }
+
 
   // public MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);

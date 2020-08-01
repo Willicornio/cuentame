@@ -12,7 +12,6 @@ export class EscenaFrames{
    
     constructor(
         fondo = '',
-        frames = [],
         duracionFrame =1,
         maximoFrames = 1,
         numeroFrames = 1,
@@ -22,7 +21,6 @@ export class EscenaFrames{
     ) {
 
      this.fondo = fondo,
-     this.frames = frames,
      this.duracionFrame = duracionFrame,
      this.maximoFrames = maximoFrames,
      this.numeroFrames = numeroFrames,
