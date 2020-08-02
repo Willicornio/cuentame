@@ -21,16 +21,20 @@
 
 <ion-content>
   <ion-card>
+   
   <ion-slides  [options]="slideOpts" >
-    <ion-slide *ngFor="let fondo of listaFondos">
+    <ion-slide *ngFor="let fondo of listaFotos">
     
-      <img src={{fondo.src}} width="360" height="360">
+      <img src={{fondo}} width="600" height="600">
 
     </ion-slide>
     <ion-slide *ngFor="let fondo of listaFondos">
     
       <img src={{fondo.src}} width="360" height="360">
 
+     
+
+  
     </ion-slide>
     
   </ion-slides>

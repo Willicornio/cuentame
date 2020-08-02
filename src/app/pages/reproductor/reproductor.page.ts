@@ -23,7 +23,7 @@ export class ReproductorPage implements OnInit {
   idLibro;
   listaEscenas: EscenaFrames[] = [];
   listaFrames: Frame[] = [];
-  listaFotos: ImagenFondo[] = [];
+  listaFotos = [];
   fotoimagen: string;
 
   constructor(private peticionesAPI: PeticionesapiService) {
@@ -152,12 +152,20 @@ export class ReproductorPage implements OnInit {
 
           const reader = new FileReader();
           reader.addEventListener('load', () => {
+
             this.fotoimagen = reader.result.toString();
+            this.listaFotos.push(this.fotoimagen);
+
+
           }, false);
 
           if (blob) {
             reader.readAsDataURL(blob);
           }
+
+
+
+            
 
         });
     });
