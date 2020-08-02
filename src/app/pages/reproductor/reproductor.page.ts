@@ -202,7 +202,7 @@ slidePrev() {
 
 }
 slideNext() {
-  this.slides.slidePrev();
+  this.slides.slideNext();
 
 
 
