@@ -4,6 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
+<h3>Libro {{titulo}}</h3>
+
+
 <!-- <ion-col size="6" *ngFor="let libro of listalibros">
   <div (click)="continuarLibro(libro)">
     <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
@@ -24,6 +27,11 @@
       <img src={{fondo.src}} width="360" height="360">
 
     </ion-slide>
+    <ion-slide *ngFor="let fondo of listaFondos">
+    
+      <img src={{fondo.src}} width="360" height="360">
+
+    </ion-slide>
     
   </ion-slides>
   <ion-button expand="block" (click)="slidePrev()" >soy flecha hacia la izquierda!</ion-button>
@@ -33,7 +41,7 @@
 </ion-card>
 
 </ion-content>
-<div>
+<!-- <div>
   <ion-item>
     <ion-select multiple="false" placeholder="Puntua!" okText="Ok" cancelText="Cancelar" type="text"
       [(ngModel)]="score" name="score">
@@ -48,4 +56,4 @@
     <ion-button expand="block" type="submit" class="ion-no-margin" (click)="pushScore(scoreForm)">
       Puntuar</ion-button>
   </ion-item>
-</div>
+</div> -->
