@@ -22,7 +22,6 @@ export class PeticionesapiService {
   private urllibro = this.base + '3000/api/libro';
   private urlescena = this.base +  '3000/api/escenas';
   private urlalumno = this.base + '3000/api/Alumnos';
-  private urlimagenesWithLevel = this.base + '3000/api/Imagenes/libro1Pruebas';
   private urlimagenes = this.base + '3000/api/imagenes';
 
   private urlParaEscenaPruebas = this.base + '3000/api/escenas';
@@ -31,7 +30,8 @@ export class PeticionesapiService {
   private urlFrame = this.base + '3000/api/frames'
  
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient,
+    private httpImagenes: Http) { }
 
   public Damelibro( idalumno: string, idlibro: string): Observable<Libro> {
     return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro'+ '/' +   idlibro);
@@ -66,11 +66,12 @@ export class PeticionesapiService {
 
   }
 
-  public getImage(nameFile : string): Observable<any>{
-    return this.http.get<any>(this.urlimagenesWithLevel + '/download'+ nameFile);
-
+  public getImagen(nameFile : string, contenedor: string): Observable<any>{
+    return this.httpImagenes.get(this.urlimagenes+ '/' + contenedor + '/download/' + nameFile,
+     { responseType: ResponseContentType.Blob });
   }
 
+ 
   public createFolder(name : any): Observable<any>{
     return this.http.post<any>(this.urlimagenes, name);
 
@@ -87,7 +88,6 @@ export class PeticionesapiService {
   }
 
  
-
   public getEscena(id): Observable<any>{
     return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id);
   }
@@ -96,6 +96,9 @@ export class PeticionesapiService {
   public getFramesByEscenaId(id): Observable<any>{
     return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id + '/frames');
   }
+
+  
+
 
 
   // public Dameescena(id: number): Observable<Escena> {
@@ -126,6 +129,7 @@ export class PeticionesapiService {
   public postEscenaLibro(idlibro: string, escena : any): Observable<any> {
     return this.http.post<any>(this.urllibro + '/' + idlibro + '/escenas', escena);
   }
+
 
 
   // public MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
