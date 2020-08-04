@@ -5,10 +5,33 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-card>
+    <!-- <ion-button size="large" color="light">Titulo</ion-button>
+  <ion-button size="large" color="light">Autor</ion-button>
+  <ion-button size="large" color="light">Ordenador por puntuación</ion-button> -->
+    <ion-item>
+      <ion-label>Filtrar por</ion-label>
+      <ion-select #C placeholder="Select One" (ionChange)="onChange(C.value)">
+        <ion-select-option value="titulo">Título</ion-select-option>
+        <ion-select-option value="autor">Autor</ion-select-option>
+        <ion-select-option value="puntos">Ordenador por puntuación</ion-select-option>
+      </ion-select>
+    </ion-item>
 
+    <div *ngIf="hiddenSearchTitulo">
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems('titulo')" placeholder="Busca por titulo">
+      </ion-searchbar>
+    </div>
 
+    <div *ngIf="hiddenSearchAutor">
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems('autor')" placeholder="Busca por autor">
+      </ion-searchbar>
+    </div>
+
+  </ion-card>
+
+  <ion-card>
     <ion-row>
 
       <ion-col>
@@ -17,11 +40,17 @@
         <ion-grid>
           <ion-row>
             <ion-col size="3" *ngFor="let libro of listalibros">
-              <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
-              <ion-col>
-                <h3> {{libro.titulo}} </h3>
-                <h3> {{libro.puntuacion}} </h3>
-              </ion-col>
+              <ion-card>
+
+                <ion-col> <img src='/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
+                <ion-col>
+                  <h3> {{libro.titulo}} </h3>
+                  <h3> {{libro.puntuacion}} </h3>
+                  <h3> {{libro.autor}} </h3>
+                </ion-col>
+
+              </ion-card>
+
 
             </ion-col>
           </ion-row>
@@ -30,7 +59,7 @@
       </ion-col>
     </ion-row>
 
-  <!-- <ion-col size="6" *ngFor="let libro of listalibros">
+    <!-- <ion-col size="6" *ngFor="let libro of listalibros">
     <div (click)="verlibro(libro)">
       <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
       <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col>
@@ -54,6 +83,6 @@
     </div>
 
   </ion-col> -->
-</ion-card>
+  </ion-card>
 
 </ion-content>

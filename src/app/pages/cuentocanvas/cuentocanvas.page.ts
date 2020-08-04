@@ -296,7 +296,8 @@ export class CuentocanvasPage implements OnInit {
             }
 
             listaFrames.forEach(element => {
-               this.peticionesApiService.getImage(element.portadaFrame).subscribe((res)=>{
+               var contenedor = localStorage.getItem("contenedor");
+               this.peticionesApiService.getImagen(contenedor,element.portadaFrame).subscribe((res)=>{
                      this.listaFotosFrameBackend.push(res);
                      console.log(res);
                }, (err)=>{

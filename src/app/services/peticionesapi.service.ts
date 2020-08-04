@@ -97,7 +97,6 @@ export class PeticionesapiService {
     return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id + '/frames');
   }
 
-  
 
 
 
