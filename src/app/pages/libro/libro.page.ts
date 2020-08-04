@@ -110,7 +110,6 @@ export class LibroPage implements OnInit {
       }
       this.libro.autor = this.alumno.Nombre;
       this.libro.portada ='aa';
-      this.libro.puntuacion = 'nada';
       this.libro.idAlumno = this.alumno.id;
       this.libro.numeropag = '32';
 

@@ -12,6 +12,7 @@ export class Libro{
     puntuacion: any;
     finalizado: any;
     id: any;
+  
 
   
   
@@ -23,7 +24,7 @@ export class Libro{
         portada = '',
         numeropag = '',
         idAlumno = '',
-        puntuacion ='',
+        puntuacion = [] ,
         finalizado =''
         
 

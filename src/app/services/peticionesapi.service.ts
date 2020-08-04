@@ -23,6 +23,7 @@ export class PeticionesapiService {
   private urlescena = this.base +  '3000/api/escenas';
   private urlalumno = this.base + '3000/api/Alumnos';
   private urlimagenes = this.base + '3000/api/imagenes';
+  private urlimagenesWithLevel = this.base + '3000/api/Imagenes/libro1Pruebas';
 
   private urlParaEscenaPruebas = this.base + '3000/api/escenas';
 
@@ -66,6 +67,10 @@ export class PeticionesapiService {
 
   }
 
+  public getImage(nameFile : string): Observable<any>{
+    return this.http.get<any>(this.urlimagenesWithLevel + '/download'+ nameFile);
+  }
+
   public getImagen(nameFile : string, contenedor: string): Observable<any>{
     return this.httpImagenes.get(this.urlimagenes+ '/' + contenedor + '/download/' + nameFile,
      { responseType: ResponseContentType.Blob });
@@ -97,6 +102,11 @@ export class PeticionesapiService {
     return this.http.get<any>(this.urlParaEscenaPruebas + '/' + id + '/frames');
   }
 
+  public modificalibro(libro:Libro): Observable<any>{
+    return this.http.put<any>(this.urllibro + '/' + libro.id, libro);
+
+
+  }
   
 
 
