@@ -11,40 +11,99 @@
   <div (click)="continuarLibro(libro)">
     <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
      <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col> -->
-    <!-- <ion-col>
+<!-- <ion-col>
       <h3> {{libro.titulo}} </h3>
     </ion-col>
   </div>
 
-</ion-col> --> 
+</ion-col> -->
 
 
 <ion-content>
   <ion-card>
-   
-  <ion-slides  [options]="slideOpts" >
-    <ion-slide *ngFor="let fondo of listaFotos">
-    
-      <img src={{fondo}} width="600" height="600">
 
-    </ion-slide>
-    <ion-slide *ngFor="let fondo of listaFondos">
-    
-      <img src={{fondo.src}} width="360" height="360">
+    <ion-slides [options]="slideOpts">
+      <ion-slide *ngFor="let fondo of listaFotos">
 
-     
+        <img src={{fondo}} width="600" height="600">
 
-  
-    </ion-slide>
-    
-  </ion-slides>
-  <ion-button expand="block" (click)="slidePrev()" >soy flecha hacia la izquierda!</ion-button>
-  <ion-button expand="block" (click)="startAutoplay()" >imagen de un triangulito de play</ion-button>
-  <ion-button expand="block" (click)="stopAutoplay()" >imagen de un cuadradito de antiplay(pause)</ion-button>
-  <ion-button expand="block" (click)="slideNext()" >soy flecha hacia la derecha!</ion-button>
-</ion-card>
+      </ion-slide>
+      <ion-slide *ngFor="let fondo of listaFondos">
+
+        <img src={{fondo.src}} width="360" height="360">
+
+
+
+
+      </ion-slide>
+
+    </ion-slides>
+    <ion-button expand="block" (click)="slidePrev()">soy flecha hacia la izquierda!</ion-button>
+    <ion-button expand="block" (click)="startAutoplay()">imagen de un triangulito de play</ion-button>
+    <ion-button expand="block" (click)="stopAutoplay()">imagen de un cuadradito de antiplay(pause)</ion-button>
+    <ion-button expand="block" (click)="slideNext()">soy flecha hacia la derecha!</ion-button>
+  </ion-card>
 
 </ion-content>
+
+
+
+
+<ion-card>
+  <h3>
+    PUNTUA
+  </h3>
+  
+<div *ngIf="rate==0" >
+  
+  
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"(click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;"  name="star-outline" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;"  name="star-outline" (click)="onRate(5)"></ion-icon>
+</div>
+<div *ngIf="rate==1">
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary"   style="zoom:2.5;" name="star-outline" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+</div>
+<div *ngIf="rate==2">
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+</div>
+
+<div *ngIf="rate==3">
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary" style="zoom:2.5;"  name="star-outline" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+</div>
+<div *ngIf="rate==4">
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary" style="zoom:2.5;"  name="star" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary" style="zoom:2.5;"  name="star" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+</div>
+<div *ngIf="rate==5">
+  <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+  <ion-icon color="primary" style="zoom:2.5;"  name="star" (click)="onRate(2)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
+  <ion-icon color="primary"  style="zoom:2.5;" name="star" (click)="onRate(5)"></ion-icon>
+</div>
+</ion-card>
+
+
+
+
 <!-- <div>
   <ion-item>
     <ion-select multiple="false" placeholder="Puntua!" okText="Ok" cancelText="Cancelar" type="text"
