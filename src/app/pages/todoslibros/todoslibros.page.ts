@@ -18,7 +18,7 @@ export class TodoslibrosPage implements OnInit {
   tipo : any = "ninguno";
   hiddenSearchTitulo: boolean = false;
   hiddenSearchAutor: boolean = false;
-
+  media: [];
 
   searchbar = document.querySelector('ion-searchbar');
 
@@ -44,13 +44,21 @@ export class TodoslibrosPage implements OnInit {
 
         res.forEach(element => {
 
-          this.listalibros.push(element);
+          this.listalibros.push(element);          
+
           this.listaLibrosApi.push(element);
+   
         })
 
 
       });
   }
+
+
+
+
+
+
 
   onChange(value) {
     console.log(value);

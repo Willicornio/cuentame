@@ -33,6 +33,7 @@ export class ReproductorPage implements OnInit {
   libro: Libro;
   puntuacion: any;
   listapuntuacion = [];
+  duracion;
 
   constructor(private peticionesAPI: PeticionesapiService) {
 
@@ -71,6 +72,7 @@ export class ReproductorPage implements OnInit {
         console.log(res);
         this.libro = res;
         this.listapuntuacion = res.puntuacion;
+       
    
       });
 
@@ -85,11 +87,26 @@ this.peticionesAPI.modificalibro(this.libro)
 .subscribe((res) => {
    console.log(res)
 
+
 }, (err) => { console.log(err); }
 );
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   dameEscenas() {
 

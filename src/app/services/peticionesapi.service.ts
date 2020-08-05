@@ -108,6 +108,9 @@ export class PeticionesapiService {
 
   }
   
+  public dameunlibro(id): Observable<any>{
+    return this.http.get<any>(this.urllibro + '/' + id);
+  }
 
 
 
