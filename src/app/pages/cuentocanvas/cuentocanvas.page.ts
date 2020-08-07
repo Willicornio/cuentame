@@ -83,6 +83,9 @@ export class CuentocanvasPage implements OnInit {
    escenaFrames: EscenaFrames;
    frameActual: Frame;
 
+   imagenRedimension: any = "";
+   imagenWeith: any = "";
+   imagenHeigth: any = "";
 
    i: any = 0;
    iNumber: number = 0;
@@ -145,6 +148,7 @@ export class CuentocanvasPage implements OnInit {
          localStorage.setItem("fotoPersonaje", "");
          localStorage.setItem("idPersonaje", "");
 
+         this.imagenRedimension = this.personajeCargado.foto;
          this.imagen = new Image();
          this.imagen.src = this.personajeCargado.foto;
          const image = {
@@ -156,6 +160,8 @@ export class CuentocanvasPage implements OnInit {
                console.log(response);
                this.imagenCargadaHeight = response.height;
                this.imagenCargadaWidth = response.width;
+               this.imagenHeigth = response.height;
+               this.imagenWeith = response.width;
             }
          )
 
@@ -163,6 +169,9 @@ export class CuentocanvasPage implements OnInit {
 
       }
    }
+
+
+
    async ngOnInit() {
 
       this.escenaFrames = new EscenaFrames();
@@ -575,6 +584,17 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   masTamano(){
+      this.imagenHeigth = this.imagenHeigth + 10;
+      this.imagenWeith = this.imagenHeigth + 10;
+
+   }
+   menosTamano(){
+      this.imagenHeigth = this.imagenHeigth - 10;
+      this.imagenWeith = this.imagenHeigth - 10;
+   }
+
+
    async putPortadaFrame(frame: Frame)
    {
       this.peticionesApiService.putFrame(this.escenaFrames.id, frame.id, frame)
@@ -711,7 +731,7 @@ export class CuentocanvasPage implements OnInit {
             var y = 590;
             this._CONTEXT = this._CANVAS.getContext('2d');
 
-            this._CONTEXT.drawImage(this.imagen, e.x - this.imagenCargadaWidth / 2, e.y - this.imagenCargadaHeight / 2);
+            this._CONTEXT.drawImage(this.imagen, e.x - this.imagenWeith / 2, e.y - this.imagenHeigth / 2, this.imagenWeith,this.imagenHeigth);
             this._CONTEXT.stroke();
             this.guardarFoto();
 
@@ -722,8 +742,10 @@ export class CuentocanvasPage implements OnInit {
          var personaje = new PersonajeFrame();
          personaje.id = this.personajeCargado.id;
          personaje.foto = this.personajeCargado.foto;
-         personaje.positionX = e.x - this.imagenCargadaWidth / 2;
-         personaje.positionY = e.y - this.imagenCargadaHeight / 2;
+         personaje.positionX = e.x - this.imagenWeith / 2;
+         personaje.positionY = e.y - this.imagenHeigth / 2;
+         personaje.alto = this.imagenHeigth;
+         personaje.ancho = this.imagenWeith
 
          this.listaPersonajeFrameActual = this.frameActual.personajes;
 
@@ -1820,7 +1842,9 @@ export class CuentocanvasPage implements OnInit {
             this._CONTEXT.drawImage(   // Image
                img,
                element.positionX,
-               element.positionY
+               element.positionY,
+               element.alto,
+               element.ancho
             );
             this._CONTEXT.stroke();
          }
