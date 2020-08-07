@@ -35,7 +35,7 @@ export class ReproductorPage implements OnInit {
   puntuacion: any;
   listapuntuacion = [];
   duracion;
-
+  tiempo;
   constructor(private peticionesAPI: PeticionesapiService) {
 
   }
@@ -118,6 +118,7 @@ this.peticionesAPI.modificalibro(this.libro)
 
         res.forEach(element => {
           this.listaEscenas.push(element);
+          this.tiempo = element.duracionFrame;
         });
         this.dameFrames();
       });
@@ -189,7 +190,7 @@ this.peticionesAPI.modificalibro(this.libro)
 
 startAutoplay() {
 
-  var time = 1000;
+  var time = 1000 * this.tiempo;
   this.get_duration_interval = setInterval(() => {
     this.slides.slideNext()
   }, time);
