@@ -8,6 +8,7 @@ import { EscenaFrames } from 'src/app/models/escenaFrames';
 import { Frame } from 'src/app/models/frame';
 import { Input, EventEmitter ,Output} from "@angular/core";
 import { Libro } from 'src/app/models/libro';
+import { threadId } from 'worker_threads';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ReproductorPage implements OnInit {
   ngOnInit() {
     this.rate = 0;
     this.idalumno = localStorage.getItem("idAlumno");
-    this.idLibro = '21';
+    this.idLibro =localStorage.getItem("idLibro");
 
     this.dameEscenas();
     this.damelibro();
@@ -66,6 +67,7 @@ export class ReproductorPage implements OnInit {
 
   damelibro() {
     var idalumno = localStorage.getItem("idAlumno");
+
 
     this.peticionesAPI.Damelibro(idalumno, this.idLibro)
       .subscribe(res => {
@@ -146,7 +148,8 @@ this.peticionesAPI.modificalibro(this.libro)
   }
   obtenerFrames(lista) {
 
-    var contenedor = 'blobs';
+ /////////////////cambiar var contenedor///////////////////////////
+    var contenedor = this.libro.titulo;
     lista.forEach(element => {
 
       this.listaFondos.push(element.portadaFrame);

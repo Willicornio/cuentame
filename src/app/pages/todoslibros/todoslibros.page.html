@@ -40,10 +40,11 @@
         <ion-grid>
           <ion-row>
             <ion-col size="3" *ngFor="let libro of listalibros">
-              <ion-card>
+              <ion-card (click)="irareproductor(libro.id)">
 
                 <ion-col> <img src='/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
                 <ion-col>
+                  <h3>{{libro.id}}</h3>
                   <h3> {{libro.titulo}} </h3>
                   <h3> {{libro.puntuacion}} </h3>
                   <h3> {{libro.autor}} </h3>

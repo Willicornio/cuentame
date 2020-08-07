@@ -91,6 +91,11 @@ export class IniciolibroPage implements OnInit {
 
   }
 
+  iratodoslibros(){
+  this.router.navigate(['/todoslibros']);
 
+
+
+}
 
 }
