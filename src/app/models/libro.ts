@@ -12,6 +12,7 @@ export class Libro{
     puntuacion: any;
     finalizado: any;
     id: any;
+    mediaPuntuacion: any;
   
 
   

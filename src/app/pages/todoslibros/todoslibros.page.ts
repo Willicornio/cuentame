@@ -24,6 +24,7 @@ export class TodoslibrosPage implements OnInit {
   media: [];
   librop;
   libro: Libro;
+  mediaPuntuacion : any;
 
   searchbar = document.querySelector('ion-searchbar');
 
@@ -51,7 +52,8 @@ export class TodoslibrosPage implements OnInit {
 
           this.listalibros.push(element);
           this.librop = element;
-          this.hacermedia(this.librop);
+          var result = this.hacermedia(this.librop);
+          element.mediaPuntuacion = this.mediaPuntuacion;
           this.listaLibrosApi.push(element);
 
         })
@@ -75,7 +77,7 @@ export class TodoslibrosPage implements OnInit {
 
     );
     resul = suma / this.media.length;
-
+    this.mediaPuntuacion = Math.round(resul);
   }
 
   irareproductor(id)

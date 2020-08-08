@@ -44,10 +44,52 @@
 
                 <ion-col> <img src='/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
                 <ion-col>
-                  <h3>{{libro.id}}</h3>
                   <h3> {{libro.titulo}} </h3>
-                  <h3> {{libro.puntuacion}} </h3>
                   <h3> {{libro.autor}} </h3>
+
+                  <div *ngIf="libro.mediaPuntuacion==0" >
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;"  name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;"  name="star-outline" ></ion-icon>
+                  </div>
+                  <div *ngIf="libro.mediaPuntuacion==1">
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary"   style="zoom:2.5;" name="star-outline" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" ></ion-icon>
+                  </div>
+                  <div *ngIf="libro.mediaPuntuacion==2">
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                  </div>
+                  
+                  <div *ngIf="libro.mediaPuntuacion==3">
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star" ></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star" ></ion-icon>
+                    <ion-icon color="primary" style="zoom:2.5;"  name="star-outline"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline" ></ion-icon>
+                  </div>
+                  <div *ngIf="libro.mediaPuntuacion==4">
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star" ></ion-icon>
+                    <ion-icon color="primary" style="zoom:2.5;"  name="star" ></ion-icon>
+                    <ion-icon color="primary" style="zoom:2.5;"  name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star-outline"></ion-icon>
+                  </div>
+                  <div *ngIf="libro.mediaPuntuacion==5">
+                    <ion-icon color="primary" style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary" style="zoom:2.5;"  name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                    <ion-icon color="primary"  style="zoom:2.5;" name="star"></ion-icon>
+                  </div>
                 </ion-col>
 
               </ion-card>
