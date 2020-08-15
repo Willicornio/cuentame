@@ -37,6 +37,7 @@ export class ReproductorPage implements OnInit {
   listavotantes = [];
   duracion;
   tiempo;
+  votante = false;
   constructor(private peticionesAPI: PeticionesapiService) {
 
   }
@@ -88,20 +89,22 @@ export class ReproductorPage implements OnInit {
   puntuarlibro() {
 
 
-    var votante = false;
+
 
     if( this.listavotantes.length > 0){
     this.listavotantes.forEach(element => {
 
-      if (element = this.idalumno) {
-        var votante = true
+      if (element == this.idalumno) {
+        this.votante = true
       }
 
     })
   }
 
 
-    if (votante = false) {
+
+    if (this.votante == false)
+   {
 
       this.listapuntuacion.push(this.rate);
       this.listapuntuacion = this.libro.puntuacion;
@@ -116,7 +119,7 @@ export class ReproductorPage implements OnInit {
         );
     }
 
-    else  {
+    else if (this.votante == true) {
 
       console.log("Ya has votado este libro niggi");
 
