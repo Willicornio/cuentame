@@ -13,6 +13,7 @@ export class Libro{
     finalizado: any;
     id: any;
     mediaPuntuacion: any;
+    listavotantes: any;
   
 
   
@@ -26,9 +27,8 @@ export class Libro{
         numeropag = '',
         idAlumno = '',
         puntuacion = [] ,
-        finalizado =''
-        
-
+        finalizado ='',
+        listavotantes = []
     ) {
         this.autor = autor,
         this.titulo = titulo,
@@ -37,8 +37,8 @@ export class Libro{
         this.numeropag = numeropag,
         this.idAlumno = idAlumno,
         this.puntuacion = puntuacion,
-        this.finalizado = finalizado
-
+        this.finalizado = finalizado,
+        this.listavotantes = listavotantes
 
 
     }

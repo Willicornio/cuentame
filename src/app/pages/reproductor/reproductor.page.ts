@@ -6,7 +6,7 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { map } from 'rxjs/operators';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
 import { Frame } from 'src/app/models/frame';
-import { Input, EventEmitter ,Output} from "@angular/core";
+import { Input, EventEmitter, Output } from "@angular/core";
 import { Libro } from 'src/app/models/libro';
 import { threadId } from 'worker_threads';
 
@@ -18,7 +18,7 @@ import { threadId } from 'worker_threads';
 })
 export class ReproductorPage implements OnInit {
 
-  @Input() rating: number ;
+  @Input() rating: number;
   @Output() ratingChange: EventEmitter<number> = new EventEmitter();;
   @ViewChild(IonSlides) slides: IonSlides;
 
@@ -34,6 +34,7 @@ export class ReproductorPage implements OnInit {
   libro: Libro;
   puntuacion: any;
   listapuntuacion = [];
+  listavotantes = [];
   duracion;
   tiempo;
   constructor(private peticionesAPI: PeticionesapiService) {
@@ -43,7 +44,7 @@ export class ReproductorPage implements OnInit {
   ngOnInit() {
     this.rate = 0;
     this.idalumno = localStorage.getItem("idAlumno");
-    this.idLibro =localStorage.getItem("idLibro");
+    this.idLibro = localStorage.getItem("idLibro");
 
     this.dameEscenas();
     this.damelibro();
@@ -62,6 +63,9 @@ export class ReproductorPage implements OnInit {
   onRate(rate) {
     console.log(rate)
     this.rate = rate;
+
+
+    ////////if
     this.puntuarlibro();
   }
 
@@ -74,27 +78,52 @@ export class ReproductorPage implements OnInit {
         console.log(res);
         this.libro = res;
         this.listapuntuacion = res.puntuacion;
-       
-   
+        this.listavotantes = res.listavotantes;
+
       });
 
 
   }
-  
-puntuarlibro(){
-this.listapuntuacion.push(this.rate);
-this.listapuntuacion = this.libro.puntuacion;
 
-this.peticionesAPI.modificalibro(this.libro)
-.subscribe((res) => {
-   console.log(res)
+  puntuarlibro() {
 
 
-}, (err) => { console.log(err); }
-);
+    var votante = false;
+
+    if( this.listavotantes.length > 0){
+    this.listavotantes.forEach(element => {
+
+      if (element = this.idalumno) {
+        var votante = true
+      }
+
+    })
+  }
 
 
-}
+    if (votante = false) {
+
+      this.listapuntuacion.push(this.rate);
+      this.listapuntuacion = this.libro.puntuacion;
+      this.listavotantes.push(this.idalumno);
+
+      this.peticionesAPI.modificalibro(this.libro)
+        .subscribe((res) => {
+          console.log(res)
+
+
+        }, (err) => { console.log(err); }
+        );
+    }
+
+    else  {
+
+      console.log("Ya has votado este libro niggi");
+
+
+    }
+
+  }
 
 
 
@@ -149,7 +178,7 @@ this.peticionesAPI.modificalibro(this.libro)
   }
   obtenerFrames(lista) {
 
- /////////////////cambiar var contenedor///////////////////////////
+    /////////////////cambiar var contenedor///////////////////////////
     var contenedor = this.libro.titulo;
     lista.forEach(element => {
 
@@ -175,7 +204,7 @@ this.peticionesAPI.modificalibro(this.libro)
 
 
 
-            
+
 
         });
     });
@@ -188,34 +217,34 @@ this.peticionesAPI.modificalibro(this.libro)
 
 
 
-startAutoplay() {
+  startAutoplay() {
 
-  var time = 1000 * this.tiempo;
-  this.get_duration_interval = setInterval(() => {
-    this.slides.slideNext()
-  }, time);
+    var time = 1000 * this.tiempo;
+    this.get_duration_interval = setInterval(() => {
+      this.slides.slideNext()
+    }, time);
 
 
-}
-slideChanged() {
+  }
+  slideChanged() {
 
-}
-stopAutoplay() {
-  if (this.get_duration_interval) {
-    clearInterval(this.get_duration_interval);
+  }
+  stopAutoplay() {
+    if (this.get_duration_interval) {
+      clearInterval(this.get_duration_interval);
+
+    }
+  }
+
+  slidePrev() {
+    this.slides.slidePrev();
+
+  }
+  slideNext() {
+    this.slides.slideNext();
+
+
+
 
   }
 }
-
-slidePrev() {
-  this.slides.slidePrev();
-
-}
-slideNext() {
-  this.slides.slideNext();
-
-
-
-
-}
-    }
