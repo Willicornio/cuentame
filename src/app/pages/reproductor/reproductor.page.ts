@@ -222,7 +222,8 @@ export class ReproductorPage implements OnInit {
 
   startAutoplay() {
 
-    var time = 1000 * this.tiempo;
+    var time = 0;
+    time = 1000 * this.tiempo;
     this.get_duration_interval = setInterval(() => {
       this.slides.slideNext()
     }, time);

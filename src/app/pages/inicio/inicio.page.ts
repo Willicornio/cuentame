@@ -14,6 +14,9 @@ export class InicioPage implements OnInit {
   ngOnInit() {
     localStorage.setItem("idAlumno", this.idalumno);  
 
+
+
+
   }
 
 
@@ -21,4 +24,13 @@ export class InicioPage implements OnInit {
 
     this.router.navigate(['/iniciolibro'])
   }
+
+
+  iramisjuegos(){
+
+    this.router.navigate(['/juegos'])
+  }
+
+
+
 }

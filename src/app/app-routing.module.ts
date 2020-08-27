@@ -46,10 +46,18 @@ const routes: Routes = [
   {
     path: 'reproductor',
     loadChildren: () => import('./pages/reproductor/reproductor.module').then( m => m.ReproductorPageModule)
-  },  {
+  },
+  {
     path: 'media',
     loadChildren: () => import('./pages/media/media.module').then( m => m.MediaPageModule)
   },
+
+  {
+    path: 'juegos',
+    loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
+  },
+
+
   {
     path: 'todoslibros',
     loadChildren: () => import('./pages/todoslibros/todoslibros.module').then( m => m.TodoslibrosPageModule)
