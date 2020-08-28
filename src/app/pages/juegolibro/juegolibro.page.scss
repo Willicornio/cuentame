@@ -1,0 +1,36 @@
+ion-card{
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.733);
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+
+}
+
+ion-item{
+    --background: rgba(253, 253, 253, 0.575);
+    font-weight: bold;
+}
+
+ion-content{
+
+    
+    // background-image: url("/assets/imgs/fondoinicio.png");
+    // background-size: cover;
+    --background: rgb(211, 231, 188);
+
+}
+
+ion-button {
+    --background: rgb(192, 219, 117);
+    --background-hover: #ffb6c1;
+    --background-activated: green;
+    --color: #222;
+    --color-activated: white;
+    --opacity: 1;
+    --font-size: 24px;    
+    --padding-start: 10px;
+    --padding-end: 10px;
+    
+  }

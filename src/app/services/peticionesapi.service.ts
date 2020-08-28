@@ -8,6 +8,7 @@ import { Escena } from '../models/escena';
 import { Frame } from '../models/frame';
 import { EscenaFrames } from '../models/escenaFrames';
 import { Alumno } from '../models/alumno';
+import { juegolibro } from '../models/juegolibro';
 
 
 
@@ -26,7 +27,8 @@ export class PeticionesapiService {
   private urlimagenesWithLevel = this.base + '3000/api/Imagenes/libro1Pruebas';
   private urlgrupo =this.base + '3000/api/Grupos';
   private urlParaEscenaPruebas = this.base + '3000/api/escenas';
-  private urlFrame = this.base + '3000/api/frames'
+  private urlFrame = this.base + '3000/api/frames';
+  private urljuegolibro = this.base + '3000/api/juegodelibro'
 
 
   constructor(private http: HttpClient,
@@ -149,6 +151,16 @@ export class PeticionesapiService {
   public getjuegosdelibro(idgrupo): Observable<any> {
     return this.http.get<any>(this.urlgrupo + '/' + idgrupo + '/juegodelibro');
 
+  }
+  public getgrupo(idgrupo): Observable<any> {
+    return this.http.get<any>(this.urlgrupo + '/' + idgrupo);
+  }
+  public getalumnosgrupo(idgrupo): Observable<any> {
+    return this.http.get<any>(this.urlgrupo + '/' + idgrupo + '/alumnos');
+  }
+
+  public getjuedolibro(id): Observable<juegolibro> {
+    return this.http.get<juegolibro>(this.urljuegolibro + '/' + id);
   }
 
 

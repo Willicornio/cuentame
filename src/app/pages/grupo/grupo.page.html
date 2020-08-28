@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>grupo </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+ 
+  <ion-row>
+
+    <ion-col>
+      <h3>JUEGOS DE LIBROS EN LOS QUE PARTICIPAS</h3>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let juegolibro of listajuegolibro">
+            <ion-card (click)="entrarenjuego(juegolibro.id)">
+              <img src='/assets/imgs/blanpix.png' width="150" height="130" class="center">
+              <h3> NombreJuego: {{juegolibro.NombreJuego}} </h3>
+              <h3> Concurso: {{juegolibro.JuegoActivo}} </h3>
+              <h3> Activo: {{juegolibro.Temporada}} </h3>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+
+
+  </ion-content>

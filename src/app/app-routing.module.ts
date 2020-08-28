@@ -61,7 +61,16 @@ const routes: Routes = [
   {
     path: 'todoslibros',
     loadChildren: () => import('./pages/todoslibros/todoslibros.module').then( m => m.TodoslibrosPageModule)
+  },
+  {
+    path: 'grupo',
+    loadChildren: () => import('./pages/grupo/grupo.module').then( m => m.GrupoPageModule)
+  },  {
+    path: 'juegolibro',
+    loadChildren: () => import('./pages/juegolibro/juegolibro.module').then( m => m.JuegolibroPageModule)
   }
+
+
 
 
 

@@ -1,0 +1,49 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>JUGOLIBRO NIGGI</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col>
+        <ion-card>
+          <br>
+          <h3>{{NombreJuego}}</h3>
+          <h3> Grupo {{grupoId}}</h3>
+          <br>
+          <h2> soy una super descripcion jijijijiji</h2>
+          <ion-grid>
+            <br>
+          </ion-grid>
+
+
+        </ion-card>
+
+        <ion-card>
+
+          <h3>Lista de participantes</h3>
+
+          <ion-col  *ngFor="let alumno of listaparticipantes">
+            <p> {{alumno.Nombre}} </p>
+                 </ion-col>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card>
+
+          <br>
+          <ion-card>
+
+          </ion-card>
+          <br>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
