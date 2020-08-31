@@ -163,6 +163,10 @@ export class PeticionesapiService {
     return this.http.get<juegolibro>(this.urljuegolibro + '/' + id);
   }
 
+  public getRecursoParaLibro(id): Observable<any> {
+    return this.http.get<any>(this.urljuegolibro + '/' + id + '/recursosJuegoLibro');
+  }
+
 
 
 

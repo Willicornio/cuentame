@@ -17,6 +17,10 @@ import { ImagenFondo } from '../../models/imagenFondo';
 import { DataService } from '../../services/data.service';
 import { Libro } from '../../models/libro';
 import { ImagenFrame } from '../../models/imagenFrame';
+import { juegolibro } from '../../models/juegolibro';
+import { ImagenRecurso } from '../../models/imagenRecurso';
+
+
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 import { PeticionesapiService } from '../../services/peticionesapi.service';
@@ -90,6 +94,10 @@ export class CuentocanvasPage implements OnInit {
    i: any = 0;
    iNumber: number = 0;
 
+   libroJuego: juegolibro;
+   iServiceRecurso: any = 0;
+   iNumber2: number = 0;
+   listaImaganesRecurso: ImagenRecurso[] = [];
 
 
    public PtagClicked: boolean = false;
@@ -101,8 +109,9 @@ export class CuentocanvasPage implements OnInit {
    async ionViewWillEnter() {
 
       this.src = localStorage.getItem("src");
-   
+
       var pedirAPI = false;
+      var pedirAPIRecurso = false;
 
       this.escenaFrames = new EscenaFrames();
       this.frameActual = new Frame();
@@ -169,11 +178,21 @@ export class CuentocanvasPage implements OnInit {
          this.pintar = true;
 
       }
+
+
+
    }
 
 
 
    async ngOnInit() {
+
+      this.libroJuego = new juegolibro();
+      this.libroJuego.id = 25;
+
+      this.cargarRecursos();
+
+
 
       this.escenaFrames = new EscenaFrames();
       this.frameActual = new Frame();
@@ -257,6 +276,47 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   cargarRecursos() {
+
+      this.peticionesApiService.getRecursoParaLibro(this.libroJuego.id)
+         .subscribe((res) => {
+
+            var i = 1;
+
+            res[0].imagenes.forEach(element => {
+               this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
+               i++;
+            });
+
+         }, (err) => {
+
+         })
+   }
+
+   getImagenRecurso(element, nameFolder, length, id) {
+      this.peticionesApiService.getImagen(element.url, nameFolder)
+         .subscribe((res) => {
+
+            var imagen = new ImagenRecurso();
+            imagen.especial = element.especial;
+            imagen.nombre = element.nombre;
+            imagen.tipo = element.tipo;
+            imagen.id = id;
+            imagen.url = res._body;
+
+            this.listaImaganesRecurso.push(imagen);
+            if (id == length) {
+
+               this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
+
+            }
+           
+
+         }, (err) => {
+
+         })
+   }
+
    async getEscena(id) {
 
       this.peticionesApiService.getEscena(id).subscribe(async (res) => {
@@ -307,10 +367,10 @@ export class CuentocanvasPage implements OnInit {
 
             listaFrames.forEach(element => {
                var contenedor = localStorage.getItem("contenedor");
-               this.peticionesApiService.getImagen(contenedor,element.portadaFrame).subscribe((res)=>{
-                     this.listaFotosFrameBackend.push(res);
-                     console.log(res);
-               }, (err)=>{
+               this.peticionesApiService.getImagen(contenedor, element.portadaFrame).subscribe((res) => {
+                  this.listaFotosFrameBackend.push(res);
+                  console.log(res);
+               }, (err) => {
 
                })
             })
@@ -352,7 +412,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.escenaFrames.frames.forEach(element => {
 
-         this.peticionesApiService.putFrame(this.escenaFrames.id,element.id, element)
+         this.peticionesApiService.putFrame(this.escenaFrames.id, element.id, element)
             .subscribe((res) => {
 
             }, (err) => {
@@ -585,27 +645,26 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
-   masTamano(){
+   masTamano() {
       this.imagenHeigth = this.imagenHeigth + 10;
       this.imagenWeith = this.imagenHeigth + 10;
 
    }
-   menosTamano(){
+   menosTamano() {
       this.imagenHeigth = this.imagenHeigth - 10;
       this.imagenWeith = this.imagenHeigth - 10;
    }
 
 
 
-   async putPortadaFrame(frame: Frame)
-   {
+   async putPortadaFrame(frame: Frame) {
       this.peticionesApiService.putFrame(this.escenaFrames.id, frame.id, frame)
-      .subscribe((res) => {
-        
-      }
-         , (err) => {
-   
-         });
+         .subscribe((res) => {
+
+         }
+            , (err) => {
+
+            });
    }
 
    async postFotoFrame(formData: FormData, element: ImagenFrame) {
@@ -733,7 +792,7 @@ export class CuentocanvasPage implements OnInit {
             var y = 590;
             this._CONTEXT = this._CANVAS.getContext('2d');
 
-            this._CONTEXT.drawImage(this.imagen, e.x - this.imagenWeith / 2, e.y - this.imagenHeigth / 2, this.imagenWeith,this.imagenHeigth);
+            this._CONTEXT.drawImage(this.imagen, e.x - this.imagenWeith / 2, e.y - this.imagenHeigth / 2, this.imagenWeith, this.imagenHeigth);
             this._CONTEXT.stroke();
             this.guardarFoto();
 
@@ -1002,18 +1061,18 @@ export class CuentocanvasPage implements OnInit {
          img3.height = 600;
 
 
-         
+
          this.clearCanvas();
          this._CONTEXT = this._CANVAS.getContext('2d');
          var pat = this._CONTEXT.createPattern(img3, "repeat");
          this._CONTEXT.fillStyle = pat;
          this._CONTEXT.fillRect(0, 0, 1100, 800);
 
-      
+
          this.src = "ya fue pintado";
-        
+
          localStorage.setItem("src", this.src);
-   
+
 
       }
       else
@@ -1265,10 +1324,9 @@ export class CuentocanvasPage implements OnInit {
       }, 1)
    }
 
-   firstDrawImages(listaPersonajesFrame)
-   {   
-         this.refreshFondo();
-         this.drawimages(listaPersonajesFrame);
+   firstDrawImages(listaPersonajesFrame) {
+      this.refreshFondo();
+      this.drawimages(listaPersonajesFrame);
    }
 
    drawimages(listaPersonajesFrame) {

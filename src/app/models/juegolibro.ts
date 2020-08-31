@@ -9,6 +9,7 @@ export class juegolibro{
     grupoId: number;
     descripcion: string;
     juegolibroid: number;
+    id;
 
     constructor(
     
