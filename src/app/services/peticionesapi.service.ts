@@ -9,6 +9,7 @@ import { Frame } from '../models/frame';
 import { EscenaFrames } from '../models/escenaFrames';
 import { Alumno } from '../models/alumno';
 import { juegolibro } from '../models/juegolibro';
+import { Concurso } from '../models/concurso';
 
 
 
@@ -163,7 +164,9 @@ export class PeticionesapiService {
     return this.http.get<juegolibro>(this.urljuegolibro + '/' + id);
   }
 
-
+  public getconcurso(id): Observable<Concurso> {
+    return this.http.get<Concurso>(this.urljuegolibro + '/' + id + '/juegoLibroConcurso');
+  }
 
 
   // public MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
