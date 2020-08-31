@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { juegolibro } from 'src/app/models/juegolibro';
 import { Alumno } from 'src/app/models/alumno';
+import { Concurso } from 'src/app/models/concurso';
 
 @Component({
   selector: 'app-juegolibro',
@@ -12,15 +13,27 @@ export class JuegolibroPage implements OnInit {
 
   constructor(private peticionesAPI: PeticionesapiService) { }
   id;
+  idg;
   NombreJuego: any = '';
   grupoId; any = '';
   listaparticipantes: Alumno[];
-
+  concurso: any;
+  concursoRequisitos;
+  concursoPrimerCriterio;
+  concursoSegundoCriterio;
+  concursoTematica;
+  concursoTercerCriterio; 
+  dateFinInscripcion;
+  dateFinVotacion;
+  muestrame = false;
+  muestraer = false;
   juegodelibro: juegolibro;
   ngOnInit() {
 
     this.obtenerlibro();
     this.obtenerparticipantes();
+    this.obtenerconcurso();
+    this.muestraer = false;
   }
 
   public obtenerlibro() {
@@ -37,14 +50,16 @@ export class JuegolibroPage implements OnInit {
         console.log(err);
       })
 
+  
+
   }
 
 
 
   public obtenerparticipantes() {
-    this.id = localStorage.getItem("idgrupo");
+    this.idg = localStorage.getItem("idgrupo");
 
-    this.peticionesAPI.getalumnosgrupo(this.id)
+    this.peticionesAPI.getalumnosgrupo(this.idg)
 
      
       .subscribe((res) => {
@@ -60,6 +75,49 @@ export class JuegolibroPage implements OnInit {
       })
 
   }
+
+
+  public obtenerconcurso(){
+    this.id = localStorage.getItem("idjuegolibro");
+
+    this.peticionesAPI.getconcurso(this.id)
+
+    .subscribe((res) => {
+
+      this.concurso = res;
+      console.log(res);
+      console.log(res);
+
+      this.concurso.forEach(cosa => {
+ 
+      this.concursoPrimerCriterio  = cosa.concursoPrimerCriterio;
+      this.concursoRequisitos  = cosa.concursoRequisitos;
+      this.concursoSegundoCriterio = cosa.concursoSegundoCriterio;
+      this.concursoTercerCriterio = cosa.concursoTercerCriterio;
+      this.dateFinVotacion = cosa.dateFinVotacion;
+      this.dateFinInscripcion = cosa.dateFinInscripcion;
+      this.concursoTematica = cosa.concursoTematica;
+      this.muestra();
+    })
+    }, (err) => {
+        this.muestraerror();
+
+    })
+
+
+  }
+
+public muestra(){
+  this.muestrame = true;
+
+
+}
+
+public muestraerror(){
+
+this.muestraer = true;
+
+}
 
 
 }

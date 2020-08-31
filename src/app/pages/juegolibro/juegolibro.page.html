@@ -37,6 +37,24 @@
         <ion-card>
 
           <br>
+
+         
+          
+          <div *ngIf="muestrame">
+            <h2> HAY UN CONCUSRO ACTIVO!</h2>
+            <p> {{concursoTematica}} </p>
+            <p> {{concursoRequisitos}} </p>
+         
+            <p> Fecha limite para inscribirse: {{ dateFinInscripcion }} </p>
+            <p> Fecha fin de votación: {{dateFinVotacion }} </p>
+             
+            <ion-button expand="block" (click)="inscribirlibro()">Incribir</ion-button>
+          </div>
+
+          <div *ngIf="muestraer">
+            <h2> Este juego no tiene un concurso!</h2>
+        
+          </div>
           <ion-card>
 
           </ion-card>
