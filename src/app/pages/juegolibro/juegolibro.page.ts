@@ -3,6 +3,8 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { juegolibro } from 'src/app/models/juegolibro';
 import { Alumno } from 'src/app/models/alumno';
 import { Concurso } from 'src/app/models/concurso';
+import { AlertController } from '@ionic/angular';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-juegolibro',
@@ -11,9 +13,10 @@ import { Concurso } from 'src/app/models/concurso';
 })
 export class JuegolibroPage implements OnInit {
 
-  constructor(private peticionesAPI: PeticionesapiService) { }
+  constructor(private router: Router, private peticionesAPI: PeticionesapiService,  public alertController: AlertController) { }
   id;
   idg;
+  idconcurso;
   NombreJuego: any = '';
   grupoId; any = '';
   listaparticipantes: Alumno[];
@@ -28,12 +31,14 @@ export class JuegolibroPage implements OnInit {
   muestrame = false;
   muestraer = false;
   juegodelibro: juegolibro;
+  listalibros
   ngOnInit() {
 
     this.obtenerlibro();
     this.obtenerparticipantes();
     this.obtenerconcurso();
     this.muestraer = false;
+
   }
 
   public obtenerlibro() {
@@ -83,19 +88,24 @@ export class JuegolibroPage implements OnInit {
     this.peticionesAPI.getconcurso(this.id)
 
     .subscribe((res) => {
-
+      var data;
       this.concurso = res;
       console.log(res);
       console.log(res);
 
       this.concurso.forEach(cosa => {
- 
+      this.idconcurso =cosa.id;
       this.concursoPrimerCriterio  = cosa.concursoPrimerCriterio;
       this.concursoRequisitos  = cosa.concursoRequisitos;
       this.concursoSegundoCriterio = cosa.concursoSegundoCriterio;
       this.concursoTercerCriterio = cosa.concursoTercerCriterio;
       this.dateFinVotacion = cosa.dateFinVotacion;
+      this.dateFinVotacion = this.dateFinVotacion.toString().split('T');
+      this.dateFinVotacion  = this.dateFinVotacion[0];
+      console.log(this.dateFinVotacion);
       this.dateFinInscripcion = cosa.dateFinInscripcion;
+      this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
+      this.dateFinInscripcion  = this.dateFinInscripcion[0];
       this.concursoTematica = cosa.concursoTematica;
       this.muestra();
     })
@@ -119,5 +129,74 @@ this.muestraer = true;
 
 }
 
+
+public inscribirlibro(){
+
+//if hay libro en el juego del niño
+    // i  no esta finalizado:
+
+    this.alertnoestafinalizado();
+
+    // i esta finalzado
+
+    this.alertinscribir();
+
+//if no hay libro
+
+  this.alertcrealibro();
+
+
+}
+
+async alertinscribir() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'INSCRIBIR CUENTO',
+    subHeader: '¿Estas seguro de querer inscribir tu cuento?',
+    message: ' Una vez inscrito no podras modificarlo.',
+    buttons: ['Aceptar',  'Cancelar']
+  });
+
+  await alert.present();
+}
+
+async alertnoestafinalizado() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Inscipción no realizada',
+    subHeader: 'Cuento no finalizado',
+    message: 'Por favor acaba el cuento antes de participar en el concurso',
+    buttons: ['Aceptar']
+  });
+
+  await alert.present();
+}
+
+
+async alertcrealibro() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Inscipción no realizada',
+    subHeader: 'Has de crear y finalizar el cuento antes de inscribir',
+    message: 'Por favor  crea el cuento antes de participar en el concurso',
+    buttons: ['Aceptar']
+  });
+
+  await alert.present();
+}
+
+
+public iralibro(){
+this.router.navigate(['/libro']);
+
+}
+
+
+public iravotaciones(){
+
+  localStorage.setItem("idconcurso", this.idconcurso);
+  this.router.navigate(['/votacionesconcurso']);
+  
+  }
 
 }
