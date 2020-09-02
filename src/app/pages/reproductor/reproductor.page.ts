@@ -29,6 +29,7 @@ export class ReproductorPage implements OnInit {
   listaEscenas: EscenaFrames[] = [];
   listaFrames: Frame[] = [];
   listaFotos = [];
+  listavotantesconcurso = [];
   fotoimagen: string;
   rate: any;
   libro: Libro;
@@ -80,6 +81,7 @@ export class ReproductorPage implements OnInit {
         this.libro = res;
         this.listapuntuacion = res.puntuacion;
         this.listavotantes = res.listavotantes;
+        this.listavotantesconcurso =  res.listavotantesconcurso;
 
       });
 
@@ -87,9 +89,6 @@ export class ReproductorPage implements OnInit {
   }
 
   puntuarlibro() {
-
-
-
 
     if( this.listavotantes.length > 0){
     this.listavotantes.forEach(element => {
@@ -100,8 +99,6 @@ export class ReproductorPage implements OnInit {
 
     })
   }
-
-
 
     if (this.votante == false)
    {
@@ -131,6 +128,44 @@ export class ReproductorPage implements OnInit {
 
 
 
+
+
+  votarlibroconcurso() {
+
+    if( this.listavotantesconcurso.length > 0){
+    this.listavotantesconcurso.forEach(element => {
+
+      if (element == this.idalumno) {
+        this.votante = true;
+      }
+
+    })
+  }
+
+    if (this.votante == false)
+   {
+
+      this.listapuntuacion.push(this.rate);
+      this.listapuntuacion = this.libro.puntuacion;
+      this.listavotantes.push(this.idalumno);
+
+      this.peticionesAPI.modificalibro(this.libro)
+        .subscribe((res) => {
+          console.log(res)
+
+
+        }, (err) => { console.log(err); }
+        );
+    }
+
+    else if (this.votante == true) {
+
+      console.log("Ya has votado este libro niggi");
+
+
+    }
+
+  }
 
 
 

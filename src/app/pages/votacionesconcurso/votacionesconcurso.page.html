@@ -15,13 +15,13 @@
 
         <ion-grid>
           <ion-row>
-            <ion-col size="3" *ngFor="let libro of listainscritos">
-              <ion-card (click)="irareproductor(libro.id)">
+            <ion-col size="3" *ngFor="let libroi of listashow">
+              <ion-card (click)="irareproductor(libroi.id)">
 
                 <ion-col> <img src='/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
                 <ion-col>
-                  <h3> {{libro.titulo}} </h3>
-                  <h3> {{libro.autor}} </h3>
+                  <h3> {{libroi.titulo}} </h3>
+                  <h3> {{libroi.autor}} </h3>
 
                  
                 </ion-col>

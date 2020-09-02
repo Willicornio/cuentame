@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Concurso } from 'src/app/models/concurso';
 import { Router } from "@angular/router";
 import { PeticionesapiService } from '../../services/peticionesapi.service';
+import { Libro } from 'src/app/models/libro';
 
 @Component({
   selector: 'app-votacionesconcurso',
@@ -14,7 +15,9 @@ export class VotacionesconcursoPage implements OnInit {
   idconcurso;
   concurso: any;
   listainscritos: [];
-  listashow: [];
+  listashow: Libro [];
+  id;
+  cuento: any;
   ngOnInit() {
 
     this.obtenerconcurso();
@@ -24,29 +27,28 @@ export class VotacionesconcursoPage implements OnInit {
 
 
 
-  public obtenerconcurso() {
-    this.idconcurso = localStorage.getItem("idconcurso");
+  public obtenerconcurso(){
+    this.id = localStorage.getItem("idjuegolibro");
 
-    this.peticionesAPI.getconcurso(this.idconcurso)
+    this.peticionesAPI.getconcurso(this.id)
 
-      .subscribe((res) => {
+    .subscribe((res) => {
+      var data;
+      this.concurso = res;
+      console.log(res);
+      console.log(res);
 
-        
-        console.log(res);
-
-        this.concurso = res;
-
-
-        this.concurso.forEach(cosa => {
-          this.idconcurso = cosa.id;
-          this.listainscritos = cosa.listaLibrosParticipantes;
-
+      this.concurso.forEach(cosa => {
+      this.idconcurso =cosa.id;
+      this.listainscritos = cosa.listaLibrosParticipantes;
+       
+    })
+    this.crearlista();
+    }, (err) => {
+      
         })
-        this.crearlista();
-      }, (err) => {
 
 
-      })
 
   }
 
@@ -56,10 +58,15 @@ export class VotacionesconcursoPage implements OnInit {
 
     this.listainscritos.forEach(libroi => {
       var idlibro = libroi;
-      this.peticionesAPI.dameunlibro(this.idconcurso)
-
+      this.listashow = [];
+      this.peticionesAPI.dameunlibro(idlibro)
+ 
       .subscribe((res) => {
-        this.listashow.push();
+       
+        this.cuento = res;
+     
+        this.listashow.push(this.cuento);
+
         console.log(this.listashow);
 
     }) 
@@ -76,6 +83,14 @@ export class VotacionesconcursoPage implements OnInit {
   }
 
 
+  irareproductor(id)
+{
+  localStorage.setItem("idLibro", id);
+  this.router.navigate(['/reproductor']);
+
+
+
+}
 
 
 

@@ -14,10 +14,11 @@ export class Libro{
     id: any;
     mediaPuntuacion: any;
     listavotantes: any;
-  
-
-  
-  
+    criterio1: any;
+    criterio2: any;
+    criterio3: any;
+    listavotantesconcurso: any;
+    inscrito: any;
    
     constructor( 
         autor = '',
@@ -28,7 +29,13 @@ export class Libro{
         idAlumno = '',
         puntuacion = [] ,
         finalizado ='',
-        listavotantes = []
+        listavotantes = [],
+        listavotantesconcurso = [],
+        incrito = '',
+        criterio1 = '',
+        criterio2 = '',
+        criterio3 = ''
+
     ) {
         this.autor = autor,
         this.titulo = titulo,
@@ -38,7 +45,12 @@ export class Libro{
         this.idAlumno = idAlumno,
         this.puntuacion = puntuacion,
         this.finalizado = finalizado,
-        this.listavotantes = listavotantes
+        this.listavotantes = listavotantes,
+        this.listavotantesconcurso = listavotantesconcurso,
+        this.inscrito = this.inscrito,
+        this.criterio1 = this.criterio1,
+        this.criterio2 = this.criterio2,
+        this.criterio3 = this.criterio3
 
 
     }
