@@ -1,83 +1,71 @@
-
 <ion-content>
   <ion-header>
     <ion-toolbar>
       <ion-title>cuentofondos</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-item>
     <ion-card>
-    <h3>Elije un fondo</h3>
-    <button ion-button (click)="muestrainte()">Ver fondos Interior</button>
-    <button ion-button (click)="oculta()"> CERRAR</button>
-    <button ion-button  class="button button-assertive" (click)="muestraexte()">Ver fondos Exteriores</button>
-    <button ion-button (click)="oculta()"> CERRAR</button>
-    <button ion-button (click)="mestraciudad()">Ver ciudades</button>
-    <button ion-button (click)="muestra()">Otros</button>
-    <button ion-button (click)="muestra()">jiji</button>
-    
-    
-    
-    
-    <div *ngIf="muestrame">
-      <h2>Elije un fondo</h2>
-      <ion-grid>
-        <ion-row>
+      <h3>Elije un fondo</h3>
 
-          <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosIzquierda">
-              <div (click) = "seleccionarfondo(fondo.src)">
-                <img src={{fondo.src}} width="360" height="360">
-              </div>
+
+
+
+
+      <ion-row>
+
+        <ion-col>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" *ngFor="let foto of listaFotosFondos">
+                <ion-card (click)="seleccionarfondo(foto)">
+
+                  <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
+                  <ion-col>
+                    <h3> {{foto.nombre}} </h3>
+
+
+                  </ion-col>
+
+                </ion-card>
+
+
+
+
+              </ion-col>
             </ion-row>
-          </ion-col>
 
-          <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosDerecha">
-              <div (click) = "seleccionarfondo(fondo.src)">
-                <img src={{fondo.src}} width="360" height="360">
-              </div>
+            <div *ngIf="muestraEspeciales">
+              <ion-row>
+                <h3>Especiales</h3>
 
-            </ion-row>
-          </ion-col>
+                <ion-col size="3" *ngFor="let foto of listaFotosFondosEspeciales">
+                  <ion-card (click)="seleccionarfondo(foto)">
 
-        </ion-row>
-
-      </ion-grid>
-
-    </div>
+                    <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
+                    <ion-col>
+                      <h3> {{foto.nombre}} </h3>
 
 
+                    </ion-col>
 
-   
-    <div *ngIf="muestramext">
-      <h2>Elije un fondo aqui los exteriores</h2>
-      <ion-grid>
-        <ion-row>
+                  </ion-card>
 
-          <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosIzquierdatipo1">
-              <div (click) = "seleccionarfondo(fondo.src)">
-                <img src={{fondo.src}} width="360" height="360">
-              </div>
-            </ion-row>
-          </ion-col>
 
-          <ion-col>
-            <ion-row *ngFor="let fondo of listaFondosDerechatipo1">
-              <div (click) = "seleccionarfondo(fondo.src)">
-                <img src={{fondo.src}} width="360" height="360">
-              </div>
 
-            </ion-row>
-          </ion-col>
 
-        </ion-row>
+                </ion-col>
+              </ion-row>
 
-      </ion-grid>
+            </div>
+          </ion-grid>
 
-    </div>
+
+
+        </ion-col>
+      </ion-row>
 
 
 
@@ -86,8 +74,7 @@
 
 
 
-
-  </ion-card>
+    </ion-card>
   </ion-item>
 
 </ion-content>

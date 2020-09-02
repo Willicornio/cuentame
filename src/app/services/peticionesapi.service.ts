@@ -172,6 +172,12 @@ export class PeticionesapiService {
     return this.http.get<any>(this.urljuegolibro + '/' + id + '/recursosJuegoLibro');
   }
 
+  public getAlumnoJugegosLibro(id): Observable<any> {
+    return this.http.get<any>(this.urljuegolibro + '/' + id + '/alumnojuegodecuento');
+  }
+
+
+
 
   // public MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);
