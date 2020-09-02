@@ -24,12 +24,14 @@
         </ion-card>
 
         <ion-card>
+    
+          <div scrolly="true" style="max-height:600px">
+            <h3>Lista de participantes</h3>
 
-          <h3>Lista de participantes</h3>
-
-          <ion-col  *ngFor="let alumno of listaparticipantes">
-            <p> {{alumno.Nombre}} </p>
-                 </ion-col>
+            <ion-col *ngFor="let alumno of listaparticipantes">
+              <p> {{alumno.Nombre}}   {{alumno.PrimerApellido}}  {{alumno.SegundoApellido}}</p>
+            </ion-col>
+          </div>
         </ion-card>
       </ion-col>
 
@@ -38,30 +40,44 @@
 
           <br>
 
-         
-          
+
+
           <div *ngIf="muestrame">
             <h2> HAY UN CONCUSRO ACTIVO!</h2>
             <p> {{concursoTematica}} </p>
             <p> {{concursoRequisitos}} </p>
-         
+
             <p> Fecha limite para inscribirse: {{ dateFinInscripcion }} </p>
             <p> Fecha fin de votación: {{dateFinVotacion }} </p>
-             
-            <ion-button expand="block" (click)="inscribirlibro()">Incribir</ion-button>
+
+            <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button>
+            
+            <ion-button expand="block" (click)="iravotaciones()">Votar</ion-button>
           </div>
 
           <div *ngIf="muestraer">
             <h2> Este juego no tiene un concurso!</h2>
-        
+
           </div>
           <ion-card>
 
           </ion-card>
           <br>
         </ion-card>
+
+
+        <ion-card>
+
+          <h3> Ir al taller de cuentos</h3>
+          <ion-button expand="block" (click)="iralibro()">Taller de cuentos</ion-button>
+        </ion-card>
+
+
+
       </ion-col>
 
     </ion-row>
+
+
 
   </ion-grid>

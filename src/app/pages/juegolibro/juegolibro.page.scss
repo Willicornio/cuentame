@@ -34,3 +34,16 @@ ion-button {
     --padding-end: 10px;
     
   }
+
+  div[scrollx=true],div[scrolly=true] {
+    position: relative;
+    overflow: hidden;
+}
+
+div[scrollx=true] {
+   overflow-x: auto;
+}
+
+div[scrolly=true] {
+   overflow-y: auto;
+}

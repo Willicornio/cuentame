@@ -68,6 +68,10 @@ const routes: Routes = [
   },  {
     path: 'juegolibro',
     loadChildren: () => import('./pages/juegolibro/juegolibro.module').then( m => m.JuegolibroPageModule)
+  },
+  {
+    path: 'votacionesconcurso',
+    loadChildren: () => import('./pages/votacionesconcurso/votacionesconcurso.module').then( m => m.VotacionesconcursoPageModule)
   }
 
 

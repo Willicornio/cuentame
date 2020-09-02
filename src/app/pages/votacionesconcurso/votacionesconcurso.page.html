@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>votacionesconcurso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card>
+    <ion-row>
+
+      <ion-col>
+        <h3>Libros</h3>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" *ngFor="let libroi of listashow">
+              <ion-card (click)="irareproductor(libroi.id)">
+
+                <ion-col> <img src='/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
+                <ion-col>
+                  <h3> {{libroi.titulo}} </h3>
+                  <h3> {{libroi.autor}} </h3>
+
+                 
+                </ion-col>
+
+              </ion-card>
+
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+
+
+
+
+</ion-content>
