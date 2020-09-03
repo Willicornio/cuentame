@@ -31,13 +31,18 @@ export class JuegolibroPage implements OnInit {
   muestrame = false;
   muestraer = false;
   juegodelibro: juegolibro;
-  listalibros
+  listalibros;
+  date;
+  diafrontera = false;
+  aunhaytiempo = false;
   ngOnInit() {
 
     this.obtenerlibro();
     this.obtenerparticipantes();
     this.obtenerconcurso();
     this.muestraer = false;
+  
+
 
   }
 
@@ -93,6 +98,7 @@ export class JuegolibroPage implements OnInit {
       console.log(res);
       console.log(res);
 
+
       this.concurso.forEach(cosa => {
       this.idconcurso =cosa.id;
       this.concursoPrimerCriterio  = cosa.concursoPrimerCriterio;
@@ -102,18 +108,18 @@ export class JuegolibroPage implements OnInit {
       this.dateFinVotacion = cosa.dateFinVotacion;
       this.dateFinVotacion = this.dateFinVotacion.toString().split('T');
       this.dateFinVotacion  = this.dateFinVotacion[0];
-      console.log(this.dateFinVotacion);
       this.dateFinInscripcion = cosa.dateFinInscripcion;
       this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
       this.dateFinInscripcion  = this.dateFinInscripcion[0];
       this.concursoTematica = cosa.concursoTematica;
       this.muestra();
+      
+    this.obtenerfecha();
     })
     }, (err) => {
         this.muestraerror();
 
     })
-
 
   }
 
@@ -197,6 +203,24 @@ public iravotaciones(){
   localStorage.setItem("idconcurso", this.idconcurso);
   this.router.navigate(['/votacionesconcurso']);
   
+  }
+
+
+
+  obtenerfecha(){
+    this.date = new Date().toISOString();
+    this.date = this.date.toString().split('T');
+    this.date  = this.date[0];
+    console.log(this.date);
+
+    if (this.date >= this.dateFinInscripcion ){
+      this.diafrontera = true;
+
+    }
+    else 
+    this.aunhaytiempo = true;
+    
+
   }
 
 }
