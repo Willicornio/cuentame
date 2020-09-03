@@ -27,6 +27,7 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { createNgModule } from '@angular/compiler/src/core';
 import { runInThisContext } from 'vm';
 import { element } from 'protractor';
+import { AnyTxtRecord } from 'dns';
 
 
 @Component({
@@ -100,6 +101,9 @@ export class CuentocanvasPage implements OnInit {
    listaImaganesRecurso: ImagenRecurso[] = [];
 
 
+   blobString: any;
+
+
    public PtagClicked: boolean = false;
 
    constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute) {
@@ -124,6 +128,12 @@ export class CuentocanvasPage implements OnInit {
          if (this.dataService.getData(i) != undefined && this.dataService.getData(i) != "undefined") {
 
             this.escenaFrames = this.dataService.getData(i);
+
+            if (this.src == "tengo") {
+               this.escenaFrames.fondo = this.dataService.getDataRecursos(500);
+               localStorage.setItem("src", "nada");
+            }
+
             if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != "undefined") {
                this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1];
                this.drawimages(this.frameActual.personajes);
@@ -153,14 +163,16 @@ export class CuentocanvasPage implements OnInit {
       if (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "" && (localStorage.getItem("fotoPersonaje") != null && localStorage.getItem("idPersonaje") != "")) {
 
          this.personajeCargado = new PersonajeFrame();
-         this.personajeCargado.foto = localStorage.getItem("fotoPersonaje");
-         this.personajeCargado.id = localStorage.getItem("idPersonaje");
+         // this.personajeCargado.foto = localStorage.getItem("fotoPersonaje");
+         // this.personajeCargado.id = localStorage.getItem("idPersonaje");
+         this.personajeCargado.foto = this.dataService.getDataRecursos(600);
+         this.personajeCargado.id = this.dataService.getDataRecursos(602);
          localStorage.setItem("fotoPersonaje", "");
          localStorage.setItem("idPersonaje", "");
 
-         this.imagenRedimension = this.personajeCargado.foto;
+         this.imagenRedimension = this.dataService.getDataRecursos(601);
          this.imagen = new Image();
-         this.imagen.src = this.personajeCargado.foto;
+         this.imagen.src = this.dataService.getDataRecursos(601);
          const image = {
             url: this.imagen.src,
             context: 'client context'
@@ -190,6 +202,8 @@ export class CuentocanvasPage implements OnInit {
       this.libroJuego = new juegolibro();
       this.libroJuego.id = 25;
 
+
+      this.cargarAlumnoJuegoLibro();
       this.cargarRecursos();
 
 
@@ -276,6 +290,28 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+
+
+
+
+   cargarAlumnoJuegoLibro() {
+
+      var ID = localStorage.getItem("idAlumno");
+      this.peticionesApiService.getAlumnoJugegosLibro(this.libroJuego.id)
+         .subscribe((res) => {
+
+            res.forEach(element => {
+               if (element.alumnoID == ID) {
+                  this.dataService.setDataRecursos(1000, element);
+               }
+
+            });
+
+         }, (err) => {
+
+         })
+   }
+
    cargarRecursos() {
 
       this.peticionesApiService.getRecursoParaLibro(this.libroJuego.id)
@@ -310,7 +346,7 @@ export class CuentocanvasPage implements OnInit {
                this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
 
             }
-           
+
 
          }, (err) => {
 
@@ -717,35 +753,6 @@ export class CuentocanvasPage implements OnInit {
 
 
 
-   elejirNumeroFrames5() {
-      this.escenaFrames.duracionFrame = 2;
-      this.escenaFrames.maximoFrames = 5;
-      this.nuevoPrimerFrame();
-   }
-
-   elejirNumeroFrames10() {
-      this.escenaFrames.duracionFrame = 1;
-      this.escenaFrames.maximoFrames = 10;
-      this.nuevoPrimerFrame();
-   }
-
-
-   nuevoPrimerFrame() {
-
-      this.frameActual = new Frame();
-
-
-      this.frameActual.portadaFrame = '../../assets/imgs/noFotoPortada.png';
-      this.frameActual.numero = 1;
-      this.listaFrames.push(this.frameActual);
-      this.escenaFrames.frames = this.listaFrames;
-      this.escenaFrames.numeroFrames = 1;
-      this.refreshFondo();
-
-
-
-   }
-
    cargarFrame(numero) {
       this.frameActual = this.listaFrames[numero];
       this.drawimages(this.frameActual.personajes);
@@ -797,7 +804,7 @@ export class CuentocanvasPage implements OnInit {
             this.guardarFoto();
 
          };
-         ima.src = this.personajeCargado.foto;
+         ima.src = this.imagen.src;
          this.pintar = false;
 
          var personaje = new PersonajeFrame();
@@ -1069,7 +1076,7 @@ export class CuentocanvasPage implements OnInit {
          this._CONTEXT.fillRect(0, 0, 1100, 800);
 
 
-         this.src = "ya fue pintado";
+         // this.src = "ya fue pintado";
 
          localStorage.setItem("src", this.src);
 
@@ -1143,12 +1150,21 @@ export class CuentocanvasPage implements OnInit {
 
    refreshFondo() {
       var img3 = new Image();
-      img3.src = this.escenaFrames.fondo;
+      var listaFotoRecuros = this.dataService.getDataRecursos(0);
+
+      listaFotoRecuros.forEach(element => {
+
+         if (element.nombre == this.escenaFrames.fondo) {
+            img3.src = this.dataService.getDataRecursos(501);
+         }
+
+      });
+
+
       this._CONTEXT = this._CANVAS.getContext('2d');
       var pat = this._CONTEXT.createPattern(img3, "repeat");
       this._CONTEXT.fillStyle = pat;
       this._CONTEXT.fillRect(0, 0, 1900, 1900);
-      this.escena.fondo = img3.src;
    }
 
    timeLeft: number = 60;
@@ -1329,32 +1345,62 @@ export class CuentocanvasPage implements OnInit {
       this.drawimages(listaPersonajesFrame);
    }
 
-   drawimages(listaPersonajesFrame) {
+   async drawimages(listaPersonajesFrame) {
 
       this.clearCanvas();
       this.refreshFondo();
       // this.lineaTexto();
-      listaPersonajesFrame.forEach(element => {
-         const img = new Image();
-         img.src = element.foto;
-         img.onload = () => {
-            this._CONTEXT = this._CANVAS.getContext('2d');
+      var listaFotoRecuros = this.dataService.getDataRecursos(0);
 
-            this._CONTEXT.drawImage(   // Image
-               img,
-               element.positionX,
-               element.positionY,
-               element.alto,
-               element.ancho
-            );
-            this._CONTEXT.stroke();
-         }
-      });
+      for (const personaje of listaPersonajesFrame) {
+
+
+         const img = new Image();
+
+         for (const element of listaFotoRecuros) {
+
+
+            if (element.nombre == personaje.foto) {
+               await this.procesarBlob(element.url) as any;
+
+               img.src = this.blobString;
+               img.onload = () => {
+                  this._CONTEXT = this._CANVAS.getContext('2d');
+
+                  this._CONTEXT.drawImage(   // Image
+                     img,
+                     personaje.positionX,
+                     personaje.positionY,
+                     personaje.alto,
+                     personaje.ancho
+                  );
+                  this._CONTEXT.stroke();
+               }
+            }
+
+         };
+
+      }
       this.dibujarDilogo(this.frameActual.textos);
 
    }
 
+   async procesarBlob(elemento) {
 
+      return new Promise(resolve => {
+         const blob = elemento;
+
+         const reader = new FileReader();
+         reader.addEventListener('load', () => {
+            reader.readAsDataURL(blob);
+            this.blobString = reader;
+            resolve();
+         }, false);
+      });
+
+
+
+   }
    drawimagesInOnePicture(escena) {
 
       this.clearCanvas();

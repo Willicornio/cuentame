@@ -1,122 +1,80 @@
-
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title>cuento</ion-title>
+      <ion-title>Personajes</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-item>
     <ion-card>
-    <h3>Elije un fondo</h3>
-    <button ion-button (click)="muestrainte()">Ver personajes</button>
-     <button ion-button  class="button button-assertive" (click)="muestraexte()">Ver Animalitos</button>
-     <button ion-button (click)="muestramemonst()">Ver monstrous</button>
-    <button ion-button (click)="oculta()"> CERRAR</button>
- 
-    
-    
-    
-    
-    <div *ngIf="muestrame">
-      <h2>Colocar Personaje</h2>
-      <ion-grid>
-        <ion-row>
+      <h3>Elije un personaje</h3>
 
-          <ion-col>
-            <ion-row *ngFor="let personaje of listapersonajesDerecha">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-              </div>
+
+
+
+
+      <ion-row>
+
+        <ion-col>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" *ngFor="let foto of listaFotosPersonaje">
+                <ion-card (click)="seleccionarpersonaje(foto)">
+
+                  <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
+                  <ion-col>
+                    <h3> {{foto.nombre}} </h3>
+
+
+                  </ion-col>
+
+                </ion-card>
+
+
+
+
+              </ion-col>
             </ion-row>
-          </ion-col>
 
-          <ion-col>
-            <ion-row *ngFor="let personaje of listapersonajesIzquierda">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-              </div>
+            <div *ngIf="muestraEspeciales">
+              <ion-row>
+                <h3>Especiales</h3>
 
-            </ion-row>
-          </ion-col>
+                <ion-col size="3" *ngFor="let foto of listaFotosPersonajeEspeciales">
+                  <ion-card (click)="seleccionarpersonaje(foto)">
 
-        </ion-row>
-
-      </ion-grid>
+                    <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
+                    <ion-col>
+                      <h3> {{foto.nombre}} </h3>
 
 
-    </div>
+                    </ion-col>
+
+                  </ion-card>
 
 
 
-   
-    <div *ngIf="muestramext">
-      <h2>Colocar animales</h2>
-      <ion-grid>
-        <ion-row>
 
-          <ion-col>
-            <ion-row *ngFor="let personaje of listaanimalesDerecha">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-               
-              </div>
-            </ion-row>
-          </ion-col>
+                </ion-col>
+              </ion-row>
 
-          <ion-col>
-            <ion-row *ngFor="let personaje of listaanimalesIzquierda">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-              </div>
+            </div>
+          </ion-grid>
 
-            </ion-row>
-          </ion-col>
 
-        </ion-row>
 
-      </ion-grid>
+        </ion-col>
+      </ion-row>
 
 
 
 
 
 
-    </div>
 
 
-
-
-
-
-    <div *ngIf="muestramemons">
-      <h2>Colocar monstruos</h2>
-      <ion-grid>
-        <ion-row>
-
-          <ion-col>
-            <ion-row *ngFor="let personaje of listamosntruosDerecha">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-              </div>
-            </ion-row>
-          </ion-col>
-
-          <ion-col>
-            <ion-row *ngFor="let personaje of listamosntruosIzquierda">
-              <div (click) = "seleccionarpersonaje(personaje)">
-                <img src={{personaje.foto}} width="360" height="360">
-              </div>
-
-            </ion-row>
-          </ion-col>
-
-        </ion-row>
-
-      </ion-grid>
-    </div>
-
-  </ion-card>
+    </ion-card>
   </ion-item>
 
 </ion-content>
