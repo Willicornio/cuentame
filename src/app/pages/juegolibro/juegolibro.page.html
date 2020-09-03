@@ -50,11 +50,13 @@
             <p> Fecha limite para inscribirse: {{ dateFinInscripcion }} </p>
             <p> Fecha fin de votación: {{dateFinVotacion }} </p>
 
+            <div *ngIf="aunhaytiempo">
             <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button>
-            
+            </div>
+            <div *ngIf="diafrontera">
             <ion-button expand="block" (click)="iravotaciones()">Votar</ion-button>
           </div>
-
+        </div>
           <div *ngIf="muestraer">
             <h2> Este juego no tiene un concurso!</h2>
 

@@ -27,14 +27,14 @@ export class Libro{
         portada = '',
         numeropag = '',
         idAlumno = '',
-        puntuacion = [] ,
+        puntuacion = [],
         finalizado ='',
         listavotantes = [],
         listavotantesconcurso = [],
-        incrito = '',
-        criterio1 = '',
-        criterio2 = '',
-        criterio3 = ''
+        inscrito = '',
+        criterio1 = [],
+        criterio2 = [],
+        criterio3 = []
 
     ) {
         this.autor = autor,
@@ -47,10 +47,10 @@ export class Libro{
         this.finalizado = finalizado,
         this.listavotantes = listavotantes,
         this.listavotantesconcurso = listavotantesconcurso,
-        this.inscrito = this.inscrito,
-        this.criterio1 = this.criterio1,
-        this.criterio2 = this.criterio2,
-        this.criterio3 = this.criterio3
+        this.inscrito = inscrito,
+        this.criterio1 = criterio1,
+        this.criterio2 = criterio2,
+        this.criterio3 = criterio3
 
 
     }

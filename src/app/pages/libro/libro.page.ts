@@ -112,8 +112,7 @@ export class LibroPage implements OnInit {
       this.libro.portada ='aa';
       this.libro.idAlumno = this.alumno.id;
       this.libro.numeropag = '32';
-
-
+  
          this.peticionesAPI.publicarlibro( idalumno  ,this.libro)
         .subscribe(res => {
          console.log(res);
