@@ -3,6 +3,7 @@ import { ImagenFondo } from '../../models/imagenFondo';
 import { Router } from "@angular/router";
 import {DataService} from '../../services/data.service';
 import { ImagenRecurso } from '../../models/imagenRecurso';
+import { element } from 'protractor';
 
 
 
@@ -45,10 +46,7 @@ export class CuentofondosPage implements OnInit {
 
    this.fotosBackend.forEach(elemento => {
 
-      const blob = elemento.url;
 
-          const reader = new FileReader();
-          reader.addEventListener('load', () => {
 
             if(elemento.tipo == "fondo")
             {
@@ -61,7 +59,7 @@ export class CuentofondosPage implements OnInit {
             foto.id = elemento.id;
             foto.especial = elemento.especial;
             foto.tipo = elemento.tipo;
-            foto.url = reader.result.toString();
+            foto.url = elemento.url;
             this.listaFotosFondos.push(foto);
             }
 
@@ -72,17 +70,13 @@ export class CuentofondosPage implements OnInit {
                foto.id = elemento.id;
                foto.especial = elemento.especial;
                foto.tipo = elemento.tipo;
-               foto.url = reader.result.toString();
+               foto.url = elemento.url;
                this.listaFotosFondosEspeciales.push(foto);
 
                
             }
          }
-          }, false);
 
-          if (blob) {
-            reader.readAsDataURL(blob);
-          }
    });
 
 
