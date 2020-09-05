@@ -6,6 +6,7 @@ export class Frame{
     numero: any;
     id: any;
     escenaid: any;
+    url: any;
    
     constructor(
         portadaFrame = '',

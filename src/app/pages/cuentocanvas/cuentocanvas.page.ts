@@ -431,15 +431,32 @@ export class CuentocanvasPage implements OnInit {
 
    generarListaPersonajesEnPantalla() {
 
+      var listaRecursosService = this.dataService.getDataRecursos(1);
+
       this.listaElementosDerecha = [];
       this.listaElementosIzquierda = [];
 
       this.frameActual.personajes.forEach(obj => {
+
          if (obj.id % 2 == 0) {
-            this.listaElementosIzquierda.push(obj);
+            listaRecursosService.forEach(element => {
+               if(element.nombre == obj.foto)
+               {
+                  obj.url = element.url;
+                  this.listaElementosIzquierda.push(obj)
+               }
+               
+            });
          }
          else if (obj.id % 2 != 0) {
-            this.listaElementosDerecha.push(obj);
+            listaRecursosService.forEach(element => {
+               if(element.nombre == obj.foto)
+               {
+                  obj.url = element.url;
+                  this.listaElementosDerecha.push(obj)
+               }
+               
+            });
          }
       })
 
