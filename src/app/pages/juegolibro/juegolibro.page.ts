@@ -18,7 +18,7 @@ export class JuegolibroPage implements OnInit {
   idg;
   idconcurso;
   NombreJuego: any = '';
-  grupoId; any = '';
+  grupoId: any = '';
   listaparticipantes: Alumno[];
   concurso: any;
   concursoRequisitos;

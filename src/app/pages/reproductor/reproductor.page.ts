@@ -9,6 +9,8 @@ import { Frame } from 'src/app/models/frame';
 import { Input, EventEmitter, Output } from "@angular/core";
 import { Libro } from 'src/app/models/libro';
 import { threadId } from 'worker_threads';
+import { Concurso } from 'src/app/models/concurso';
+import {DataService} from '../../services/data.service';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class ReproductorPage implements OnInit {
   listavotantes: any = [];
   duracion;
   tiempo;
+  concurso: Concurso;
   criterio1: any = [];;
   criterio1guar: any = [];
   criterio2guar: any = [];
@@ -49,7 +52,12 @@ export class ReproductorPage implements OnInit {
   criterio3: any = [];
   votante = false;
   votantec = false;
-  constructor(private peticionesAPI: PeticionesapiService) {
+  tengoconcurso = false;
+  c1: any = '';
+  c2: any = '';
+  c3: any = '';
+
+  constructor(private peticionesAPI: PeticionesapiService, private dataservice:DataService ) {
 
   }
 
@@ -119,7 +127,9 @@ export class ReproductorPage implements OnInit {
         this.criterio1guar = res.criterio1;
         this.criterio2guar = res.criterio2;
         this.criterio3guar = res.criterio3;
-
+        this.tengoconcurso = res.inscrito;
+        
+          this.libroconcursante();
       });
 
 
@@ -162,8 +172,24 @@ export class ReproductorPage implements OnInit {
 
   }
 
+   
+  libroconcursante(){
+
+        if (this.tengoconcurso == true) {
 
 
+          this.concurso = this.dataservice.getdataconcurso(500);
+          this.c1 = this.concurso.concursoPrimerCriterio;
+          this.c2 = this.concurso.concursoSegundoCriterio;
+          this.c3 = this.concurso.concursoTercerCriterio;
+
+
+        }
+
+
+
+
+  }
 
 
 
