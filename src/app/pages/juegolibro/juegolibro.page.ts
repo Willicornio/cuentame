@@ -35,6 +35,9 @@ export class JuegolibroPage implements OnInit {
   date;
   diafrontera = false;
   aunhaytiempo = false;
+
+  juegoAlumnoLibro : any;
+
   ngOnInit() {
 
     this.obtenerlibro();
@@ -64,6 +67,21 @@ export class JuegolibroPage implements OnInit {
 
   }
 
+  obtenerJuegoAlumnoLibro()
+  {
+
+    this.id = localStorage.getItem("idjuegolibro");
+
+    this.peticionesAPI.obtenerJuegoAlumnoLibro(this.id)
+    .subscribe((res) => {
+      res.forEach(element => {
+        if(element.alumnoID){}
+      });
+    }, (err)=> {
+
+    })
+     
+  }
 
 
   public obtenerparticipantes() {

@@ -5,6 +5,7 @@ import {DataService} from '../../services/data.service';
 import { ImagenRecurso } from '../../models/imagenRecurso';
 import { Router, Data } from "@angular/router";
 import { Personaje } from 'src/app/models/personaje';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-seleccionpersonaje',
@@ -43,10 +44,7 @@ export class SeleccionpersonajePage implements OnInit {
  
     this.fotosBackend.forEach(elemento => {
  
-       const blob = elemento.url;
- 
-           const reader = new FileReader();
-           reader.addEventListener('load', () => {
+     
  
              if(elemento.tipo == "personaje")
              {
@@ -59,7 +57,7 @@ export class SeleccionpersonajePage implements OnInit {
              foto.id = elemento.id;
              foto.especial = elemento.especial;
              foto.tipo = elemento.tipo;
-             foto.url = reader.result.toString();
+             foto.url = elemento.url;
              this.listaFotosPersonaje.push(foto);
              }
  
@@ -70,17 +68,13 @@ export class SeleccionpersonajePage implements OnInit {
                 foto.id = elemento.id;
                 foto.especial = elemento.especial;
                 foto.tipo = elemento.tipo;
-                foto.url = reader.result.toString();
+                foto.url = elemento.url;
                 this.listaFotosPersonajeEspeciales.push(foto);
  
                 
              }
           }
-           }, false);
- 
-           if (blob) {
-             reader.readAsDataURL(blob);
-           }
+      
     });
  
  

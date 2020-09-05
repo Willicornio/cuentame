@@ -100,6 +100,11 @@ export class CuentocanvasPage implements OnInit {
    iNumber2: number = 0;
    listaImaganesRecurso: ImagenRecurso[] = [];
 
+   listaRecursosWithStrings: any = [];
+
+
+   iWithStringBlob: any = 0;
+   lengthwithStringBlob: any = 0;
 
    blobString: any;
 
@@ -204,7 +209,6 @@ export class CuentocanvasPage implements OnInit {
 
 
       this.cargarAlumnoJuegoLibro();
-      this.cargarRecursos();
 
 
 
@@ -312,46 +316,12 @@ export class CuentocanvasPage implements OnInit {
          })
    }
 
-   cargarRecursos() {
-
-      this.peticionesApiService.getRecursoParaLibro(this.libroJuego.id)
-         .subscribe((res) => {
-
-            var i = 1;
-
-            res[0].imagenes.forEach(element => {
-               this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
-               i++;
-            });
-
-         }, (err) => {
-
-         })
-   }
-
-   getImagenRecurso(element, nameFolder, length, id) {
-      this.peticionesApiService.getImagen(element.url, nameFolder)
-         .subscribe((res) => {
-
-            var imagen = new ImagenRecurso();
-            imagen.especial = element.especial;
-            imagen.nombre = element.nombre;
-            imagen.tipo = element.tipo;
-            imagen.id = id;
-            imagen.url = res._body;
-
-            this.listaImaganesRecurso.push(imagen);
-            if (id == length) {
-
-               this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
-
-            }
+  
 
 
-         }, (err) => {
 
-         })
-   }
+
+
 
    async getEscena(id) {
 
@@ -457,151 +427,36 @@ export class CuentocanvasPage implements OnInit {
             })
       });
    }
-   cargarEscena() {
-
-
-      this.escenaFrames = new EscenaFrames();
-
-      this.escenaFrames.fondo = '/assets/imgs/2.png';
-      this.escenaFrames.maximoFrames = 10;
-      this.escenaFrames.numeroFrames = 6;
-
-      var frame1 = new Frame();
-      frame1.numero = 1;
-      frame1.textos = "Narrador: Bienvenidos al cuento de los gamusinos";
-
-      this.listaFrames.push(frame1);
-      this.escenaFrames.frames = this.listaFrames;
-
-      var frame2 = new Frame();
-      frame2.numero = 2;
-      frame2.textos = "Narrador: Aquí tenemos a la bruhita";
-
-      var brujita = new PersonajeFrame();
-      brujita.foto = '../../../assets/imgs/haberlas.png';
-      brujita.positionX = 182;
-      brujita.positionY = 100;
-      brujita.id = 0;
-
-      this.listaPersonajeFrameActual.push(brujita);
-      frame2.personajes = this.listaPersonajeFrameActual;
-      this.listaPersonajeFrameActual = [];
-
-      this.listaFrames.push(frame2);
-      this.escenaFrames.frames = this.listaFrames;
-
-      var frame3 = new Frame();
-      frame3.numero = 3;
-      frame3.textos = "Brujita: Hola k tal mui vuenas xavale";
-
-      var brujita = new PersonajeFrame();
-      brujita.foto = '../../../assets/imgs/haberlas.png';
-      brujita.positionX = 182;
-      brujita.positionY = 100;
-      brujita.id = 0;
-
-      this.listaPersonajeFrameActual.push(brujita);
-      frame3.personajes = this.listaPersonajeFrameActual;
-      this.listaPersonajeFrameActual = [];
-
-
-      this.listaFrames.push(frame3);
-      this.escenaFrames.frames = this.listaFrames;
-
-
-      var frame4 = new Frame();
-      frame4.numero = 4;
-      frame4.textos = "Reina: hoal sola k tla k dise";
-
-      var brujita = new PersonajeFrame();
-      brujita.foto = '../../../assets/imgs/haberlas.png';
-      brujita.positionX = 754;
-      brujita.positionY = 100;
-      brujita.id = 0;
-
-      var reina = new PersonajeFrame();
-      reina.foto = '../../../assets/imgs/haberlas2.png';
-      reina.positionX = 182;
-      reina.positionY = 100;
-      reina.id = 1;
-
-      this.listaPersonajeFrameActual.push(brujita);
-      this.listaPersonajeFrameActual.push(reina);
-      frame4.personajes = this.listaPersonajeFrameActual;
-      this.listaPersonajeFrameActual = [];
-
-
-      this.listaFrames.push(frame4);
-      this.escenaFrames.frames = this.listaFrames;
-
-      var frame5 = new Frame();
-      frame5.numero = 5;
-      frame5.textos = "Brujita: dejame sola me cago en dios pallasa";
-
-      var brujita = new PersonajeFrame();
-      brujita.foto = 'c';
-      brujita.positionX = 800;
-      brujita.positionY = 100;
-      brujita.id = 0;
-
-      var reina = new PersonajeFrame();
-      reina.foto = '../../../assets/imgs/haberlas2.png';
-      reina.positionX = 182;
-      reina.positionY = 100;
-      reina.id = 1;
-
-      this.listaPersonajeFrameActual.push(brujita);
-      this.listaPersonajeFrameActual.push(reina);
-      frame5.personajes = this.listaPersonajeFrameActual;
-      this.listaPersonajeFrameActual = [];
-
-
-      this.listaFrames.push(frame5);
-      this.escenaFrames.frames = this.listaFrames;
-
-
-      var frame6 = new Frame();
-      frame6.numero = 6;
-      frame6.textos = "Reina: de boi a despedir 1 dia destos";
-
-
-      var reina = new PersonajeFrame();
-      reina.foto = '../../../assets/imgs/haberlas2.png';
-      reina.positionX = 182;
-      reina.positionY = 100;
-      reina.id = 1;
-
-      this.listaPersonajeFrameActual.push(reina);
-      frame6.personajes = this.listaPersonajeFrameActual;
-      this.listaPersonajeFrameActual = [];
-
-
-      this.listaFrames.push(frame6);
-      this.escenaFrames.frames = this.listaFrames;
-
-
-      console.log(this.escenaFrames);
-
-
-
-      this.frameActual = this.escenaFrames.frames[0];
-      this.escenaFrames.numeroframeActual = 1;
-
-      this.drawimages(this.frameActual.personajes);
-
-   }
+  
 
    generarListaPersonajesEnPantalla() {
+
+      var listaRecursosService = this.dataService.getDataRecursos(1);
 
       this.listaElementosDerecha = [];
       this.listaElementosIzquierda = [];
 
       this.frameActual.personajes.forEach(obj => {
+
          if (obj.id % 2 == 0) {
-            this.listaElementosIzquierda.push(obj);
+            listaRecursosService.forEach(element => {
+               if(element.nombre == obj.foto)
+               {
+                  obj.url = element.url;
+                  this.listaElementosIzquierda.push(obj)
+               }
+               
+            });
          }
          else if (obj.id % 2 != 0) {
-            this.listaElementosDerecha.push(obj);
+            listaRecursosService.forEach(element => {
+               if(element.nombre == obj.foto)
+               {
+                  obj.url = element.url;
+                  this.listaElementosDerecha.push(obj)
+               }
+               
+            });
          }
       })
 
@@ -1150,12 +1005,12 @@ export class CuentocanvasPage implements OnInit {
 
    refreshFondo() {
       var img3 = new Image();
-      var listaFotoRecuros = this.dataService.getDataRecursos(0);
+      var listaFotoRecuros = this.dataService.getDataRecursos(1);
 
       listaFotoRecuros.forEach(element => {
 
          if (element.nombre == this.escenaFrames.fondo) {
-            img3.src = this.dataService.getDataRecursos(501);
+            img3.src = element.url;
          }
 
       });
@@ -1350,7 +1205,7 @@ export class CuentocanvasPage implements OnInit {
       this.clearCanvas();
       this.refreshFondo();
       // this.lineaTexto();
-      var listaFotoRecuros = this.dataService.getDataRecursos(0);
+      var listaFotoRecuros = this.dataService.getDataRecursos(1);
 
       for (const personaje of listaPersonajesFrame) {
 
@@ -1361,9 +1216,8 @@ export class CuentocanvasPage implements OnInit {
 
 
             if (element.nombre == personaje.foto) {
-               await this.procesarBlob(element.url) as any;
 
-               img.src = this.blobString;
+               img.src = element.url;
                img.onload = () => {
                   this._CONTEXT = this._CANVAS.getContext('2d');
 
@@ -1385,22 +1239,7 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
-   async procesarBlob(elemento) {
 
-      return new Promise(resolve => {
-         const blob = elemento;
-
-         const reader = new FileReader();
-         reader.addEventListener('load', () => {
-            reader.readAsDataURL(blob);
-            this.blobString = reader;
-            resolve();
-         }, false);
-      });
-
-
-
-   }
    drawimagesInOnePicture(escena) {
 
       this.clearCanvas();

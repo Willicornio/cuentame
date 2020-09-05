@@ -116,7 +116,7 @@
         <ion-col>
           <div *ngFor="let elemento of listaElementosIzquierda">
             <div (click)="borrarPersonajeEscena(elemento)">
-              <img src={{elemento.foto}} width="150" height="80">
+              <img src={{elemento.url}} width="150" height="80">
             </div>
           </div>
         </ion-col>
@@ -126,7 +126,7 @@
         <ion-col>
           <div *ngFor="let elemento of listaElementosDerecha">
             <div (click)="borrarPersonajeEscena(elemento)">
-              <img src={{elemento.foto}} width="150" height="80">
+              <img src={{elemento.url}} width="150" height="80">
             </div>
           </div>
         </ion-col>

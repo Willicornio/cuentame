@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Escena } from 'src/app/models/escena';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
 import { PeticionesapiService } from '../../services/peticionesapi.service';
+import { DataService } from 'src/app/services/data.service';
+import { juegolibro } from '../../models/juegolibro';
+import { ImagenRecurso } from '../../models/imagenRecurso';
 
 
 @Component({
@@ -14,7 +17,7 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService, private dataService: DataService) { }
   @ViewChild('content') content: any;
 
 
@@ -23,6 +26,21 @@ export class ListaescenasPage implements OnInit {
   creacion: any = false;
   titulo: any = '';
   autor: any = '';
+  listaWithStrings: any = [];
+  escenaID: any;
+
+  libroJuego: juegolibro;
+  iServiceRecurso: any = 0;
+  iNumber2: number = 0;
+  listaImaganesRecurso: ImagenRecurso[] = [];
+
+  listaRecursosWithStrings: any = [];
+
+
+  iWithStringBlob: any = 0;
+  lengthwithStringBlob: any = 0;
+
+  blobString: any;
 
   ngOnInit() {
 
@@ -30,51 +48,17 @@ export class ListaescenasPage implements OnInit {
     console.log("id libro : " + this.idLibro);
 
     this.dameEscenas();
-    // var escena = new EscenaFrames();
-    // escena.fondo = '/assets/imgs/nuevolibro.jpg';
 
-    // var escena2 = new EscenaFrames();
-    // escena2.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena3 = new EscenaFrames();
-    // escena3.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena4 = new EscenaFrames();
-    // escena4.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena4 = new EscenaFrames();
-    // escena4.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena5 = new EscenaFrames();
-    // escena5.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena6 = new EscenaFrames();
-    // escena6.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena7 = new EscenaFrames();
-    // escena7.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // var escena8 = new EscenaFrames();
-    // escena8.fondo = '/assets/imgs/nuevolibro.jpg';
-
-    // this.listaEscenas.push(escena);
-    // this.listaEscenas.push(escena2);
-    // this.listaEscenas.push(escena3);
-    // this.listaEscenas.push(escena4);
-    // this.listaEscenas.push(escena5);
-    // this.listaEscenas.push(escena6);
-    // this.listaEscenas.push(escena7);
-    // this.listaEscenas.push(escena8);
-
-
-    // var crearEscena = new EscenaFrames();
-    // crearEscena.fondo = '../../assets/imgs/mas.png';
-    // crearEscena.duracionFrame = 0;
-
-    // this.listaEscenas.push(crearEscena);
     this.damelibro();
 
     this.creacion = false;
+
+
+    this.libroJuego = new juegolibro();
+    this.libroJuego.id = 25;
+
+    this.cargarRecursos();
+
 
   }
 
@@ -108,7 +92,7 @@ export class ListaescenasPage implements OnInit {
         var crearEscena = new EscenaFrames();
         crearEscena.fondo = '../../assets/imgs/mas.png';
         crearEscena.duracionFrame = 3000000;
-    
+
         this.listaEscenas.push(crearEscena);
 
       });
@@ -126,10 +110,9 @@ export class ListaescenasPage implements OnInit {
 
       this.bajarEscena();
     }
-    else
-    {
-      this.router.navigate(['/cuentocanvas' + "/" + escena.id])
-
+    else {
+this.convertBlobsToString(escena);
+    
     }
 
   }
@@ -158,14 +141,91 @@ export class ListaescenasPage implements OnInit {
       }, (err) => {
         console.log(err);
       })
-    // var n = document.getElementById("nFramesId");
-    // var s = document.getElementById("sFramesId");
 
-    // // var numero = n.value;
-    // // var segundos = s.value;
-
-    // console.log(numero + "                : " + segundos);
 
   }
+
+
+  
+  cargarRecursos() {
+
+    this.peticionesAPI.getRecursoParaLibro(this.libroJuego.id)
+       .subscribe((res) => {
+
+          var i = 1;
+
+          res[0].imagenes.forEach(element => {
+             this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
+             i++;
+          });
+
+       }, (err) => {
+
+       })
+ }
+
+
+  getImagenRecurso(element, nameFolder, length, id) {
+    this.peticionesAPI.getImagen(element.url, nameFolder)
+       .subscribe((res) => {
+
+          var imagen = new ImagenRecurso();
+          imagen.especial = element.especial;
+          imagen.nombre = element.nombre;
+          imagen.tipo = element.tipo;
+          imagen.id = id;
+          imagen.url = res._body;
+
+          this.listaImaganesRecurso.push(imagen);
+          if (id == length) {
+
+             this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
+
+          }
+
+
+       }, (err) => {
+
+       })
+ }
+
+
+
+
+  async convertBlobsToString(escena){
+   
+    this.iWithStringBlob = 0;
+    var listaFotoRecuros = this.dataService.getDataRecursos(0);
+
+    this.lengthwithStringBlob = listaFotoRecuros.length;
+
+       for (const element of listaFotoRecuros) {
+             const a = new Promise<any>((resolve, reject) => {
+                const blob = element.url;
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                   this.iWithStringBlob = this.iWithStringBlob + 1;
+                   element.url = reader.result.toString();
+                   this.listaRecursosWithStrings.push(element);
+
+                   if(this.iWithStringBlob == this.lengthwithStringBlob)
+                   {
+                      this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+                      this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+                   }
+                   resolve(reader);
+                }, false);
+                if (blob) {
+                   reader.readAsDataURL(blob);
+                 }
+            })
+
+          };
+
+
+ }
+
+
 
 }
