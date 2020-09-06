@@ -35,6 +35,8 @@ export class JuegolibroPage implements OnInit {
   date;
   diafrontera = false;
   aunhaytiempo = false;
+  idalumno;
+  idalumnojuegodelibro;
 
   juegoAlumnoLibro : any;
 
@@ -44,6 +46,7 @@ export class JuegolibroPage implements OnInit {
     this.obtenerparticipantes();
     this.obtenerconcurso();
     this.muestraer = false;
+    this.obtenerJuegoAlumnoLibro();
   
 
 
@@ -72,10 +75,19 @@ export class JuegolibroPage implements OnInit {
 
     this.id = localStorage.getItem("idjuegolibro");
 
-    this.peticionesAPI.obtenerJuegoAlumnoLibro(this.id)
+    this.idalumno = localStorage.getItem("idAlumno");
+
+    this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)
     .subscribe((res) => {
       res.forEach(element => {
-        if(element.alumnoID){}
+        if(element.alumnoID == this.idalumno){
+
+  
+          localStorage.setItem('idalumnojuego', element.id)
+
+
+
+        }
       });
     }, (err)=> {
 

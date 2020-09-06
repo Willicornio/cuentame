@@ -29,8 +29,8 @@ export class PeticionesapiService {
   private urlgrupo =this.base + '3000/api/Grupos';
   private urlParaEscenaPruebas = this.base + '3000/api/escenas';
   private urlFrame = this.base + '3000/api/frames';
-  private urljuegolibro = this.base + '3000/api/juegodelibro'
-
+  private urljuegolibro = this.base + '3000/api/juegodelibro';
+  private urlalumnojuego = this.base + '3000/api/alumnojuegodecuento';
 
   constructor(private http: HttpClient,
     private httpImagenes: Http) { }
@@ -119,7 +119,7 @@ export class PeticionesapiService {
   //   return this.http.get<Escena>(this.urlescena + '/' + id);
   // }
   public publicarlibro(idalumno: string, libro: Libro): Observable<Libro> {
-    return this.http.post<Libro>(this.urlalumno + '/' + idalumno + '/libro', libro);
+    return this.http.post<Libro>(this.urlalumnojuego + '/' + idalumno + '/Libro', libro);
   }
 
 
@@ -178,9 +178,15 @@ export class PeticionesapiService {
 
 
   
-  public obtenerJuegoAlumnoLibro(id): Observable<any> {
-    return this.http.get<any>(this.urljuegolibro + '/' + id + '/alumnojuegodecuento');
+  public obtenerAlumnosJuegoLibro(id): Observable<any> {
+    return this.http.get<any>(this.urljuegolibro+ '/' + id + '/alumnojuegodecuento');
   }
+
+ 
+  public Damealumnojuego(id): Observable<any> {
+    return this.http.get<any>(this.urlalumnojuego+ '/' + id);
+  }
+
 
 
 
