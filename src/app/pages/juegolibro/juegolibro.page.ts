@@ -37,6 +37,7 @@ export class JuegolibroPage implements OnInit {
   aunhaytiempo = false;
   idalumno;
   idalumnojuegodelibro;
+  descripcion;
 
   juegoAlumnoLibro : any;
 
@@ -61,6 +62,7 @@ export class JuegolibroPage implements OnInit {
         this.juegodelibro = res;
         this.NombreJuego = res.NombreJuego;
         this.grupoId = res.grupoId;
+        this.descripcion = res.descripcion;
 
       }, (err) => {
         console.log(err);
@@ -95,6 +97,26 @@ export class JuegolibroPage implements OnInit {
      
   }
 
+ 
+  obtenerLibroAlumnoJuego()
+  {
+
+    var ida = localStorage.getItem('idalumnojuego');
+    this.peticionesAPI.getLibroAlumnoJuego(ida)
+
+     
+      .subscribe((res) => {
+       
+
+      }, (err) => {
+        console.log(err);
+      })
+
+
+     
+  }
+
+ 
 
   public obtenerparticipantes() {
     this.idg = localStorage.getItem("idgrupo");
@@ -168,18 +190,49 @@ this.muestraer = true;
 
 public inscribirlibro(){
 
-//if hay libro en el juego del niño
-    // i  no esta finalizado:
 
-    this.alertnoestafinalizado();
+  var ida = localStorage.getItem('idalumnojuego');
+  this.peticionesAPI.getLibroAlumnoJuego(ida)
 
-    // i esta finalzado
+   
+    .subscribe((res) => {
 
-    this.alertinscribir();
+      var idlibro = res[0].id;
+      var finalizado = res[0].finalizado;
+
+      if ( res != null )
+      {
+
+        if(finalizado == true){
+
+          this.alertinscribir();
+        }
+
+   
+
+        if(finalizado == false){
+
+          this.alertnoestafinalizado();
+        }
+
+
+      }
+   
+
+    }, (err) => {
+      this.alertcrealibro();
+    })
+
+
+
+    // 
+
+    // i esta finalzado 
+
 
 //if no hay libro
 
-  this.alertcrealibro();
+
 
 
 }

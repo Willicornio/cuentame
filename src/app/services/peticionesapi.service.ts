@@ -188,7 +188,9 @@ export class PeticionesapiService {
   }
 
 
-
+public getLibroAlumnoJuego(id): Observable<any> {
+  return this.http.get<any>(this.urlalumnojuego+ '/' + id + '/Libro');
+}
 
 
   
