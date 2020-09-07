@@ -70,6 +70,11 @@ export class JuegolibroPage implements OnInit {
 
   
 
+
+
+
+    /////////aaaaaaaaa/////////
+
   }
 
   obtenerJuegoAlumnoLibro()
