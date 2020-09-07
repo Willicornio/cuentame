@@ -18,7 +18,7 @@ export class JuegolibroPage implements OnInit {
   idg;
   idconcurso;
   NombreJuego: any = '';
-  grupoId; any = '';
+  grupoId: any = '';
   listaparticipantes: Alumno[];
   concurso: any;
   concursoRequisitos;
@@ -35,7 +35,10 @@ export class JuegolibroPage implements OnInit {
   date;
   diafrontera = false;
   aunhaytiempo = false;
-
+  idalumno;
+  idalumnojuegodelibro;
+  descripcion;
+  listainscripcipnes = [];
   juegoAlumnoLibro : any;
 
   ngOnInit() {
@@ -44,7 +47,8 @@ export class JuegolibroPage implements OnInit {
     this.obtenerparticipantes();
     this.obtenerconcurso();
     this.muestraer = false;
-  
+    this.obtenerJuegoAlumnoLibro();
+   
 
 
   }
@@ -58,6 +62,7 @@ export class JuegolibroPage implements OnInit {
         this.juegodelibro = res;
         this.NombreJuego = res.NombreJuego;
         this.grupoId = res.grupoId;
+        this.descripcion = res.descripcion;
 
       }, (err) => {
         console.log(err);
@@ -72,10 +77,19 @@ export class JuegolibroPage implements OnInit {
 
     this.id = localStorage.getItem("idjuegolibro");
 
-    this.peticionesAPI.obtenerJuegoAlumnoLibro(this.id)
+    this.idalumno = localStorage.getItem("idAlumno");
+
+    this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)
     .subscribe((res) => {
       res.forEach(element => {
-        if(element.alumnoID){}
+        if(element.alumnoID == this.idalumno){
+
+  
+          localStorage.setItem('idalumnojuego', element.id)
+
+
+
+        }
       });
     }, (err)=> {
 
@@ -83,6 +97,26 @@ export class JuegolibroPage implements OnInit {
      
   }
 
+ 
+  obtenerLibroAlumnoJuego()
+  {
+
+    var ida = localStorage.getItem('idalumnojuego');
+    this.peticionesAPI.getLibroAlumnoJuego(ida)
+
+     
+      .subscribe((res) => {
+       
+
+      }, (err) => {
+        console.log(err);
+      })
+
+
+     
+  }
+
+ 
 
   public obtenerparticipantes() {
     this.idg = localStorage.getItem("idgrupo");
@@ -130,6 +164,7 @@ export class JuegolibroPage implements OnInit {
       this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
       this.dateFinInscripcion  = this.dateFinInscripcion[0];
       this.concursoTematica = cosa.concursoTematica;
+      this.listainscripcipnes = cosa.listainscripcipnes;
       this.muestra();
       
     this.obtenerfecha();
@@ -156,18 +191,51 @@ this.muestraer = true;
 
 public inscribirlibro(){
 
-//if hay libro en el juego del niño
-    // i  no esta finalizado:
 
-    this.alertnoestafinalizado();
+  var ida = localStorage.getItem('idalumnojuego');
+  this.peticionesAPI.getLibroAlumnoJuego(ida)
 
-    // i esta finalzado
+   
+    .subscribe((res) => {
 
-    this.alertinscribir();
+      var idlibro = res[0].id;
+      var finalizado = res[0].finalizado;
+
+      if ( res != null )
+      {
+
+        if(finalizado == true){
+
+          this.listainscripcipnes.push(res);
+
+          this.alertinscribir();
+        }
+
+   
+
+        if(finalizado == false){
+
+          this.alertnoestafinalizado();
+        }
+
+
+      }
+   
+
+    }, (err) => {
+      this.alertcrealibro();
+    })
+
+
+
+    // 
+
+    // i esta finalzado 
+
 
 //if no hay libro
 
-  this.alertcrealibro();
+
 
 
 }

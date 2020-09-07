@@ -3,6 +3,8 @@ import { Concurso } from 'src/app/models/concurso';
 import { Router } from "@angular/router";
 import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { Libro } from 'src/app/models/libro';
+import {DataService} from '../../services/data.service';
+
 
 @Component({
   selector: 'app-votacionesconcurso',
@@ -11,7 +13,7 @@ import { Libro } from 'src/app/models/libro';
 })
 export class VotacionesconcursoPage implements OnInit {
 
-  constructor(private router: Router, private peticionesAPI: PeticionesapiService) { }
+  constructor(private dataservice: DataService ,private router: Router, private peticionesAPI: PeticionesapiService) { }
   idconcurso;
   concurso: any;
   listainscritos: [];
@@ -44,6 +46,7 @@ export class VotacionesconcursoPage implements OnInit {
        
     })
     this.crearlista();
+    this.dataservice.setdataconcurso(500, this.concurso);
     }, (err) => {
       
         })
