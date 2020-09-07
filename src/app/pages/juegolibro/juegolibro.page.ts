@@ -38,7 +38,7 @@ export class JuegolibroPage implements OnInit {
   idalumno;
   idalumnojuegodelibro;
   descripcion;
-
+  listainscripcipnes = [];
   juegoAlumnoLibro : any;
 
   ngOnInit() {
@@ -164,6 +164,7 @@ export class JuegolibroPage implements OnInit {
       this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
       this.dateFinInscripcion  = this.dateFinInscripcion[0];
       this.concursoTematica = cosa.concursoTematica;
+      this.listainscripcipnes = cosa.listainscripcipnes;
       this.muestra();
       
     this.obtenerfecha();
@@ -204,6 +205,8 @@ public inscribirlibro(){
       {
 
         if(finalizado == true){
+
+          this.listainscripcipnes.push(res);
 
           this.alertinscribir();
         }
