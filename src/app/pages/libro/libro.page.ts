@@ -98,6 +98,8 @@ export class LibroPage implements OnInit {
 
   crearlibro(form: NgForm){
 
+    var idJuegoLibro = localStorage.getItem("idjuegolibro");
+
     var idalumno= localStorage.getItem("idAlumno");
     if(form.value.titulo != null){
       this.libro.titulo = form.value.titulo;
