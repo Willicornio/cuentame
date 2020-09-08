@@ -10,6 +10,9 @@ export class juegolibro{
     descripcion: string;
     juegolibroid: number;
     id;
+    criterioprivilegio1: string;
+    criterioprivilegio2: string;
+    criterioprivilegio3: string;
 
     constructor(
     
@@ -21,7 +24,10 @@ export class juegolibro{
         Temporada= '' ,
         grupoId= '' ,
         descripcion= '' ,
-        juegolibroid= '' 
+        juegolibroid= '' ,
+        criterioprivilegio1= '' ,
+        criterioprivilegio2= '' ,
+        criterioprivilegio3= '' 
     
 
     ) {
@@ -29,6 +35,8 @@ export class juegolibro{
         this.NombreJuego = NombreJuego;
         this.Familias = Familias;
         this.descripcion = descripcion;
-     
+        this.criterioprivilegio1 =criterioprivilegio1;
+        this.criterioprivilegio2 =criterioprivilegio2;
+        this.criterioprivilegio3 =criterioprivilegio3;
     }
 }

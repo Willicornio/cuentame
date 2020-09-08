@@ -22,10 +22,48 @@
 
 
         </ion-card>
+        <ion-card>
+            <h3>TUS PRIVILEGIOS:</h3>
+            <br>
+            <div *ngIf="nivel1">
+               <h3>Has conseguido el nivel 1!</h3>
+                Puedes crear hasta 3 escenas.
+
+            </div>
+
+            <div *ngIf="muestracriterio1">
+              Consigue el nivel 1:
+              <h3> {{criterioprivilegio1}}</h3>
+              Y podras desbloquear la creación de 2 escenas mas!
+
+           </div>
+            <br>
+            <div *ngIf="nivel2">
+              <h3>Has conseguido el nivel 2!</h3>
+              Puedes desbloquear todas las escenas!
+            </div>
+            <div *ngIf="muestracriterio2">
+              Consigue el nivel 2:
+              <h3> {{criterioprivilegio2}}</h3>
+              Y podras crear todas la escenas de tu cuento!
+            </div>
+            <br>
+            <div *ngIf="nivel3">
+              <h3>Has conseguido el nivel 3!</h3>
+              Puedes usar fondos y personajes exclusivos!
+            </div>
+            <div *ngIf="muestracriterio3">
+              Consigue el nivel 3:
+              <h3> {{criterioprivilegio3}}</h3>
+              Y podras acceder a fondos y personajes exclusivos!
+            </div>
+            <br>
+
+        </ion-card>
 
         <ion-card>
     
-          <div scrolly="true" style="max-height:600px">
+          <div scrolly="true" style="max-height:300px">
             <h3>Lista de participantes</h3>
 
             <ion-col *ngFor="let alumno of listaparticipantes">
