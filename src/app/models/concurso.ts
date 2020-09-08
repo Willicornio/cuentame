@@ -8,6 +8,9 @@ export class Concurso{
     concursoSegundoCriterio: string;
     concursoTercerCriterio:string
     listaLibrosParticipantes: [];
+    peso1: number;
+    peso2: number;
+    peso3: number;
    
     constructor(
         concursoTematica = '',
