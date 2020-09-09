@@ -42,6 +42,8 @@ export class ListaescenasPage implements OnInit {
 
   blobString: any;
 
+  libro: any;
+
   ngOnInit() {
 
     this.idLibro = this.activatedRoute.snapshot.paramMap.get('id');
@@ -63,7 +65,7 @@ export class ListaescenasPage implements OnInit {
   }
 
   damelibro() {
-    var idalumno = localStorage.getItem("idAlumno");
+    var idalumno = localStorage.getItem("idalumnojuego");
 
     this.peticionesAPI.Damelibro(idalumno, this.idLibro)
       .subscribe(res => {
@@ -71,6 +73,7 @@ export class ListaescenasPage implements OnInit {
 
         this.titulo = res.titulo;
         this.autor = res.autor;
+        this.libro = res;
 
       });
 
@@ -226,6 +229,21 @@ this.convertBlobsToString(escena);
 
  }
 
+
+ cambiarFinalizadoATrue()
+ {
+   this.libro.finalizado = true;
+
+   this.peticionesAPI.putLibro(this.idLibro, this.libro)
+   .subscribe((res)=>{
+
+    this.router.navigate(['/juegolibro'])
+
+
+   },(err)=>{
+      
+   })
+ }
 
 
 }

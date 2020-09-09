@@ -136,7 +136,7 @@ export class CuentocanvasPage implements OnInit {
 
             if (this.src == "tengo") {
                this.escenaFrames.fondo = this.dataService.getDataRecursos(500);
-               localStorage.setItem("src", "nada");
+               localStorage.setItem("src", "");
             }
 
             if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != "undefined") {
@@ -316,7 +316,7 @@ export class CuentocanvasPage implements OnInit {
          })
    }
 
-  
+
 
 
 
@@ -392,6 +392,15 @@ export class CuentocanvasPage implements OnInit {
       var newEscenaNumeroFrames = this.escenaFrames.numeroFrames;
       newEscenaNumeroFrames = newEscenaNumeroFrames + 1;
       this.escenaFrames.numeroFrames = newEscenaNumeroFrames;
+
+      this.escenaFrames.frames.forEach(frame => {
+         
+         frame.personajes.forEach(element => {
+            
+            element.url = "";
+         });
+      });
+
       this.peticionesApiService.putEscena(this.escenaFrames.id, this.escenaFrames)
          .subscribe((res) => {
 
@@ -418,6 +427,13 @@ export class CuentocanvasPage implements OnInit {
 
       this.escenaFrames.frames.forEach(element => {
 
+
+
+         element.personajes.forEach(per => {
+            per.url = "";
+         });
+
+
          this.peticionesApiService.putFrame(this.escenaFrames.id, element.id, element)
             .subscribe((res) => {
 
@@ -427,7 +443,7 @@ export class CuentocanvasPage implements OnInit {
             })
       });
    }
-  
+
 
    generarListaPersonajesEnPantalla() {
 
@@ -440,22 +456,23 @@ export class CuentocanvasPage implements OnInit {
 
          if (obj.id % 2 == 0) {
             listaRecursosService.forEach(element => {
-               if(element.nombre == obj.foto)
-               {
-                  obj.url = element.url;
-                  this.listaElementosIzquierda.push(obj)
+               if (element.nombre == obj.foto) {
+                  var personaje: any;
+                  personaje = obj;
+                  personaje.url = element.url;
+                  this.listaElementosIzquierda.push(personaje)
                }
-               
+
             });
          }
          else if (obj.id % 2 != 0) {
             listaRecursosService.forEach(element => {
-               if(element.nombre == obj.foto)
-               {
-                  obj.url = element.url;
-                  this.listaElementosDerecha.push(obj)
+               if (element.nombre == obj.foto) {
+                  var personaje: any;
+                  personaje = obj;
+                  personaje.url = element.url; this.listaElementosDerecha.push(personaje)
                }
-               
+
             });
          }
       })
@@ -700,6 +717,7 @@ export class CuentocanvasPage implements OnInit {
 
       var listaP = [];
       this.frameActual.personajes.forEach(element => {
+         element.url = "";
          listaP.push(element);
       });
 
@@ -712,6 +730,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.frameActual = newFrame;
       this.drawimages(this.frameActual.personajes);
+
 
 
       this.peticionesApiService.postFrame(this.escenaFrames.id, newFrame).subscribe(async (res) => {
@@ -931,9 +950,7 @@ export class CuentocanvasPage implements OnInit {
          this._CONTEXT.fillRect(0, 0, 1100, 800);
 
 
-         // this.src = "ya fue pintado";
 
-         localStorage.setItem("src", this.src);
 
 
       }

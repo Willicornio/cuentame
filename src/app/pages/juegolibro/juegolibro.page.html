@@ -109,7 +109,12 @@
         <ion-card>
 
           <h3> Ir al taller de cuentos</h3>
-          <ion-button expand="block" (click)="iralibro()">Taller de cuentos</ion-button>
+          <div *ngIf="!hayLibro">
+          <ion-button expand="block" (click)="irACrearLibro()">¡Crea tu libro!</ion-button>
+          </div>
+          <div *ngIf="hayLibro">
+            <ion-button expand="block" (click)="irALibro()">¡Entra en tu libro!</ion-button>
+            </div>
         </ion-card>
 
 
