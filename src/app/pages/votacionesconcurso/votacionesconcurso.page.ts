@@ -23,6 +23,7 @@ export class VotacionesconcursoPage implements OnInit {
   ngOnInit() {
 
     this.obtenerconcurso();
+    this.obtenerpuntuacionactual();
 
   }
 
@@ -65,8 +66,18 @@ export class VotacionesconcursoPage implements OnInit {
       this.peticionesAPI.dameunlibro(idlibro)
  
       .subscribe((res) => {
-       
-        this.cuento = res;
+      //  this.cuento = new Libro();
+       this.cuento = res;
+      //   var superlista1 = res.criterio1;
+
+
+      //   superlista1.forEach(element => {
+      //     var suma: number = 0;
+      //       suma = suma + element;
+      //    this.cuento.puntostotalesc1;
+      //   }
+
+      //   );
      
         this.listashow.push(this.cuento);
 
@@ -95,7 +106,14 @@ export class VotacionesconcursoPage implements OnInit {
 
 }
 
+obtenerpuntuacionactual(){
 
+
+
+
+
+
+}
 
 
 

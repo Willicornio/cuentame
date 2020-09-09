@@ -19,7 +19,11 @@ export class Libro{
     criterio3: any;
     listavotantesconcurso: any;
     inscrito: any;
+    puntostotalesc1:any;
+    puntostotalesc2:any;
+    puntostotalesc3:any;
    
+
     constructor( 
         autor = '',
         resumen = '',

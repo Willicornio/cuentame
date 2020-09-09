@@ -230,8 +230,6 @@ export class ReproductorPage implements OnInit {
 
 
     }
-  
-
 
 
 
