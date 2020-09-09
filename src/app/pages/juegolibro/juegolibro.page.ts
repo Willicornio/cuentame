@@ -16,6 +16,9 @@ export class JuegolibroPage implements OnInit {
   constructor(private router: Router, private peticionesAPI: PeticionesapiService,  public alertController: AlertController) { }
   id;
   idg;
+  nivel1: any = '';
+  nivel2: any = '';
+  nivel3: any = '';
   idconcurso;
   NombreJuego: any = '';
   grupoId: any = '';
@@ -40,7 +43,14 @@ export class JuegolibroPage implements OnInit {
   descripcion;
   listainscripcipnes = [];
   juegoAlumnoLibro : any;
-
+  criterioprivilegio1: any = '';
+  criterioprivilegio2: any = '';
+  criterioprivilegio3: any = '';
+  muestracriterio3 = false;
+  muestracriterio2 = false;
+  muestracriterio1 = false;
+  
+  
   ngOnInit() {
 
     this.obtenerlibro();
@@ -63,6 +73,10 @@ export class JuegolibroPage implements OnInit {
         this.NombreJuego = res.NombreJuego;
         this.grupoId = res.grupoId;
         this.descripcion = res.descripcion;
+        this.criterioprivilegio1 = res.criterioprivilegio1;
+        this.criterioprivilegio2 = res.criterioprivilegio2;
+        this.criterioprivilegio3 = res.criterioprivilegio3;
+
 
       }, (err) => {
         console.log(err);
@@ -77,6 +91,8 @@ export class JuegolibroPage implements OnInit {
 
   }
 
+
+
   obtenerJuegoAlumnoLibro()
   {
 
@@ -89,11 +105,11 @@ export class JuegolibroPage implements OnInit {
       res.forEach(element => {
         if(element.alumnoID == this.idalumno){
 
-  
-          localStorage.setItem('idalumnojuego', element.id)
-
-
-
+            localStorage.setItem('idalumnojuego', element.id)
+            this.nivel1 = element.nivel1;
+            this.nivel2 = element.nivel2;
+            this.nivel3 = element.nivel3;
+            this.anunciarcriteriosprivilgios();
         }
       });
     }, (err)=> {
@@ -102,7 +118,19 @@ export class JuegolibroPage implements OnInit {
      
   }
 
+  anunciarcriteriosprivilgios(){
+
+   if (this.nivel3 == false)
+   this.muestracriterio3 = true;
+   if (this.nivel2 == false)
+   this.muestracriterio2 = true;
+   if (this.nivel3 == false)
+   this.muestracriterio3 = true;
+
+
+  }
  
+
   obtenerLibroAlumnoJuego()
   {
 
