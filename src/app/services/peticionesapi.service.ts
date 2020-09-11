@@ -198,6 +198,10 @@ public putLibro(id, libro): Observable<any> {
 
 
 
+
+
+
+
   
   //  MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);

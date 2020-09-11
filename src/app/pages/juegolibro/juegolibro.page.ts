@@ -54,6 +54,9 @@ export class JuegolibroPage implements OnInit {
   hayLibro: any = false;
   idLibro: any;
 
+  hayLibroFinalizado: any = false;
+
+  permisoVer: any = false;
   ngOnInit() {
 
     this.obtenerlibro();
@@ -111,6 +114,7 @@ export class JuegolibroPage implements OnInit {
             this.nivel1 = element.nivel1;
             this.nivel2 = element.nivel2;
             this.nivel3 = element.nivel3;
+            this.permisoVer = element.permisoparaver;
             this.anunciarcriteriosprivilgios();
             this.getLibro()
           }
@@ -133,6 +137,9 @@ export class JuegolibroPage implements OnInit {
         else if (res.length != 0) {
           this.hayLibro = true;
           this.idLibro = res[0].id;
+          this.hayLibroFinalizado = res[0].finalizado;
+          localStorage.setItem("idLibro", this.idLibro);
+
         }
       }, (err) => {
 
@@ -278,18 +285,6 @@ export class JuegolibroPage implements OnInit {
         this.alertcrealibro();
       })
 
-
-
-    // 
-
-    // i esta finalzado 
-
-
-    //if no hay libro
-
-
-
-
   }
 
   async alertinscribir() {
@@ -329,6 +324,19 @@ export class JuegolibroPage implements OnInit {
     await alert.present();
   }
 
+  
+  async alertaNoHayLibroCreado() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Consulta no realizada',
+      subHeader: 'Este alumno aun no ha creado su libro',
+      message: 'Tu compañero tiene que crear su libro para que tu puedas verlo',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
 
   public irACrearLibro() {
 
@@ -336,10 +344,15 @@ export class JuegolibroPage implements OnInit {
 
   }
 
-   irALibro()
-  {
-    this.router.navigate(["listaescenas/" + this.idLibro]);
+  irALibro() {
+    if (this.hayLibroFinalizado == true) {
+      this.router.navigate(["reproductor/" + '1']);
 
+    }
+    else {
+      this.router.navigate(["listaescenas/" + this.idLibro]);
+
+    }
   }
 
   public iravotaciones() {
@@ -366,5 +379,52 @@ export class JuegolibroPage implements OnInit {
 
 
   }
+
+  getLibroAlumno(id)
+  {
+    this.peticionesAPI.getLibroAlumnoJuego(id)
+    .subscribe((res)=>{
+
+      if(res.length != 0)
+      {
+
+        localStorage.setItem("idLibroVer", res[0].id )
+        this.router.navigate(["reproductor/" + '2']);
+
+      }
+      else
+      {
+        this.alertaNoHayLibroCreado();
+
+      }
+
+
+    }, (err)=>{
+
+
+    })
+  }
+
+  libroAlumnoSeleccionado(alumno) {
+
+    this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)
+      .subscribe((res) => {
+
+        res.forEach(element => {
+
+          if (element.alumnoID == alumno.id) {
+
+            this.getLibroAlumno(element.id);
+            
+
+          }
+        });
+
+      }, (err) => {
+
+      })
+
+  }
+
 
 }
