@@ -231,12 +231,12 @@ public inscribirlibro(){
    
     .subscribe((res) => {
 
-      var idlibro = res[0].id;
-      var finalizado = res[0].finalizado;
+ 
 
-      if ( res != null )
+      if ( res.length != 0)
       {
-
+        var idlibro = res[0].id;
+        var finalizado = res[0].finalizado;
         if(finalizado == true){
 
           this.listainscripcipnes.push(res);
@@ -253,7 +253,10 @@ public inscribirlibro(){
 
 
       }
-   
+      if( res.length < 1){
+        this.alertcrealibro();
+
+      }
 
     }, (err) => {
       this.alertcrealibro();

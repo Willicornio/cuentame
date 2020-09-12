@@ -66,18 +66,18 @@ export class VotacionesconcursoPage implements OnInit {
       this.peticionesAPI.dameunlibro(idlibro)
  
       .subscribe((res) => {
-      //  this.cuento = new Libro();
+      this.cuento = new Libro();
        this.cuento = res;
-      //   var superlista1 = res.criterio1;
+      var superlista1 = res.criterio1;
 
 
-      //   superlista1.forEach(element => {
-      //     var suma: number = 0;
-      //       suma = suma + element;
-      //    this.cuento.puntostotalesc1;
-      //   }
+       superlista1.forEach(element => {
+          var suma: number = 0;
+            suma = suma + element;
+         this.cuento.puntostotalesc1 = suma;
+        }
 
-      //   );
+        );
      
         this.listashow.push(this.cuento);
 
