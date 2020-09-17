@@ -5,6 +5,7 @@ import { Alumno } from 'src/app/models/alumno';
 import { Concurso } from 'src/app/models/concurso';
 import { AlertController } from '@ionic/angular';
 import { Router } from "@angular/router";
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-juegolibro',
@@ -13,7 +14,7 @@ import { Router } from "@angular/router";
 })
 export class JuegolibroPage implements OnInit {
 
-  constructor(private router: Router, private peticionesAPI: PeticionesapiService,  public alertController: AlertController) { }
+  constructor(private router: Router, private peticionesAPI: PeticionesapiService, public alertController: AlertController) { }
   id;
   idg;
   nivel1: any = '';
@@ -28,7 +29,7 @@ export class JuegolibroPage implements OnInit {
   concursoPrimerCriterio;
   concursoSegundoCriterio;
   concursoTematica;
-  concursoTercerCriterio; 
+  concursoTercerCriterio;
   dateFinInscripcion;
   dateFinVotacion;
   muestrame = false;
@@ -42,15 +43,20 @@ export class JuegolibroPage implements OnInit {
   idalumnojuegodelibro;
   descripcion;
   listainscripcipnes = [];
-  juegoAlumnoLibro : any;
+  juegoAlumnoLibro: any;
   criterioprivilegio1: any = '';
   criterioprivilegio2: any = '';
   criterioprivilegio3: any = '';
   muestracriterio3 = false;
   muestracriterio2 = false;
   muestracriterio1 = false;
-  
-  
+
+  hayLibro: any = false;
+  idLibro: any;
+
+  hayLibroFinalizado: any = false;
+
+  permisoVer: any = false;
   ngOnInit() {
 
     this.obtenerlibro();
@@ -58,7 +64,7 @@ export class JuegolibroPage implements OnInit {
     this.obtenerconcurso();
     this.muestraer = false;
     this.obtenerJuegoAlumnoLibro();
-  
+
 
 
   }
@@ -82,7 +88,7 @@ export class JuegolibroPage implements OnInit {
         console.log(err);
       })
 
-  
+
 
 
 
@@ -93,70 +99,91 @@ export class JuegolibroPage implements OnInit {
 
 
 
-  obtenerJuegoAlumnoLibro()
-  {
+  obtenerJuegoAlumnoLibro() {
 
     this.id = localStorage.getItem("idjuegolibro");
 
     this.idalumno = localStorage.getItem("idAlumno");
 
     this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)
-    .subscribe((res) => {
-      res.forEach(element => {
-        if(element.alumnoID == this.idalumno){
+      .subscribe((res) => {
+        res.forEach(element => {
+          if (element.alumnoID == this.idalumno) {
 
             localStorage.setItem('idalumnojuego', element.id)
             this.nivel1 = element.nivel1;
             this.nivel2 = element.nivel2;
             this.nivel3 = element.nivel3;
+            this.permisoVer = element.permisoparaver;
             this.anunciarcriteriosprivilgios();
+            this.getLibro()
+          }
+        });
+      }, (err) => {
+
+      })
+
+  }
+
+  getLibro() {
+
+    var id = localStorage.getItem('idalumnojuego');
+    this.peticionesAPI.getLibroAlumnoJuego(id)
+      .subscribe((res) => {
+        if (res.length == 0) {
+          this.hayLibro = false;
         }
-      });
-    }, (err)=> {
 
-    })
-     
+        else if (res.length != 0) {
+          this.hayLibro = true;
+          this.idLibro = res[0].id;
+          this.hayLibroFinalizado = res[0].finalizado;
+          localStorage.setItem("idLibro", this.idLibro);
+
+        }
+      }, (err) => {
+
+      })
   }
 
-  anunciarcriteriosprivilgios(){
+  anunciarcriteriosprivilgios() {
 
-   if (this.nivel3 == false)
-   this.muestracriterio3 = true;
-   if (this.nivel2 == false)
-   this.muestracriterio2 = true;
-   if (this.nivel3 == false)
-   this.muestracriterio3 = true;
+    if (this.nivel3 == false)
+      this.muestracriterio3 = true;
+    if (this.nivel2 == false)
+      this.muestracriterio2 = true;
+    if (this.nivel3 == false)
+      this.muestracriterio3 = true;
 
 
   }
- 
 
-  obtenerLibroAlumnoJuego()
-  {
+
+  obtenerLibroAlumnoJuego() {
 
     var ida = localStorage.getItem('idalumnojuego');
     this.peticionesAPI.getLibroAlumnoJuego(ida)
 
-     
+
       .subscribe((res) => {
-       
+
 
       }, (err) => {
         console.log(err);
       })
 
 
-     
+
   }
 
- 
+
 
   public obtenerparticipantes() {
     this.idg = localStorage.getItem("idgrupo");
 
     this.peticionesAPI.getalumnosgrupo(this.idg)
 
-     
+
       .subscribe((res) => {
         this.listaparticipantes = [];
         console.log(res);
@@ -172,177 +199,239 @@ export class JuegolibroPage implements OnInit {
   }
 
 
-  public obtenerconcurso(){
+  public obtenerconcurso() {
     this.id = localStorage.getItem("idjuegolibro");
 
     this.peticionesAPI.getconcurso(this.id)
 
-    .subscribe((res) => {
-      var data;
-      this.concurso = res;
-      console.log(res);
-      console.log(res);
+      .subscribe((res) => {
+        var data;
+        this.concurso = res;
+        console.log(res);
+        console.log(res);
 
 
-      this.concurso.forEach(cosa => {
-      this.idconcurso =cosa.id;
-      this.concursoPrimerCriterio  = cosa.concursoPrimerCriterio;
-      this.concursoRequisitos  = cosa.concursoRequisitos;
-      this.concursoSegundoCriterio = cosa.concursoSegundoCriterio;
-      this.concursoTercerCriterio = cosa.concursoTercerCriterio;
-      this.dateFinVotacion = cosa.dateFinVotacion;
-      this.dateFinVotacion = this.dateFinVotacion.toString().split('T');
-      this.dateFinVotacion  = this.dateFinVotacion[0];
-      this.dateFinInscripcion = cosa.dateFinInscripcion;
-      this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
-      this.dateFinInscripcion  = this.dateFinInscripcion[0];
-      this.concursoTematica = cosa.concursoTematica;
-      this.listainscripcipnes = cosa.listainscripcipnes;
-      this.muestra();
-      
-    this.obtenerfecha();
-    })
-    }, (err) => {
+        this.concurso.forEach(cosa => {
+          this.idconcurso = cosa.id;
+          this.concursoPrimerCriterio = cosa.concursoPrimerCriterio;
+          this.concursoRequisitos = cosa.concursoRequisitos;
+          this.concursoSegundoCriterio = cosa.concursoSegundoCriterio;
+          this.concursoTercerCriterio = cosa.concursoTercerCriterio;
+          this.dateFinVotacion = cosa.dateFinVotacion;
+          this.dateFinVotacion = this.dateFinVotacion.toString().split('T');
+          this.dateFinVotacion = this.dateFinVotacion[0];
+          this.dateFinInscripcion = cosa.dateFinInscripcion;
+          this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
+          this.dateFinInscripcion = this.dateFinInscripcion[0];
+          this.concursoTematica = cosa.concursoTematica;
+          this.listainscripcipnes = cosa.listainscripcipnes;
+          this.muestra();
+
+          this.obtenerfecha();
+        })
+      }, (err) => {
         this.muestraerror();
 
-    })
+      })
 
   }
 
-public muestra(){
-  this.muestrame = true;
+  public muestra() {
+    this.muestrame = true;
 
 
-}
+  }
 
-public muestraerror(){
+  public muestraerror() {
 
-this.muestraer = true;
+    this.muestraer = true;
 
-}
-
-
-public inscribirlibro(){
+  }
 
 
-  var ida = localStorage.getItem('idalumnojuego');
-  this.peticionesAPI.getLibroAlumnoJuego(ida)
+  public inscribirlibro() {
 
-   
-    .subscribe((res) => {
+
+    var ida = localStorage.getItem('idalumnojuego');
+    this.peticionesAPI.getLibroAlumnoJuego(ida)
 
  
 
-      if ( res.length != 0)
-      {
+      // if ( res.length != 0)
+      // {
+      //   var idlibro = res[0].id;
+      //   var finalizado = res[0].finalizado;
+      //   if(finalizado == true){
+
+      .subscribe((res) => {
+
         var idlibro = res[0].id;
         var finalizado = res[0].finalizado;
-        if(finalizado == true){
 
-          this.listainscripcipnes.push(res);
+        if (res != null) {
 
-          this.alertinscribir();
+          if (finalizado == true) {
+
+            this.listainscripcipnes.push(res);
+
+            this.alertinscribir();
+          }
+
+
+
+          if (finalizado == false) {
+
+            this.alertnoestafinalizado();
+          }
+
+
         }
 
-   
 
-        if(finalizado == false){
-
-          this.alertnoestafinalizado();
-        }
-
-
-      }
-      if( res.length < 1){
+      }, (err) => {
         this.alertcrealibro();
+      })
 
-      }
+  }
 
-    }, (err) => {
-      this.alertcrealibro();
-    })
+  async alertinscribir() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'INSCRIBIR CUENTO',
+      subHeader: '¿Estas seguro de querer inscribir tu cuento?',
+      message: ' Una vez inscrito no podras modificarlo.',
+      buttons: ['Aceptar', 'Cancelar']
+    });
 
+    await alert.present();
+  }
 
+  async alertnoestafinalizado() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Inscipción no realizada',
+      subHeader: 'Cuento no finalizado',
+      message: 'Por favor acaba el cuento antes de participar en el concurso',
+      buttons: ['Aceptar']
+    });
 
-    // 
-
-    // i esta finalzado 
-
-
-//if no hay libro
-
-
-
-
-}
-
-async alertinscribir() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'INSCRIBIR CUENTO',
-    subHeader: '¿Estas seguro de querer inscribir tu cuento?',
-    message: ' Una vez inscrito no podras modificarlo.',
-    buttons: ['Aceptar',  'Cancelar']
-  });
-
-  await alert.present();
-}
-
-async alertnoestafinalizado() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Inscipción no realizada',
-    subHeader: 'Cuento no finalizado',
-    message: 'Por favor acaba el cuento antes de participar en el concurso',
-    buttons: ['Aceptar']
-  });
-
-  await alert.present();
-}
+    await alert.present();
+  }
 
 
-async alertcrealibro() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Inscipción no realizada',
-    subHeader: 'Has de crear y finalizar el cuento antes de inscribir',
-    message: 'Por favor  crea el cuento antes de participar en el concurso',
-    buttons: ['Aceptar']
-  });
+  async alertcrealibro() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Inscipción no realizada',
+      subHeader: 'Has de crear y finalizar el cuento antes de inscribir',
+      message: 'Por favor  crea el cuento antes de participar en el concurso',
+      buttons: ['Aceptar']
+    });
 
-  await alert.present();
-}
+    await alert.present();
+  }
 
-
-public iralibro(){
-this.router.navigate(['/libro']);
-
-}
-
-
-public iravotaciones(){
-
-  localStorage.setItem("idconcurso", this.idconcurso);
-  this.router.navigate(['/votacionesconcurso']);
   
+  async alertaNoHayLibroCreado() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Consulta no realizada',
+      subHeader: 'Este alumno aun no ha creado su libro',
+      message: 'Tu compañero tiene que crear su libro para que tu puedas verlo',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+
+  public irACrearLibro() {
+
+    this.router.navigate(['/libro']);
+
+  }
+
+  irALibro() {
+    if (this.hayLibroFinalizado == true) {
+      this.router.navigate(["reproductor/" + '1']);
+
+    }
+    else {
+      this.router.navigate(["listaescenas/" + this.idLibro]);
+
+    }
+  }
+
+  public iravotaciones() {
+
+    localStorage.setItem("idconcurso", this.idconcurso);
+    this.router.navigate(['/votacionesconcurso']);
+
   }
 
 
 
-  obtenerfecha(){
+  obtenerfecha() {
     this.date = new Date().toISOString();
     this.date = this.date.toString().split('T');
-    this.date  = this.date[0];
+    this.date = this.date[0];
     console.log(this.date);
 
-    if (this.date >= this.dateFinInscripcion ){
+    if (this.date >= this.dateFinInscripcion) {
       this.diafrontera = true;
 
     }
-    else 
-    this.aunhaytiempo = true;
-    
+    else
+      this.aunhaytiempo = true;
+
 
   }
+
+  getLibroAlumno(id)
+  {
+    this.peticionesAPI.getLibroAlumnoJuego(id)
+    .subscribe((res)=>{
+
+      if(res.length != 0)
+      {
+
+        localStorage.setItem("idLibroVer", res[0].id )
+        this.router.navigate(["reproductor/" + '2']);
+
+      }
+      else
+      {
+        this.alertaNoHayLibroCreado();
+
+      }
+
+
+    }, (err)=>{
+
+
+    })
+  }
+
+  libroAlumnoSeleccionado(alumno) {
+
+    this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)
+      .subscribe((res) => {
+
+        res.forEach(element => {
+
+          if (element.alumnoID == alumno.id) {
+
+            this.getLibroAlumno(element.id);
+            
+
+          }
+        });
+
+      }, (err) => {
+
+      })
+
+  }
+
 
 }

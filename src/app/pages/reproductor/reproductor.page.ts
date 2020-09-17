@@ -10,7 +10,10 @@ import { Input, EventEmitter, Output } from "@angular/core";
 import { Libro } from 'src/app/models/libro';
 import { threadId } from 'worker_threads';
 import { Concurso } from 'src/app/models/concurso';
-import {DataService} from '../../services/data.service';
+import { DataService } from '../../services/data.service';
+import { ActivatedRoute } from '@angular/router';
+
+import { AnyTxtRecord } from 'dns';
 
 
 @Component({
@@ -39,7 +42,7 @@ export class ReproductorPage implements OnInit {
   rate3: any;
   libro: Libro;
   puntuacion: any;
-  listapuntuacion:any = [];
+  listapuntuacion: any = [];
   listavotantes: any = [];
   duracion;
   tiempo;
@@ -57,17 +60,27 @@ export class ReproductorPage implements OnInit {
   c2: any = '';
   c3: any = '';
 
-  constructor(private peticionesAPI: PeticionesapiService, private dataservice:DataService ) {
+  modo: any = 0;
+
+  constructor(private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    this.modo = this.activatedRoute.snapshot.paramMap.get('id');
     this.rate = 0;
     this.rate1 = 0;
     this.rate2 = 0;
     this.rate3 = 0;
     this.idalumno = localStorage.getItem("idAlumno");
-    this.idLibro = localStorage.getItem("idLibro");
+
+    if (this.modo == 2) {
+      this.idLibro = localStorage.getItem("idLibroVer");
+    }
+    else {
+      this.idLibro = localStorage.getItem("idLibro");
+
+    }
 
     this.dameEscenas();
     this.damelibro();
@@ -105,7 +118,7 @@ export class ReproductorPage implements OnInit {
     this.rate2 = rate2;
 
   }
-  
+
   onRatec3(rate3) {
     console.log(rate3)
     this.rate3 = rate3;
@@ -116,20 +129,20 @@ export class ReproductorPage implements OnInit {
     var idlibro = localStorage.getItem("idLibro");
 
 
-      this.peticionesAPI.dameunlibro(idlibro)
+    this.peticionesAPI.dameunlibro(idlibro)
       .subscribe(res => {
         console.log(res);
         this.libro = res;
- 
+
         this.listapuntuacion = res.puntuacion;
         this.listavotantes = res.listavotantes;
-        this.listavotantesconcurso =  res.listavotantesconcurso;
+        this.listavotantesconcurso = res.listavotantesconcurso;
         this.criterio1guar = res.criterio1;
         this.criterio2guar = res.criterio2;
         this.criterio3guar = res.criterio3;
         this.tengoconcurso = res.inscrito;
-        
-          this.libroconcursante();
+
+        this.libroconcursante();
       });
 
 
@@ -137,19 +150,18 @@ export class ReproductorPage implements OnInit {
 
   puntuarlibro() {
 
-    if( this.listavotantes.length > 0){
-    this.listavotantes.forEach(element => {
+    if (this.listavotantes.length > 0) {
+      this.listavotantes.forEach(element => {
 
-      if (element == this.idalumno) {
-        this.votante = true
-      }
+        if (element == this.idalumno) {
+          this.votante = true
+        }
 
-    })
-  }
+      })
+    }
 
-    if (this.votante == false)
-   {
-   
+    if (this.votante == false) {
+
       this.listapuntuacion.push(this.rate);
       this.listapuntuacion = this.libro.puntuacion;
       this.listavotantes.push(this.idalumno);
@@ -172,19 +184,19 @@ export class ReproductorPage implements OnInit {
 
   }
 
-   
-  libroconcursante(){
 
-        if (this.tengoconcurso == true) {
+  libroconcursante() {
 
-
-          this.concurso = this.dataservice.getdataconcurso(500);
-          this.c1 = this.concurso.concursoPrimerCriterio;
-          this.c2 = this.concurso.concursoSegundoCriterio;
-          this.c3 = this.concurso.concursoTercerCriterio;
+    if (this.tengoconcurso == true) {
 
 
-        }
+      this.concurso = this.dataservice.getdataconcurso(500);
+      this.c1 = this.concurso.concursoPrimerCriterio;
+      this.c2 = this.concurso.concursoSegundoCriterio;
+      this.c3 = this.concurso.concursoTercerCriterio;
+
+
+    }
 
 
 
@@ -197,39 +209,43 @@ export class ReproductorPage implements OnInit {
 
 
 
-    if( this.listavotantesconcurso.length > 0){
+    if (this.listavotantesconcurso.length > 0) {
       this.listavotantesconcurso.forEach(element => {
-  
+
         if (element == this.idalumno) {
-          this.votantec  = true;
+          this.votantec = true;
         }
-  
+
       })
     }
-  
-      if (this.votantec == false)
-     {
+
+    if (this.votantec == false) {
 
       this.listavotantesconcurso.push(this.idalumno);
-     
-      this.criterio1guar.push(this.rate1);
-      this.libro.criterio1 = this.criterio1guar;
-      this.criterio2guar.push(this.rate2);
-      this.libro.criterio2 = this.criterio2guar;
-      this.criterio3guar.push(this.rate3);
-      this.libro.criterio3 = this.criterio3guar;
+
+
+      this.libro.criterio1 = this.criterio1guar + this.rate1;
+      this.libro.criterio2 = this.criterio2guar + this.rate2;
+      this.libro.criterio3 = this.criterio3guar + this.rate3;
+ 
+      // this.criterio1guar.push(this.rate1);
+      // this.libro.criterio1 = this.criterio1guar;
+      // this.criterio2guar.push(this.rate2);
+      // this.libro.criterio2 = this.criterio2guar;
+      // this.criterio3guar.push(this.rate3);
+      // this.libro.criterio3 = this.criterio3guar;
       this.peticionesAPI.modificalibro(this.libro)
-      .subscribe((res) => {
-        console.log(res)
+        .subscribe((res) => {
+          console.log(res)
 
 
-      }, (err) => { console.log(err); }
-      );
-  }
-
-
-
+        }, (err) => { console.log(err); }
+        );
     }
+
+
+
+  }
 
 
 

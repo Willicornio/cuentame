@@ -44,6 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/listaescenas/listaescenas.module').then( m => m.ListaescenasPageModule)
   },
   {
+    path: 'reproductor/:id',
+    loadChildren: () => import('./pages/reproductor/reproductor.module').then( m => m.ReproductorPageModule)
+  }, 
+  {
     path: 'reproductor',
     loadChildren: () => import('./pages/reproductor/reproductor.module').then( m => m.ReproductorPageModule)
   },
@@ -65,7 +69,8 @@ const routes: Routes = [
   {
     path: 'grupo',
     loadChildren: () => import('./pages/grupo/grupo.module').then( m => m.GrupoPageModule)
-  },  {
+  },
+  {
     path: 'juegolibro',
     loadChildren: () => import('./pages/juegolibro/juegolibro.module').then( m => m.JuegolibroPageModule)
   },

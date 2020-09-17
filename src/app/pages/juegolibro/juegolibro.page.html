@@ -23,54 +23,69 @@
 
         </ion-card>
         <ion-card>
-            <h3>TUS PRIVILEGIOS:</h3>
-            <br>
-            <div *ngIf="nivel1">
-               <h3>Has conseguido el nivel 1!</h3>
-                Puedes crear hasta 3 escenas.
+          <h3>TUS PRIVILEGIOS:</h3>
+          <br>
+          <div *ngIf="nivel1">
+            <h3>Has conseguido el nivel 1!</h3>
+            Puedes crear hasta 3 escenas.
 
-            </div>
-
-            <div *ngIf="muestracriterio1">
-              Consigue el nivel 1:
-              <h3> {{criterioprivilegio1}}</h3>
-              Y podras desbloquear la creación de 2 escenas mas!
-
-           </div>
-            <br>
-            <div *ngIf="nivel2">
-              <h3>Has conseguido el nivel 2!</h3>
-              Puedes desbloquear todas las escenas!
-            </div>
-            <div *ngIf="muestracriterio2">
-              Consigue el nivel 2:
-              <h3> {{criterioprivilegio2}}</h3>
-              Y podras crear todas la escenas de tu cuento!
-            </div>
-            <br>
-            <div *ngIf="nivel3">
-              <h3>Has conseguido el nivel 3!</h3>
-              Puedes usar fondos y personajes exclusivos!
-            </div>
-            <div *ngIf="muestracriterio3">
-              Consigue el nivel 3:
-              <h3> {{criterioprivilegio3}}</h3>
-              Y podras acceder a fondos y personajes exclusivos!
-            </div>
-            <br>
-
-        </ion-card>
-
-        <ion-card>
-    
-          <div scrolly="true" style="max-height:300px">
-            <h3>Lista de participantes</h3>
-
-            <ion-col *ngFor="let alumno of listaparticipantes">
-              <p> {{alumno.Nombre}}   {{alumno.PrimerApellido}}  {{alumno.SegundoApellido}}</p>
-            </ion-col>
           </div>
+
+          <div *ngIf="muestracriterio1">
+            Consigue el nivel 1:
+            <h3> {{criterioprivilegio1}}</h3>
+            Y podras desbloquear la creación de 2 escenas mas!
+
+          </div>
+          <br>
+          <div *ngIf="nivel2">
+            <h3>Has conseguido el nivel 2!</h3>
+            Puedes desbloquear todas las escenas!
+          </div>
+          <div *ngIf="muestracriterio2">
+            Consigue el nivel 2:
+            <h3> {{criterioprivilegio2}}</h3>
+            Y podras crear todas la escenas de tu cuento!
+          </div>
+          <br>
+          <div *ngIf="nivel3">
+            <h3>Has conseguido el nivel 3!</h3>
+            Puedes usar fondos y personajes exclusivos!
+          </div>
+          <div *ngIf="muestracriterio3">
+            Consigue el nivel 3:
+            <h3> {{criterioprivilegio3}}</h3>
+            Y podras acceder a fondos y personajes exclusivos!
+          </div>
+          <br>
+
         </ion-card>
+
+        <div *ngIf="!permisoVer">
+          <ion-card>
+
+            <div scrolly="true" style="max-height:300px">
+              <h3>Lista de participantes sin permiso para ver</h3>
+
+              <ion-col *ngFor="let alumno of listaparticipantes">
+                <p> {{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</p>
+              </ion-col>
+            </div>
+          </ion-card>
+        </div>
+        <div *ngIf="permisoVer">
+          <ion-card>
+
+            <div scrolly="true" style="max-height:300px">
+              <h3>Lista de participantes con permiso para ver</h3>
+
+              <ion-col *ngFor="let alumno of listaparticipantes">
+                <p> {{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</p>
+                <ion-icon name="eye" (click)="libroAlumnoSeleccionado(alumno)"></ion-icon>
+              </ion-col>
+            </div>
+          </ion-card>
+        </div>
       </ion-col>
 
       <ion-col>
@@ -89,12 +104,12 @@
             <p> Fecha fin de votación: {{dateFinVotacion }} </p>
 
             <div *ngIf="aunhaytiempo">
-            <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button>
+              <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button>
             </div>
             <div *ngIf="diafrontera">
-            <ion-button expand="block" (click)="iravotaciones()">Votar</ion-button>
+              <ion-button expand="block" (click)="iravotaciones()">Votar</ion-button>
+            </div>
           </div>
-        </div>
           <div *ngIf="muestraer">
             <h2> Este juego no tiene un concurso!</h2>
 
@@ -107,9 +122,17 @@
 
 
         <ion-card>
+          <h3> Taller de cuentos</h3>
+          <div *ngIf="!hayLibro">
+            <ion-button expand="block" (click)="irACrearLibro()">¡Crea tu libro!</ion-button>
+          </div>
+          <div *ngIf="hayLibro">
+            <div *ngIf="hayLibroFinalizado">
+              <p> Tu libro está finalizado, iras al reproductor </p>
+            </div>
 
-          <h3> Ir al taller de cuentos</h3>
-          <ion-button expand="block" (click)="iralibro()">Taller de cuentos</ion-button>
+            <ion-button expand="block" (click)="irALibro()">¡Entra en tu libro!</ion-button>
+          </div>
         </ion-card>
 
 

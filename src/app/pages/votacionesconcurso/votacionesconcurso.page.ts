@@ -100,7 +100,7 @@ export class VotacionesconcursoPage implements OnInit {
   irareproductor(id)
 {
   localStorage.setItem("idLibro", id);
-  this.router.navigate(['/reproductor']);
+  this.router.navigate(['/reproductor/3']);
 
 
 

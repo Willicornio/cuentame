@@ -36,7 +36,7 @@ export class PeticionesapiService {
     private httpImagenes: Http) { }
 
   public Damelibro(idalumno: string, idlibro: string): Observable<Libro> {
-    return this.http.get<Libro>(this.urlalumno + '/' + idalumno + '/libro' + '/' + idlibro);
+    return this.http.get<Libro>(this.urlalumnojuego + '/' + idalumno + '/libro' + '/' + idlibro);
   }
 
   public Damealumno(idalumno: string) {
@@ -191,6 +191,15 @@ export class PeticionesapiService {
 public getLibroAlumnoJuego(id): Observable<any> {
   return this.http.get<any>(this.urlalumnojuego+ '/' + id + '/Libro');
 }
+
+public putLibro(id, libro): Observable<any> {
+  return this.http.put<any>(this.urllibro+ '/' + id, libro);
+}
+
+
+
+
+
 
 
   
