@@ -47,7 +47,7 @@ export class VotacionesconcursoPage implements OnInit {
        
     })
     this.crearlista();
-  
+    this.dataservice.setdataconcurso(500, this.concurso);
     }, (err) => {
       
         })

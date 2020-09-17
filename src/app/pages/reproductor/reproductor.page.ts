@@ -188,16 +188,16 @@ export class ReproductorPage implements OnInit {
 
   libroconcursante() {
 
-    if (this.tengoconcurso == true) {
+    // if (this.tengoconcurso == true) {
 
 
-      this.concurso = this.dataservice.getdataconcurso(500);
-      this.c1 = this.concurso.concursoPrimerCriterio;
-      this.c2 = this.concurso.concursoSegundoCriterio;
-      this.c3 = this.concurso.concursoTercerCriterio;
+    //   this.concurso = this.dataservice.getdataconcurso(500);
+    //   this.c1 = this.concurso.concursoPrimerCriterio;
+    //   this.c2 = this.concurso.concursoSegundoCriterio;
+    //   this.c3 = this.concurso.concursoTercerCriterio;
 
 
-    }
+    // }
 
 
 
@@ -230,7 +230,7 @@ export class ReproductorPage implements OnInit {
       this.libro.criterio3 = this.criterio3guar + this.rate3;
 
  
-     this.criteriototal = this.libro.criterio1 + this.libro.criterio2 + this.libro.criterio3 ;
+     this.libro.criteriototal = this.libro.criterio1 + this.libro.criterio2 + this.libro.criterio3 ;
       this.peticionesAPI.modificalibro(this.libro)
         .subscribe((res) => {
           console.log(res)
