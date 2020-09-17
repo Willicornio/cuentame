@@ -17,6 +17,7 @@ export class Libro{
     criterio1: any;
     criterio2: any;
     criterio3: any;
+    criteriostotal: any;
     listavotantesconcurso: any;
     inscrito: any;
     puntostotalesc1:any;
@@ -36,9 +37,10 @@ export class Libro{
         listavotantes = [],
         listavotantesconcurso = [],
         inscrito = '',
-        criterio1 = [],
-        criterio2 = [],
-        criterio3 = []
+        criterio1 = '',
+        criterio2 = '',
+        criterio3 = '',
+        criteriostotal = ''
 
     ) {
         this.autor = autor,
@@ -54,7 +56,8 @@ export class Libro{
         this.inscrito = inscrito,
         this.criterio1 = criterio1,
         this.criterio2 = criterio2,
-        this.criterio3 = criterio3
+        this.criterio3 = criterio3,
+        this.criteriostotal = criteriostotal
 
 
     }

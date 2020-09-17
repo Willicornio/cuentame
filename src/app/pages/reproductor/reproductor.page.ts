@@ -47,19 +47,19 @@ export class ReproductorPage implements OnInit {
   duracion;
   tiempo;
   concurso: Concurso;
-  criterio1: any = [];;
-  criterio1guar: any = [];
-  criterio2guar: any = [];
-  criterio3guar: any = [];
-  criterio2: any = [];
-  criterio3: any = [];
+  criterio1: any ;
+  criterio1guar: any ;
+  criterio2guar: any;
+  criterio3guar: any ;
+  criterio2: any ;
+  criterio3: any ;
   votante = false;
   votantec = false;
   tengoconcurso = false;
   c1: any = '';
   c2: any = '';
   c3: any = '';
-
+  criteriototal;
   modo: any = 0;
 
   constructor(private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
@@ -140,6 +140,7 @@ export class ReproductorPage implements OnInit {
         this.criterio1guar = res.criterio1;
         this.criterio2guar = res.criterio2;
         this.criterio3guar = res.criterio3;
+        this.criteriototal = res.criteriototal;
         this.tengoconcurso = res.inscrito;
 
         this.libroconcursante();
@@ -227,13 +228,9 @@ export class ReproductorPage implements OnInit {
       this.libro.criterio1 = this.criterio1guar + this.rate1;
       this.libro.criterio2 = this.criterio2guar + this.rate2;
       this.libro.criterio3 = this.criterio3guar + this.rate3;
+
  
-      // this.criterio1guar.push(this.rate1);
-      // this.libro.criterio1 = this.criterio1guar;
-      // this.criterio2guar.push(this.rate2);
-      // this.libro.criterio2 = this.criterio2guar;
-      // this.criterio3guar.push(this.rate3);
-      // this.libro.criterio3 = this.criterio3guar;
+     this.criteriototal = this.libro.criterio1 + this.libro.criterio2 + this.libro.criterio3 ;
       this.peticionesAPI.modificalibro(this.libro)
         .subscribe((res) => {
           console.log(res)
