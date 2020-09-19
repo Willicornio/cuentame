@@ -31,6 +31,8 @@ export class PeticionesapiService {
   private urlFrame = this.base + '3000/api/frames';
   private urljuegolibro = this.base + '3000/api/juegodelibro';
   private urlalumnojuego = this.base + '3000/api/alumnojuegodecuento';
+  private urlconcurso = this.base + '3000/api/juegoLibroConcursos';
+
 
   constructor(private http: HttpClient,
     private httpImagenes: Http) { }
@@ -197,6 +199,9 @@ public putLibro(id, libro): Observable<any> {
 }
 
 
+public putConcurso(id, concurso): Observable<any> {
+  return this.http.put<any>(this.urlconcurso+ '/' + id, concurso);
+}
 
 
 

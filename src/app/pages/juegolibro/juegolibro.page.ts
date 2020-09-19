@@ -6,6 +6,7 @@ import { Concurso } from 'src/app/models/concurso';
 import { AlertController } from '@ionic/angular';
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
+import { Libro } from 'src/app/models/libro';
 
 @Component({
   selector: 'app-juegolibro',
@@ -50,7 +51,7 @@ export class JuegolibroPage implements OnInit {
   muestracriterio3 = false;
   muestracriterio2 = false;
   muestracriterio1 = false;
-
+  libroalumno: Libro;
   hayLibro: any = false;
   idLibro: any;
 
@@ -92,9 +93,6 @@ export class JuegolibroPage implements OnInit {
 
 
 
-
-    /////////aaaaaaaaa/////////
-
   }
 
 
@@ -111,6 +109,7 @@ export class JuegolibroPage implements OnInit {
           if (element.alumnoID == this.idalumno) {
 
             localStorage.setItem('idalumnojuego', element.id)
+            this.idalumnojuegodelibro = element.id;
             this.nivel1 = element.nivel1;
             this.nivel2 = element.nivel2;
             this.nivel3 = element.nivel3;
@@ -127,8 +126,8 @@ export class JuegolibroPage implements OnInit {
 
   getLibro() {
 
-    var id = localStorage.getItem('idalumnojuego');
-    this.peticionesAPI.getLibroAlumnoJuego(id)
+
+    this.peticionesAPI.getLibroAlumnoJuego(this.idalumnojuegodelibro)
       .subscribe((res) => {
         if (res.length == 0) {
           this.hayLibro = false;
@@ -137,6 +136,7 @@ export class JuegolibroPage implements OnInit {
         else if (res.length != 0) {
           this.hayLibro = true;
           this.idLibro = res[0].id;
+          this.libroalumno = res[0];
           this.hayLibroFinalizado = res[0].finalizado;
           localStorage.setItem("idLibro", this.idLibro);
 
@@ -161,8 +161,8 @@ export class JuegolibroPage implements OnInit {
 
   obtenerLibroAlumnoJuego() {
 
-    var ida = localStorage.getItem('idalumnojuego');
-    this.peticionesAPI.getLibroAlumnoJuego(ida)
+
+    this.peticionesAPI.getLibroAlumnoJuego(this.idalumnojuegodelibro)
 
 
       .subscribe((res) => {
@@ -224,7 +224,7 @@ export class JuegolibroPage implements OnInit {
           this.dateFinInscripcion = this.dateFinInscripcion.toString().split('T');
           this.dateFinInscripcion = this.dateFinInscripcion[0];
           this.concursoTematica = cosa.concursoTematica;
-          this.listainscripcipnes = cosa.listainscripcipnes;
+          this.listainscripcipnes = cosa.listaLibrosParticipantes;
           this.muestra();
 
           this.obtenerfecha();
@@ -252,47 +252,47 @@ export class JuegolibroPage implements OnInit {
   public inscribirlibro() {
 
 
-    var ida = localStorage.getItem('idalumnojuego');
-    this.peticionesAPI.getLibroAlumnoJuego(ida)
-
- 
-
-      // if ( res.length != 0)
-      // {
-      //   var idlibro = res[0].id;
-      //   var finalizado = res[0].finalizado;
-      //   if(finalizado == true){
-
-      .subscribe((res) => {
-
-        var idlibro = res[0].id;
-        var finalizado = res[0].finalizado;
-
-        if (res != null) {
-
-          if (finalizado == true) {
-
-            this.listainscripcipnes.push(res);
-
-            this.alertinscribir();
-          }
 
 
+    if (this.hayLibro == true) {
 
-          if (finalizado == false) {
+      if (this.libroalumno.finalizado == true) {
 
-            this.alertnoestafinalizado();
-          }
+        this.listainscripcipnes.push(this.libroalumno.id);
+
+        this.alertinscribir();
+
+        this.peticionesAPI.putConcurso(this.id, this.concurso)
+
+        .subscribe((res) => {
 
 
-        }
+        }, (err) => {
+      
+          console.log(err);
+
+        })
 
 
-      }, (err) => {
-        this.alertcrealibro();
-      })
+      }
+
+
+      if (this.libroalumno.finalizado == false) {
+
+        this.alertnoestafinalizado();
+      }
+
+
+    }
+    if (this.hayLibro == false) {
+
+      this.alertcrealibro();
+    }
+
 
   }
+
+
 
   async alertinscribir() {
     const alert = await this.alertController.create({
@@ -331,7 +331,7 @@ export class JuegolibroPage implements OnInit {
     await alert.present();
   }
 
-  
+
   async alertaNoHayLibroCreado() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -387,29 +387,26 @@ export class JuegolibroPage implements OnInit {
 
   }
 
-  getLibroAlumno(id)
-  {
+  getLibroAlumno(id) {
     this.peticionesAPI.getLibroAlumnoJuego(id)
-    .subscribe((res)=>{
+      .subscribe((res) => {
 
-      if(res.length != 0)
-      {
+        if (res.length != 0) {
 
-        localStorage.setItem("idLibroVer", res[0].id )
-        this.router.navigate(["reproductor/" + '2']);
+          localStorage.setItem("idLibroVer", res[0].id)
+          this.router.navigate(["reproductor/" + '2']);
 
-      }
-      else
-      {
-        this.alertaNoHayLibroCreado();
+        }
+        else {
+          this.alertaNoHayLibroCreado();
 
-      }
+        }
 
 
-    }, (err)=>{
+      }, (err) => {
 
 
-    })
+      })
   }
 
   libroAlumnoSeleccionado(alumno) {
@@ -422,7 +419,7 @@ export class JuegolibroPage implements OnInit {
           if (element.alumnoID == alumno.id) {
 
             this.getLibroAlumno(element.id);
-            
+
 
           }
         });
