@@ -12,7 +12,7 @@ import { threadId } from 'worker_threads';
 import { Concurso } from 'src/app/models/concurso';
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { SocketsService}from '../../services/sockets.service';
 import { AnyTxtRecord } from 'dns';
 
 
@@ -61,17 +61,20 @@ export class ReproductorPage implements OnInit {
   c3: any = '';
   criteriototal;
   modo: any = 0;
-
-  constructor(private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
+  notificacionvotar = 'a';
+  constructor(private socketservice: SocketsService ,private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+
+    this.socketservice.conectar();
     this.modo = this.activatedRoute.snapshot.paramMap.get('id');
     this.rate = 0;
     this.rate1 = 0;
     this.rate2 = 0;
     this.rate3 = 0;
+
     this.idalumno = localStorage.getItem("idAlumno");
 
     if (this.modo == 2) {
@@ -85,6 +88,10 @@ export class ReproductorPage implements OnInit {
     this.dameEscenas();
     this.damelibro();
 
+    //////////borrar esto/////////////
+    ////////////////////////////////
+    //////////////////////////////////
+    this.socketservice.votarnoti(this.notificacionvotar);
   }
 
   slideOpts = {
@@ -234,7 +241,7 @@ export class ReproductorPage implements OnInit {
       this.peticionesAPI.modificalibro(this.libro)
         .subscribe((res) => {
           console.log(res)
-
+          this.socketservice.votarnoti(this.notificacionvotar);
 
         }, (err) => { console.log(err); }
         );
