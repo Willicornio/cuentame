@@ -5,48 +5,48 @@
 </ion-header>
 <ion-content fullscreen>
   <ion-grid>
-    
+
     <ion-row>
-        <ion-col>
-      
+      <ion-col>
 
-          <div class="ion-canvas">
-            <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
-          </div>
 
-      
+        <div class="ion-canvas">
+          <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
+        </div>
+
+
       </ion-col>
-    
-  
+
+
       <ion-col>
         <ion-card>
 
 
 
 
-        <ion-button expand="block" (click)="irAFondos()"> SELECCIONAR FONDO</ion-button>
-        <br>
-        <ion-button expand="block" (click)="irAPersonajes()"> SELECCIONAR PERSONAJES
-        </ion-button>
-        <br>
-        <ion-button expand="block" (click)="crearRepo()"> El boton multiusos 
-        </ion-button>
-        <br>
-        <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
-        <br>
-        <ion-button expand="block" routerLink="/libro" routerDirection="root"> IR A LIBRO </ion-button>
-        <br>
-        <ion-button expand="block" routerLink="/" routerDirection="root"> IR A INICO </ion-button>
-        <br>
-        <ion-button expand="block"(click)="guardar()">GUARDAR </ion-button>
-        <br>
-        <ion-button expand="block"(click)="saveTheFrames()">Guardar los frames</ion-button>
+          <ion-button expand="block" (click)="irAFondos()"> SELECCIONAR FONDO</ion-button>
+          <br>
+          <ion-button expand="block" (click)="irAPersonajes()"> SELECCIONAR PERSONAJES
+          </ion-button>
+          <br>
+          <ion-button expand="block" (click)="crearRepo()"> El boton multiusos
+          </ion-button>
+          <br>
+          <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+          <br>
+          <ion-button expand="block" routerLink="/libro" routerDirection="root"> IR A LIBRO </ion-button>
+          <br>
+          <ion-button expand="block" routerLink="/" routerDirection="root"> IR A INICO </ion-button>
+          <br>
+          <ion-button expand="block" (click)="guardar()">GUARDAR </ion-button>
+          <br>
+          <ion-button expand="block" (click)="saveTheFrames()">Guardar los frames</ion-button>
 
         </ion-card>
       </ion-col>
 
     </ion-row>
-  
+
     <ion-row>
 
 
@@ -60,12 +60,12 @@
           <ion-button type="submit" expand="full">Cargar dialogo</ion-button>
         </form>
       </ion-card>
- 
-     
 
 
 
-       <ion-col>
+
+
+      <ion-col>
         <ion-card>
 
           <div (click)="antiNextFrame()">
@@ -100,7 +100,7 @@
 
         </ion-card>
 
-      </ion-col>  
+      </ion-col>
       <ion-col>
       </ion-col>
 
@@ -138,12 +138,12 @@
     </ion-row>
     <ion-row>
 
-        <ion-card> 
-          <img src={{imagenRedimension}} width={{imagenWeith}} height={{imagenHeigth}}>
-          <ion-button (click)="masTamano()">+</ion-button>
-          <ion-button (click)="menosTamano()">-</ion-button>
-  
-        </ion-card>
+      <ion-card>
+        <img src={{imagenRedimension}} width={{imagenWeith}} height={{imagenHeigth}}>
+        <ion-button (click)="masTamano()">+</ion-button>
+        <ion-button (click)="menosTamano()">-</ion-button>
+
+      </ion-card>
 
       <ion-col>
 
@@ -153,10 +153,17 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col offset-4>
+      <div>
+        <ion-col offset-4>
+          <input #file id="inputVoz" type="file" accept=".mp3,audio/*" (change)="SeleccionarFicheroVoz($event)"
+            style="display:none">
+          <ion-button color="danger" (click)="ActivarInput();">Pon voz</ion-button>
+        </ion-col>
+      </div>
 
-      </ion-col>
       <ion-col>
+        <audio controls src = {{audioFrame}} *ngIf = 'tieneVoz' style="margin-bottom: 20%">   </audio>
+
 
       </ion-col>
     </ion-row>

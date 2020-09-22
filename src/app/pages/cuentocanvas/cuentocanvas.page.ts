@@ -108,6 +108,8 @@ export class CuentocanvasPage implements OnInit {
 
    blobString: any;
 
+   audioFrame: any;
+   tieneVoz: any = false;
 
    public PtagClicked: boolean = false;
 
@@ -394,9 +396,9 @@ export class CuentocanvasPage implements OnInit {
       this.escenaFrames.numeroFrames = newEscenaNumeroFrames;
 
       this.escenaFrames.frames.forEach(frame => {
-         
+
          frame.personajes.forEach(element => {
-            
+
             element.url = "";
          });
       });
@@ -1303,21 +1305,20 @@ export class CuentocanvasPage implements OnInit {
       return new File([u8arr], filename, { type: mime });
    }
 
-   //Usage example:
 
-   //     base64toBlob(base64Data, contentType) {
+   ActivarInput() {
+      console.log('Activar input');
+      document.getElementById('inputVoz').click();
+   }
 
-   //       var png = base64Data.split(',')[1];
 
-   //       var the_file = new Blob([window.atob(png)],{type: 'image/png'});
 
-   //       var fr = new FileReader();
-   //       fr.onload = function ( oFREvent ) {
-   //           var v = oFREvent.target.result.split(',')[1]; // encoding is messed up here, so we fix it
-   //           v = atob(v);
-   //           var good_b64 = btoa(decodeURIComponent(escape(v)));
-   //          //  document.getElementById("uploadPreview").src = "data:image/png;base64," + good_b64;
-   //       };
-   //       fr.readAsDataURL(the_file);
-   //   }
+   SeleccionarFicheroVoz($event) {
+
+      this.tieneVoz = true;
+      const file = $event.target.files[0];
+      const formDataOpcion = new FormData();
+      formDataOpcion.append(file.fileName, file);
+      this.audioFrame = formDataOpcion;
+   }
 }
