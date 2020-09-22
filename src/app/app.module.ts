@@ -10,6 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
 import { IonicRatingModule } from 'ionic4-rating';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+
+
 // import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
 
 
@@ -23,6 +26,8 @@ import { IonicRatingModule } from 'ionic4-rating';
     HttpClientModule,
     // ImageResizer,
     Camera,
+    NativeAudio, // New provider, don't forget to add comma
+
    
      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

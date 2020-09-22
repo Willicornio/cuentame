@@ -27,15 +27,18 @@
     "@ionic-native/image-resizer": "^4.20.0",
     "@ionic-native/media": "^5.27.0",
     "@ionic-native/media-capture": "^4.20.0",
+    "@ionic-native/native-audio": "^5.28.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.3.0",
     "angular-slick": "0.0.0",
+    "cordova-browser": "6.0.0",
     "cordova-ios": "5.1.1",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-media-capture": "^3.0.3",
+    "howler": "^2.2.0",
     "info.protonet.imageresizer": "^0.1.1",
     "ionic4-rating": "^1.0.9",
     "rxjs": "~6.5.1",
@@ -52,6 +55,7 @@
     "@angular/language-service": "~9.1.6",
     "@capacitor/cli": "2.2.1",
     "@ionic/angular-toolkit": "^2.1.1",
+    "@ionic/lab": "3.2.7",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
@@ -59,6 +63,7 @@
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
+    "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -85,10 +90,12 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "info.protonet.imageresizer": {}
+      "info.protonet.imageresizer": {},
+      "cordova-plugin-nativeaudio": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "browser"
     ]
   }
 }
