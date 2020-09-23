@@ -114,7 +114,7 @@ export class ListaescenasPage implements OnInit {
       this.bajarEscena();
     }
     else {
-this.convertBlobsToString(escena);
+this.convertBlobsToString2(escena);
     
     }
 
@@ -193,6 +193,45 @@ this.convertBlobsToString(escena);
  }
 
 
+async convertBlobsToString2(escena){
+   
+  this.iWithStringBlob = 0;
+  var listaFotoRecuros = this.dataService.getDataRecursos(0);
+
+  this.lengthwithStringBlob = listaFotoRecuros.length;
+
+     for (const element of listaFotoRecuros) {
+           const a = new Promise<any>((resolve, reject) => {
+              const blob = element.url;
+              const reader = new FileReader();
+              reader.onloadend = (event) => {
+                if(reader.error){
+                } else {
+
+
+                this.iWithStringBlob = this.iWithStringBlob + 1;
+                 element.url = reader.result.toString();
+                 this.listaRecursosWithStrings.push(element);
+
+                 if(this.iWithStringBlob == this.lengthwithStringBlob)
+                 {
+                    this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+                    this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+                 }
+                 resolve(reader);
+              }
+            
+           }
+           if (blob) {
+            reader.readAsDataURL(blob);
+          }
+          });
+
+        };
+
+
+}
 
 
   async convertBlobsToString(escena){

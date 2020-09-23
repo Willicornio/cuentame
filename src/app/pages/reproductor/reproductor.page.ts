@@ -283,14 +283,44 @@ export class ReproductorPage implements OnInit {
           res.forEach(element => {
             lista.push(element);
           });
-          this.obtenerFrames(lista);
+          this.obtenerFrames2(lista);
         });
 
 
     });
 
   }
-  obtenerFrames(lista) {
+  // obtenerFrames(lista) {
+
+  //   /////////////////cambiar var contenedor///////////////////////////
+  //   var contenedor = this.libro.titulo;
+  //   lista.forEach(element => {
+
+  //     this.listaFondos.push(element.portadaFrame);
+
+
+  //     this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
+  //       .subscribe((res) => {
+  //         const blob = new Blob([res.blob()], { type: 'image/png' });
+
+  //         const reader = new FileReader();
+  //         reader.addEventListener('load', () => {
+
+  //           this.fotoimagen = reader.result.toString();
+  //           this.listaFotos.push(this.fotoimagen);
+
+
+  //         }, false);
+
+  //         if (blob) {
+  //           reader.readAsDataURL(blob);
+  //         }
+  //       });
+  //   });
+
+  // }
+
+  obtenerFrames2(lista) {
 
     /////////////////cambiar var contenedor///////////////////////////
     var contenedor = this.libro.titulo;
@@ -304,27 +334,22 @@ export class ReproductorPage implements OnInit {
           const blob = new Blob([res.blob()], { type: 'image/png' });
 
           const reader = new FileReader();
-          reader.addEventListener('load', () => {
-
-            this.fotoimagen = reader.result.toString();
-            this.listaFotos.push(this.fotoimagen);
-
-
-          }, false);
+          reader.onloadend = (event) => {
+            if(reader.error){
+              console.log(reader.error)
+            } else {
+              this.fotoimagen = reader.result.toString();
+              this.listaFotos.push(this.fotoimagen);
+              }
+          };
 
           if (blob) {
             reader.readAsDataURL(blob);
           }
-
-
-
-
-
         });
     });
 
   }
-
 
 
 
