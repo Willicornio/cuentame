@@ -153,9 +153,16 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <div>
+      <div *ngIf='showButtonAudioFrame'>
         <ion-col offset-4>
           <input #file id="inputVoz" type="file" accept=".mp3,audio/*" (change)="SeleccionarFicheroVoz($event)"
+            style="display:none">
+          <ion-button color="danger" (click)="ActivarInput();">Pon voz</ion-button>
+        </ion-col>
+      </div>
+      <div *ngIf='showButtonFondoFrame'>
+        <ion-col offset-4>
+          <input #file id="inputVoz" type="file" accept=".mp3,audio/*" (change)="seleccionarFicheroVozFondo($event)"
             style="display:none">
           <ion-button color="danger" (click)="ActivarInput();">Pon voz</ion-button>
         </ion-col>
@@ -163,8 +170,6 @@
 
       <ion-col>
         <audio controls src = {{audioFrame}} *ngIf = 'tieneVoz' style="margin-bottom: 20%">   </audio>
-
-
       </ion-col>
     </ion-row>
     <ion-row>

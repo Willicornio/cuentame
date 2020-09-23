@@ -135,6 +135,8 @@ this.convertBlobsToString2(escena);
     escenaNew.duracionFrame = 2;
     escenaNew.maximoFrames = 10;
     escenaNew.numeroEscena = this.listaEscenas.length;
+    escenaNew.tipoAudio = "frame";
+    escenaNew.urlAudioFondo = "no";
 
     this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
       .subscribe((res) => {
