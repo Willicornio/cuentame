@@ -77,7 +77,11 @@ const routes: Routes = [
   {
     path: 'votacionesconcurso',
     loadChildren: () => import('./pages/votacionesconcurso/votacionesconcurso.module').then( m => m.VotacionesconcursoPageModule)
+  },  {
+    path: 'resultadosconcurso',
+    loadChildren: () => import('./pages/resultadosconcurso/resultadosconcurso.module').then( m => m.ResultadosconcursoPageModule)
   }
+
 
 
 

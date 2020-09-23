@@ -11,6 +11,7 @@ export class Concurso{
     peso1: number;
     peso2: number;
     peso3: number;
+    acabado: any;
     
    
     constructor(

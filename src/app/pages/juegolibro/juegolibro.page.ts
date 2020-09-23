@@ -33,6 +33,7 @@ export class JuegolibroPage implements OnInit {
   concursoTercerCriterio;
   dateFinInscripcion;
   dateFinVotacion;
+  acabado;
   muestrame = false;
   muestraer = false;
   juegodelibro: juegolibro;
@@ -40,6 +41,7 @@ export class JuegolibroPage implements OnInit {
   date;
   diafrontera = false;
   aunhaytiempo = false;
+  muestraresul;
   idalumno;
   idalumnojuegodelibro;
   descripcion;
@@ -225,7 +227,10 @@ export class JuegolibroPage implements OnInit {
           this.dateFinInscripcion = this.dateFinInscripcion[0];
           this.concursoTematica = cosa.concursoTematica;
           this.listainscripcipnes = cosa.listaLibrosParticipantes;
+          this.acabado = cosa.acabado;
           this.muestra();
+          this.estaacabado();
+     
 
           this.obtenerfecha();
         })
@@ -236,6 +241,11 @@ export class JuegolibroPage implements OnInit {
 
   }
 
+  estaacabado(){
+if ( this.acabado = true)
+ this.muestraresul = true; 
+    
+  }
   public muestra() {
     this.muestrame = true;
 
@@ -366,6 +376,13 @@ export class JuegolibroPage implements OnInit {
 
     localStorage.setItem("idconcurso", this.idconcurso);
     this.router.navigate(['/votacionesconcurso']);
+
+  }
+
+  public iraresultados() {
+
+    localStorage.setItem("idconcurso", this.idconcurso);
+    this.router.navigate(['/resultadosconcurso']);
 
   }
 

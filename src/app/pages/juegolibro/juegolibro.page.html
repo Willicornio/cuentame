@@ -109,6 +109,9 @@
             <div *ngIf="diafrontera">
               <ion-button expand="block" (click)="iravotaciones()">Votar</ion-button>
             </div>
+            <div *ngIf="muestraresul">
+              <ion-button expand="block" (click)="iraresultados()">Resultados</ion-button>
+            </div>
           </div>
           <div *ngIf="muestraer">
             <h2> Este juego no tiene un concurso!</h2>
