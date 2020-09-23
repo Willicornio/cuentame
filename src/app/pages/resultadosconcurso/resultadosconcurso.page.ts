@@ -14,11 +14,12 @@ import { Libro } from 'src/app/models/libro';
   styleUrls: ['./resultadosconcurso.page.scss'],
 })
 export class ResultadosconcursoPage implements OnInit {
-
+  toptres: Libro[];
   concurso: any;
   listainscripcipnes: [];
   listalibros: Libro[];
   muestralista: Libro[];
+
   constructor(private router: Router, private peticionesAPI: PeticionesapiService, public alertController: AlertController) { }
 
   ngOnInit() {
@@ -93,12 +94,24 @@ export class ResultadosconcursoPage implements OnInit {
     this.muestralista = [];
     console.log(this.listalibros);
 
-    this.muestralista = this.listalibros; 
+    this.muestralista = this.listalibros;
     this.muestralista.reverse();
     console.log(this.muestralista);
+    this.hacertoptres();
   }
 
+  hacertoptres() {
+    this.toptres = [];
+    var i = 0;
+    this.muestralista.forEach(cosa => {
+    if (i < 3) {
+      this.toptres.push(cosa)
+      i = i + 1;
 
+    }
+  });
+    console.log(this.toptres);
+  }
 
 
 }

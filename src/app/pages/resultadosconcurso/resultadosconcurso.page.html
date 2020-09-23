@@ -6,6 +6,24 @@
 
 <ion-content>
 
+
+  <ion-grid>
+    <ion-row>
+  
+      <ion-col  *ngFor="let libro of toptres">
+  
+        <ion-card>
+          <h3> {{libro.titulo}} </h3>
+          <h3> {{libro.autor}} </h3>
+          <h3> {{libro.criteriototal}} </h3>
+        </ion-card>
+   
+    
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
   <ion-col size="3" *ngFor="let libro of muestralista">
 
     <h3> {{libro.titulo}} </h3>
