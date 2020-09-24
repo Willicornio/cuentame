@@ -57,7 +57,8 @@ export class ListaescenasPage implements OnInit {
 
 
     this.libroJuego = new juegolibro();
-    this.libroJuego.id = 25;
+    this.libroJuego.id = localStorage.getItem("idjuegolibro");
+
 
     this.cargarRecursos();
 
