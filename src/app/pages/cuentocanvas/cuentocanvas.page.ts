@@ -801,6 +801,11 @@ export class CuentocanvasPage implements OnInit {
          this.escenaFrames.numeroFrames
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         var contenedor = localStorage.getItem("contenedor");
+         if(this.frameActual.audioUrl != "")
+         {
+            this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+         }
       }
 
       if (this.escenaFrames.frames[this.frameActual.numero] == undefined || this.escenaFrames.frames[this.frameActual.numero] == "undefined") {
@@ -825,6 +830,12 @@ export class CuentocanvasPage implements OnInit {
          this.escenaFrames.numeroframeActual = numero - 1;
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         var contenedor = localStorage.getItem("contenedor");
+
+         if(this.frameActual.audioUrl != "")
+         {
+            this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+         }
          this.buttonNewFrame = false;
       }
       console.log("antinext");
