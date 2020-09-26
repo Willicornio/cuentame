@@ -155,7 +155,8 @@ export class CuentocanvasPage implements OnInit {
             if(this.escenaFrames.urlAudioFondo != "no")
             {
                var contenedor = localStorage.getItem("contenedor");
-               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download" + this.frameActual.audioUrl;
+               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+               this.tieneVoz = true;
             }
           
 
@@ -169,7 +170,8 @@ export class CuentocanvasPage implements OnInit {
                if(this.frameActual.audioUrl != [])
                {
                   var contenedor = localStorage.getItem("contenedor");
-                  this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download" + this.frameActual.audioUrl;
+                  this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+                  this.tieneVoz = true;
                }
                this.drawimages(this.frameActual.personajes);
                this.listaPersonajeFrameActual = this.frameActual.personajes;
@@ -414,7 +416,15 @@ export class CuentocanvasPage implements OnInit {
             this.frameActual = this.escenaFrames.frames[0];
             var contenedor = localStorage.getItem("contenedor");
 
-            this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download" + this.frameActual.audioUrl;
+            if(this.frameActual.audioUrl != "" && this.tipoDeAudio == "frame")
+            {
+               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+               this.tieneVoz = true;
+            }
+            else if (this.frameActual.audioUrl == "" && this.tipoDeAudio == "frame")
+            {
+               this.tieneVoz = true;  
+            }
             if (this.escenaFrames.frames.length != 1) {
                this.buttonNewFrame = false;
                this.firstDrawImages(this.frameActual.personajes);
@@ -794,6 +804,7 @@ export class CuentocanvasPage implements OnInit {
 
    nextFrame() {
 
+      this.tieneVoz = false;
       if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero];
@@ -805,6 +816,7 @@ export class CuentocanvasPage implements OnInit {
          if(this.frameActual.audioUrl != "")
          {
             this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+            this.tieneVoz = true;
          }
       }
 
@@ -824,6 +836,7 @@ export class CuentocanvasPage implements OnInit {
 
    antiNextFrame() {
 
+      this.tieneVoz = false;
       if (this.frameActual.numero > 1) {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero - 2];
@@ -835,6 +848,7 @@ export class CuentocanvasPage implements OnInit {
          if(this.frameActual.audioUrl != "")
          {
             this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+            this.tieneVoz = true;
          }
          this.buttonNewFrame = false;
       }
