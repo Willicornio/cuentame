@@ -1,3 +1,5 @@
+import { url } from 'inspector';
+
 export class EscenaFrames{
 
     fondo: any;
@@ -7,6 +9,8 @@ export class EscenaFrames{
     numeroFrames: number;
     numeroframeActual: number;
     numeroEscena: any;
+    tipoAudio: any;
+    urlAudioFondo: any;
     id: any;
     idLibro: any;
    
@@ -17,6 +21,8 @@ export class EscenaFrames{
         numeroFrames = 1,
         numeroframeActual = 1,
         numeroEscena = '',
+        tipoAudio= '',
+        urlAudioFondo= ''
 
     ) {
 
@@ -25,6 +31,8 @@ export class EscenaFrames{
      this.maximoFrames = maximoFrames,
      this.numeroFrames = numeroFrames,
      this.numeroframeActual = numeroframeActual,
-     this.numeroEscena = numeroEscena
+     this.numeroEscena = numeroEscena,
+     this.tipoAudio = tipoAudio,
+     this.urlAudioFondo = urlAudioFondo
     }
 }

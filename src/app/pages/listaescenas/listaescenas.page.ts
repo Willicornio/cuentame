@@ -57,7 +57,8 @@ export class ListaescenasPage implements OnInit {
 
 
     this.libroJuego = new juegolibro();
-    this.libroJuego.id = 25;
+    this.libroJuego.id = localStorage.getItem("idjuegolibro");
+
 
     this.cargarRecursos();
 
@@ -135,6 +136,8 @@ this.convertBlobsToString2(escena);
     escenaNew.duracionFrame = 2;
     escenaNew.maximoFrames = 10;
     escenaNew.numeroEscena = this.listaEscenas.length;
+    escenaNew.tipoAudio = "frame";
+    escenaNew.urlAudioFondo = "no";
 
     this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
       .subscribe((res) => {

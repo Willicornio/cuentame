@@ -20,6 +20,8 @@ import { ImagenFrame } from '../../models/imagenFrame';
 import { juegolibro } from '../../models/juegolibro';
 import { ImagenRecurso } from '../../models/imagenRecurso';
 
+import * as URL from '../../services/url';
+
 
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
@@ -111,6 +113,9 @@ export class CuentocanvasPage implements OnInit {
    audioFrame: any;
    tieneVoz: any = false;
 
+   tipoDeAudio: any = "";
+   showButtonAudioFrame: any = false;
+   showButtonFondoFrame: any = false;
    public PtagClicked: boolean = false;
 
    constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute) {
@@ -135,6 +140,25 @@ export class CuentocanvasPage implements OnInit {
          if (this.dataService.getData(i) != undefined && this.dataService.getData(i) != "undefined") {
 
             this.escenaFrames = this.dataService.getData(i);
+            this.tipoDeAudio = this.escenaFrames.tipoAudio;
+
+
+            if(this.escenaFrames.tipoAudio = "frame")
+            {
+               this.showButtonAudioFrame = true;
+            }
+
+            else{
+               this.showButtonFondoFrame = true;
+            }
+
+            if(this.escenaFrames.urlAudioFondo != "no")
+            {
+               var contenedor = localStorage.getItem("contenedor");
+               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+               this.tieneVoz = true;
+            }
+          
 
             if (this.src == "tengo") {
                this.escenaFrames.fondo = this.dataService.getDataRecursos(500);
@@ -143,10 +167,21 @@ export class CuentocanvasPage implements OnInit {
 
             if (this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != undefined && this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1] != "undefined") {
                this.frameActual = this.escenaFrames.frames[this.escenaFrames.numeroframeActual - 1];
+               if(this.frameActual.audioUrl != [])
+               {
+                  var contenedor = localStorage.getItem("contenedor");
+                  this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+                  this.tieneVoz = true;
+               }
                this.drawimages(this.frameActual.personajes);
                this.listaPersonajeFrameActual = this.frameActual.personajes;
                console.log("Estamos de vuelta en la Home del cuento");
                console.log(this.escenaFrames);
+
+             
+
+
+
 
                this.i = this.iNumber + 1;
             }
@@ -329,8 +364,19 @@ export class CuentocanvasPage implements OnInit {
 
       this.peticionesApiService.getEscena(id).subscribe(async (res) => {
          this.escenaFrames = res as EscenaFrames;
-         await this.getFrames(id);
+         this.tipoDeAudio = this.escenaFrames.tipoAudio;
 
+         if(this.tipoDeAudio == "frame")
+      {
+         this.showButtonAudioFrame = true;
+      }
+      else 
+      {
+         this.showButtonFondoFrame = true;
+      }
+
+
+         await this.getFrames(id);
       }, (err) => {
          console.log(err);
       })
@@ -368,6 +414,17 @@ export class CuentocanvasPage implements OnInit {
             this.escenaFrames.frames = listaFrames;
 
             this.frameActual = this.escenaFrames.frames[0];
+            var contenedor = localStorage.getItem("contenedor");
+
+            if(this.frameActual.audioUrl != "" && this.tipoDeAudio == "frame")
+            {
+               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+               this.tieneVoz = true;
+            }
+            else if (this.frameActual.audioUrl == "" && this.tipoDeAudio == "frame")
+            {
+               this.tieneVoz = true;  
+            }
             if (this.escenaFrames.frames.length != 1) {
                this.buttonNewFrame = false;
                this.firstDrawImages(this.frameActual.personajes);
@@ -747,6 +804,7 @@ export class CuentocanvasPage implements OnInit {
 
    nextFrame() {
 
+      this.tieneVoz = false;
       if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero];
@@ -754,6 +812,12 @@ export class CuentocanvasPage implements OnInit {
          this.escenaFrames.numeroFrames
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         var contenedor = localStorage.getItem("contenedor");
+         if(this.frameActual.audioUrl != "")
+         {
+            this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+            this.tieneVoz = true;
+         }
       }
 
       if (this.escenaFrames.frames[this.frameActual.numero] == undefined || this.escenaFrames.frames[this.frameActual.numero] == "undefined") {
@@ -772,12 +836,20 @@ export class CuentocanvasPage implements OnInit {
 
    antiNextFrame() {
 
+      this.tieneVoz = false;
       if (this.frameActual.numero > 1) {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero - 2];
          this.escenaFrames.numeroframeActual = numero - 1;
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         var contenedor = localStorage.getItem("contenedor");
+
+         if(this.frameActual.audioUrl != "")
+         {
+            this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+            this.tieneVoz = true;
+         }
          this.buttonNewFrame = false;
       }
       console.log("antinext");
@@ -1317,8 +1389,37 @@ export class CuentocanvasPage implements OnInit {
 
       this.tieneVoz = true;
       const file = $event.target.files[0];
-      const formDataOpcion = new FormData();
-      formDataOpcion.append(file.fileName, file);
-      this.audioFrame = formDataOpcion;
+
+      var contenedor = localStorage.getItem("contenedor");
+
+
+
+      if (this.frameActual.audioUrl) {
+         // borro el fichero de audio de la voz anterior
+         this.peticionesApiService.BorraAudioFrame(contenedor,this.frameActual.audioUrl).subscribe();
+       }
+   
+       this.frameActual.audioUrl = file.name; 
+
+      this.peticionesApiService.putFrame(this.escenaFrames.id, this.frameActual.id, this.frameActual)
+       .subscribe ();
+
+
+       const formDataOpcion = new FormData();
+       formDataOpcion.append(file.fileName, file);
+       this.peticionesApiService.ponAudioFrame(contenedor, formDataOpcion)
+       .subscribe(async () => {
+         this.tieneVoz = true;
+           // Notifico al server que se ha modificado un avatar
+         this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+
+       });
+
+
+   }
+
+   seleccionarFicheroVozFondo($event)
+   {
+
    }
 }

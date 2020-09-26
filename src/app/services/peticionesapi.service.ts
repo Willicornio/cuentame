@@ -205,8 +205,21 @@ public putConcurso(id, concurso): Observable<any> {
 
 
 
+public BorraAudioFrame (contenedor, file):Observable<any>{
+  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/' + file) ;
+
+}
+
+public BorraAudioEscena (contenedor, file):Observable<any>{
+  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/' + file) ;
+
+}
 
 
+public ponAudioFrame(contenedor: string, formData: FormData): Observable<any> {
+  return this.http.post<any>(this.urlimagenes + '/' + contenedor + '/upload', formData);
+
+}
   
   //  MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);
