@@ -92,6 +92,12 @@ export class ReproductorPage implements OnInit {
     ////////////////////////////////
     //////////////////////////////////
     this.socketservice.votarnoti(this.notificacionvotar);
+    this.socketservice.recibirprueba()
+    .subscribe((res: any) => {
+
+      console.log(res);
+    });
+
   }
 
   slideOpts = {
