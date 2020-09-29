@@ -12,6 +12,10 @@ export class Concurso{
     peso2: number;
     peso3: number;
     acabado: any;
+    primerpuesto: any;
+    segundopuesto: any;
+    tercerpuesto: any;
+
     
    
     constructor(
@@ -29,6 +33,7 @@ export class Concurso{
         this.concursoPrimerCriterio = concursoPrimerCriterio;
         this.concursoSegundoCriterio = concursoSegundoCriterio;
         this.concursoTercerCriterio = concursoTercerCriterio;
+      
         
     }
 }

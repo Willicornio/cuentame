@@ -150,8 +150,8 @@ export class JuegolibroPage implements OnInit {
 
   anunciarcriteriosprivilgios() {
 
-    if (this.nivel3 == false)
-      this.muestracriterio3 = true;
+    if (this.nivel1 == false)
+      this.muestracriterio1 = true;
     if (this.nivel2 == false)
       this.muestracriterio2 = true;
     if (this.nivel3 == false)
