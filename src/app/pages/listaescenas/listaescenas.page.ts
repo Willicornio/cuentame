@@ -115,8 +115,8 @@ export class ListaescenasPage implements OnInit {
       this.bajarEscena();
     }
     else {
-this.convertBlobsToString2(escena);
-    
+      this.convertBlobsToString2(escena);
+
     }
 
   }
@@ -132,160 +132,167 @@ this.convertBlobsToString2(escena);
   crearEscena() {
 
 
-    var escenaNew = new EscenaFrames();
-    escenaNew.duracionFrame = 2;
-    escenaNew.maximoFrames = 10;
-    escenaNew.numeroEscena = this.listaEscenas.length;
-    escenaNew.tipoAudio = "frame";
-    escenaNew.urlAudioFondo = "no";
+    // Pass a custom class to each select interface for styling
+    const selects = document.querySelectorAll('.custom-options') as any;
 
-    this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
-      .subscribe((res) => {
-        console.log(res);
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].interfaceOptions = {
+        cssClass: 'my-custom-interface'
+      };
+    };
 
-        this.dameEscenas();
-      }, (err) => {
-        console.log(err);
-      })
+    if (selects[0].value != "" && selects[1].value != "") {
+      var escenaNew = new EscenaFrames();
+      escenaNew.duracionFrame = selects[0].value;
+      escenaNew.maximoFrames = 20;
+      escenaNew.numeroEscena = this.listaEscenas.length;
+      escenaNew.tipoAudio = selects[1].value;
+      escenaNew.urlAudioFondo = "no";
 
+      this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
+        .subscribe((res) => {
+          console.log(res);
 
+          this.dameEscenas();
+        }, (err) => {
+          console.log(err);
+        })
+
+    }
   }
 
 
-  
+
   cargarRecursos() {
 
     this.peticionesAPI.getRecursoParaLibro(this.libroJuego.id)
-       .subscribe((res) => {
+      .subscribe((res) => {
 
-          var i = 1;
+        var i = 1;
 
-          res[0].imagenes.forEach(element => {
-             this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
-             i++;
-          });
+        res[0].imagenes.forEach(element => {
+          this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
+          i++;
+        });
 
-       }, (err) => {
+      }, (err) => {
 
-       })
- }
+      })
+  }
 
 
   getImagenRecurso(element, nameFolder, length, id) {
     this.peticionesAPI.getImagen(element.url, nameFolder)
-       .subscribe((res) => {
+      .subscribe((res) => {
 
-          var imagen = new ImagenRecurso();
-          imagen.especial = element.especial;
-          imagen.nombre = element.nombre;
-          imagen.tipo = element.tipo;
-          imagen.id = id;
-          imagen.url = res._body;
+        var imagen = new ImagenRecurso();
+        imagen.especial = element.especial;
+        imagen.nombre = element.nombre;
+        imagen.tipo = element.tipo;
+        imagen.id = id;
+        imagen.url = res._body;
 
-          this.listaImaganesRecurso.push(imagen);
-          if (id == length) {
+        this.listaImaganesRecurso.push(imagen);
+        if (id == length) {
 
-             this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
+          this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
 
-          }
-
-
-       }, (err) => {
-
-       })
- }
+        }
 
 
-async convertBlobsToString2(escena){
-   
-  this.iWithStringBlob = 0;
-  var listaFotoRecuros = this.dataService.getDataRecursos(0);
+      }, (err) => {
 
-  this.lengthwithStringBlob = listaFotoRecuros.length;
-
-     for (const element of listaFotoRecuros) {
-           const a = new Promise<any>((resolve, reject) => {
-              const blob = element.url;
-              const reader = new FileReader();
-              reader.onloadend = (event) => {
-                if(reader.error){
-                } else {
+      })
+  }
 
 
-                this.iWithStringBlob = this.iWithStringBlob + 1;
-                 element.url = reader.result.toString();
-                 this.listaRecursosWithStrings.push(element);
+  async convertBlobsToString2(escena) {
 
-                 if(this.iWithStringBlob == this.lengthwithStringBlob)
-                 {
-                    this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
-                    this.router.navigate(['/cuentocanvas' + "/" + escena.id])
-
-                 }
-                 resolve(reader);
-              }
-            
-           }
-           if (blob) {
-            reader.readAsDataURL(blob);
-          }
-          });
-
-        };
-
-
-}
-
-
-  async convertBlobsToString(escena){
-   
     this.iWithStringBlob = 0;
     var listaFotoRecuros = this.dataService.getDataRecursos(0);
 
     this.lengthwithStringBlob = listaFotoRecuros.length;
 
-       for (const element of listaFotoRecuros) {
-             const a = new Promise<any>((resolve, reject) => {
-                const blob = element.url;
-                const reader = new FileReader();
-                reader.addEventListener('load', () => {
-                   this.iWithStringBlob = this.iWithStringBlob + 1;
-                   element.url = reader.result.toString();
-                   this.listaRecursosWithStrings.push(element);
-
-                   if(this.iWithStringBlob == this.lengthwithStringBlob)
-                   {
-                      this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
-                      this.router.navigate(['/cuentocanvas' + "/" + escena.id])
-
-                   }
-                   resolve(reader);
-                }, false);
-                if (blob) {
-                   reader.readAsDataURL(blob);
-                 }
-            })
-
-          };
+    for (const element of listaFotoRecuros) {
+      const a = new Promise<any>((resolve, reject) => {
+        const blob = element.url;
+        const reader = new FileReader();
+        reader.onloadend = (event) => {
+          if (reader.error) {
+          } else {
 
 
- }
+            this.iWithStringBlob = this.iWithStringBlob + 1;
+            element.url = reader.result.toString();
+            this.listaRecursosWithStrings.push(element);
+
+            if (this.iWithStringBlob == this.lengthwithStringBlob) {
+              this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+              this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+            }
+            resolve(reader);
+          }
+
+        }
+        if (blob) {
+          reader.readAsDataURL(blob);
+        }
+      });
+
+    };
 
 
- cambiarFinalizadoATrue()
- {
-   this.libro.finalizado = true;
-
-   this.peticionesAPI.putLibro(this.idLibro, this.libro)
-   .subscribe((res)=>{
-
-    this.router.navigate(['/juegolibro'])
+  }
 
 
-   },(err)=>{
-      
-   })
- }
+  async convertBlobsToString(escena) {
+
+    this.iWithStringBlob = 0;
+    var listaFotoRecuros = this.dataService.getDataRecursos(0);
+
+    this.lengthwithStringBlob = listaFotoRecuros.length;
+
+    for (const element of listaFotoRecuros) {
+      const a = new Promise<any>((resolve, reject) => {
+        const blob = element.url;
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          this.iWithStringBlob = this.iWithStringBlob + 1;
+          element.url = reader.result.toString();
+          this.listaRecursosWithStrings.push(element);
+
+          if (this.iWithStringBlob == this.lengthwithStringBlob) {
+            this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+            this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+          }
+          resolve(reader);
+        }, false);
+        if (blob) {
+          reader.readAsDataURL(blob);
+        }
+      })
+
+    };
+
+
+  }
+
+
+  cambiarFinalizadoATrue() {
+    this.libro.finalizado = true;
+
+    this.peticionesAPI.putLibro(this.idLibro, this.libro)
+      .subscribe((res) => {
+
+        this.router.navigate(['/juegolibro'])
+
+
+      }, (err) => {
+
+      })
+  }
 
 
 }

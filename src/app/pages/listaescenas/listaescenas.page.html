@@ -69,8 +69,7 @@
         
           <ion-item>
             <ion-label>Segundos por frame</ion-label>
-            <ion-select id="sFramesId">
-              <ion-select-option value="2">2 segundos</ion-select-option>
+            <ion-select interface="popover" class="custom-options">
               <ion-select-option value="5">5 segundos</ion-select-option>
               <ion-select-option value="10">10 segundos</ion-select-option>
              
@@ -80,11 +79,10 @@
         <ion-col *ngIf="creacion">
 
           <ion-item>
-            <ion-label>Número de frames</ion-label>
-            <ion-select id="nFramesId">
-              <ion-select-option value="2">2 frames</ion-select-option>
-              <ion-select-option value="5">5 frames</ion-select-option>
-              <ion-select-option value="10">10 frames</ion-select-option>
+            <ion-label>Tipo de audio</ion-label>
+            <ion-select interface="action-sheet" class="custom-options">
+              <ion-select-option value="frame">Audio por cada frame</ion-select-option>
+              <ion-select-option value="fondo">Audio de fondo en la escena</ion-select-option>
             
             </ion-select>
           </ion-item>
