@@ -11,10 +11,22 @@
 </ion-card>
   
   
+<ion-card>
+  <h5>GANADORES</h5>
+  <ion-col size="3" *ngFor="let libro of listatoptres">
+
+    <h3> {{libro.titulo}} </h3>
+    <h3> {{libro.autor}} </h3>
+    <h3> {{libro.criteriototal}} </h3>
+
+  </ion-col>
+</ion-card>
+ 
     
     
  
 <ion-card>
+  <h5>RANKING DE CLASE</h5>
   <ion-col size="3" *ngFor="let libro of muestralista">
 
     <h3> {{libro.titulo}} </h3>
