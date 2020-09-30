@@ -7,6 +7,7 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { DataService } from 'src/app/services/data.service';
 import { juegolibro } from '../../models/juegolibro';
 import { ImagenRecurso } from '../../models/imagenRecurso';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -17,9 +18,9 @@ import { ImagenRecurso } from '../../models/imagenRecurso';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService, private dataService: DataService) { }
+  constructor(private router: Router, private alertController : AlertController, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService, private dataService: DataService) { }
   @ViewChild('content') content: any;
-
+ 
 
   idLibro: any;
   listaEscenas: EscenaFrames[] = [];
@@ -28,14 +29,16 @@ export class ListaescenasPage implements OnInit {
   autor: any = '';
   listaWithStrings: any = [];
   escenaID: any;
-
+  alumnjoJuegoLibroId;
   libroJuego: juegolibro;
   iServiceRecurso: any = 0;
   iNumber2: number = 0;
   listaImaganesRecurso: ImagenRecurso[] = [];
-
+  nivel1;
+  nivel2;
+  nivel3;
   listaRecursosWithStrings: any = [];
-
+ ie;
 
   iWithStringBlob: any = 0;
   lengthwithStringBlob: any = 0;
@@ -75,20 +78,36 @@ export class ListaescenasPage implements OnInit {
         this.titulo = res.titulo;
         this.autor = res.autor;
         this.libro = res;
-
+        this.alumnjoJuegoLibroId = res.alumnjoJuegoLibroId;
+        this.damealumnojuego();
       });
 
 
   }
 
+  damealumnojuego(){
+
+    this.peticionesAPI.DameAlumnoJuegoLibro(this.alumnjoJuegoLibroId)
+    .subscribe(res => {
+      console.log(res);
+      this.nivel1 = res.nivel1;
+      this.nivel2 = res.nivel2;
+      this.nivel3 = res.nivel3;
+    
+    });
+
+  }
+
+
   dameEscenas() {
 
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
-        console.log(res);
-
+        console.log(res); 
+        this.ie   =   res.length;
         this.listaEscenas = [];
         res.forEach(element => {
+     
           element.fondo = '../../assets/imgs/2.png';
           this.listaEscenas.push(element);
         });
@@ -131,6 +150,19 @@ this.convertBlobsToString2(escena);
 
   crearEscena() {
 
+    if( this.nivel2 == false && this.ie >=2){
+      this.alertanivel();
+      
+    }
+    else if( this.nivel2 == false &&  this.nivel3 == false && this.ie >=2){
+      this.alertanivel();
+      
+    }
+   else if(  this.nivel3 == false && this.ie >=5){
+      this.alertanivel();
+      
+    }
+    else {
 
     var escenaNew = new EscenaFrames();
     escenaNew.duracionFrame = 2;
@@ -148,7 +180,7 @@ this.convertBlobsToString2(escena);
         console.log(err);
       })
 
-
+    }
   }
 
 
@@ -286,6 +318,20 @@ async convertBlobsToString2(escena){
       
    })
  }
+
+
+ async alertanivel() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'No puedes crear mas escenas',
+    subHeader: 'No tienes permisos suficientes',
+    message: 'Visita la pagina del juego para saber como desbloquear mas niveles',
+    buttons: ['Aceptar']
+  });
+
+  await alert.present();
+}
+
 
 
 }
