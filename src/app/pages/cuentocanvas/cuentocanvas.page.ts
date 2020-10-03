@@ -152,10 +152,10 @@ export class CuentocanvasPage implements OnInit {
                this.showButtonFondoFrame = true;
             }
 
-            if(this.escenaFrames.urlAudioFondo != "no")
+            if(this.showButtonFondoFrame == true && this.escenaFrames.urlAudioFondo != "no")
             {
                var contenedor = localStorage.getItem("contenedor");
-               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+               this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.escenaFrames.urlAudioFondo;
                this.tieneVoz = true;
             }
           
@@ -813,9 +813,14 @@ export class CuentocanvasPage implements OnInit {
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
          var contenedor = localStorage.getItem("contenedor");
-         if(this.frameActual.audioUrl != "")
+         if(this.frameActual.audioUrl != "" && this.showButtonAudioFrame == true)
          {
             this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+            this.tieneVoz = true;
+         }
+         else if(this.showButtonFondoFrame && this.escenaFrames.urlAudioFondo != "no")
+         {
+            this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.escenaFrames.urlAudioFondo;  
             this.tieneVoz = true;
          }
       }
@@ -1420,6 +1425,34 @@ export class CuentocanvasPage implements OnInit {
 
    seleccionarFicheroVozFondo($event)
    {
+      this.tieneVoz = true;
+      const file = $event.target.files[0];
 
+      var contenedor = localStorage.getItem("contenedor");
+
+
+
+      if (this.escenaFrames.urlAudioFondo!="no") {
+         // borro el fichero de audio de la voz anterior
+         this.peticionesApiService.BorraAudioEscena(contenedor,this.escenaFrames.urlAudioFondo).subscribe();
+       }
+   
+       this.escenaFrames.urlAudioFondo = file.name; 
+
+      this.peticionesApiService.putEscena(this.escenaFrames.id, this.escenaFrames)
+       .subscribe (
+         
+       );
+
+
+       const formDataOpcion = new FormData();
+       formDataOpcion.append(file.fileName, file);
+       this.peticionesApiService.ponAudioEscena(contenedor, formDataOpcion)
+       .subscribe(async () => {
+         this.tieneVoz = true;
+           // Notifico al server que se ha modificado un avatar
+         this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.escenaFrames.urlAudioFondo;
+
+       });
    }
 }
