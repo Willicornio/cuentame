@@ -14,7 +14,7 @@ import { Libro } from 'src/app/models/libro';
   styleUrls: ['./resultadosconcurso.page.scss'],
 })
 export class ResultadosconcursoPage implements OnInit {
-  toptres: Libro[];
+  listatoptres: Libro[];
   concurso: any;
   listainscripcipnes: [];
   listalibros: Libro[];
@@ -69,7 +69,7 @@ export class ResultadosconcursoPage implements OnInit {
     this.listalibros = [];
     this.libro1 = new Libro();
     this.libro2 = new Libro();
-    this.libro3 =  new Libro();
+    this.libro3 = new Libro();
 
     this.listainscripcipnes.forEach(cosa => {
 
@@ -79,21 +79,22 @@ export class ResultadosconcursoPage implements OnInit {
           this.listalibros.push(res);
 
           i = i + 1;
-          if( res.titulo == this.primerpuesto){
+          if (res.titulo == this.primerpuesto) {
             this.libro1 = res;
 
           }
-          if( res.titulo == this.segundopuesto){
+          if (res.titulo == this.segundopuesto) {
             this.libro2 = res;
 
           }
-          if( res.titulo == this.tercerpuesto){
+          if (res.titulo == this.tercerpuesto) {
             this.libro3 = res;
 
           }
 
           if (i == this.listainscripcipnes.length) {
             this.ordenarlibros();
+            this.hacertoptres();
 
           }
 
@@ -109,7 +110,13 @@ export class ResultadosconcursoPage implements OnInit {
 
 
   }
+  hacertoptres() {
+    this.listatoptres = [];
 
+    this.listatoptres.push(this.libro1);
+    this.listatoptres.push(this.libro2);
+    this.listatoptres.push(this.libro3);
+  }
   ordenarlibros() {
 
     this.listalibros.sort((a, b) => a.criteriototal - b.criteriototal);
@@ -127,7 +134,7 @@ export class ResultadosconcursoPage implements OnInit {
 
 
 
-  
+
 
 
 }

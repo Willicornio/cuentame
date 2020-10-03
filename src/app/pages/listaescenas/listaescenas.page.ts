@@ -7,6 +7,7 @@ import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { DataService } from 'src/app/services/data.service';
 import { juegolibro } from '../../models/juegolibro';
 import { ImagenRecurso } from '../../models/imagenRecurso';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -17,9 +18,9 @@ import { ImagenRecurso } from '../../models/imagenRecurso';
 })
 export class ListaescenasPage implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService, private dataService: DataService) { }
+  constructor(private router: Router, private alertController : AlertController, private activatedRoute: ActivatedRoute, private peticionesAPI: PeticionesapiService, private dataService: DataService) { }
   @ViewChild('content') content: any;
-
+ 
 
   idLibro: any;
   listaEscenas: EscenaFrames[] = [];
@@ -28,14 +29,16 @@ export class ListaescenasPage implements OnInit {
   autor: any = '';
   listaWithStrings: any = [];
   escenaID: any;
-
+  alumnjoJuegoLibroId;
   libroJuego: juegolibro;
   iServiceRecurso: any = 0;
   iNumber2: number = 0;
   listaImaganesRecurso: ImagenRecurso[] = [];
-
+  nivel1;
+  nivel2;
+  nivel3;
   listaRecursosWithStrings: any = [];
-
+ ie;
 
   iWithStringBlob: any = 0;
   lengthwithStringBlob: any = 0;
@@ -75,20 +78,36 @@ export class ListaescenasPage implements OnInit {
         this.titulo = res.titulo;
         this.autor = res.autor;
         this.libro = res;
-
+        this.alumnjoJuegoLibroId = res.alumnjoJuegoLibroId;
+        this.damealumnojuego();
       });
 
 
   }
 
+  damealumnojuego(){
+
+    this.peticionesAPI.DameAlumnoJuegoLibro(this.alumnjoJuegoLibroId)
+    .subscribe(res => {
+      console.log(res);
+      this.nivel1 = res.nivel1;
+      this.nivel2 = res.nivel2;
+      this.nivel3 = res.nivel3;
+    
+    });
+
+  }
+
+
   dameEscenas() {
 
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
-        console.log(res);
-
+        console.log(res); 
+        this.ie   =   res.length;
         this.listaEscenas = [];
         res.forEach(element => {
+     
           element.fondo = '../../assets/imgs/2.png';
           this.listaEscenas.push(element);
         });
@@ -115,8 +134,8 @@ export class ListaescenasPage implements OnInit {
       this.bajarEscena();
     }
     else {
-      this.convertBlobsToString2(escena);
-
+this.convertBlobsToString2(escena);
+    
     }
 
   }
@@ -131,168 +150,188 @@ export class ListaescenasPage implements OnInit {
 
   crearEscena() {
 
+    if( this.nivel2 == false && this.ie >=2){
+      this.alertanivel();
+      
+    }
+    else if( this.nivel2 == false &&  this.nivel3 == false && this.ie >=2){
+      this.alertanivel();
+      
+    }
+   else if(  this.nivel3 == false && this.ie >=5){
+      this.alertanivel();
+      
+    }
+    else {
 
-    // Pass a custom class to each select interface for styling
-    const selects = document.querySelectorAll('.custom-options') as any;
+    var escenaNew = new EscenaFrames();
+    escenaNew.duracionFrame = 2;
+    escenaNew.maximoFrames = 10;
+    escenaNew.numeroEscena = this.listaEscenas.length;
+    escenaNew.tipoAudio = "frame";
+    escenaNew.urlAudioFondo = "no";
 
-    for (var i = 0; i < selects.length; i++) {
-      selects[i].interfaceOptions = {
-        cssClass: 'my-custom-interface'
-      };
-    };
+    this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
+      .subscribe((res) => {
+        console.log(res);
 
-    if (selects[0].value != "" && selects[1].value != "") {
-      var escenaNew = new EscenaFrames();
-      escenaNew.duracionFrame = selects[0].value;
-      escenaNew.maximoFrames = 20;
-      escenaNew.numeroEscena = this.listaEscenas.length;
-      escenaNew.tipoAudio = selects[1].value;
-      escenaNew.urlAudioFondo = "no";
-
-      this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
-        .subscribe((res) => {
-          console.log(res);
-
-          this.dameEscenas();
-        }, (err) => {
-          console.log(err);
-        })
+        this.dameEscenas();
+      }, (err) => {
+        console.log(err);
+      })
 
     }
   }
 
 
-
+  
   cargarRecursos() {
 
     this.peticionesAPI.getRecursoParaLibro(this.libroJuego.id)
-      .subscribe((res) => {
+       .subscribe((res) => {
 
-        var i = 1;
+          var i = 1;
 
-        res[0].imagenes.forEach(element => {
-          this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
-          i++;
-        });
+          res[0].imagenes.forEach(element => {
+             this.getImagenRecurso(element, res[0].carpeta, res[0].imagenes.length, i);
+             i++;
+          });
 
-      }, (err) => {
+       }, (err) => {
 
-      })
-  }
+       })
+ }
 
 
   getImagenRecurso(element, nameFolder, length, id) {
     this.peticionesAPI.getImagen(element.url, nameFolder)
-      .subscribe((res) => {
+       .subscribe((res) => {
 
-        var imagen = new ImagenRecurso();
-        imagen.especial = element.especial;
-        imagen.nombre = element.nombre;
-        imagen.tipo = element.tipo;
-        imagen.id = id;
-        imagen.url = res._body;
+          var imagen = new ImagenRecurso();
+          imagen.especial = element.especial;
+          imagen.nombre = element.nombre;
+          imagen.tipo = element.tipo;
+          imagen.id = id;
+          imagen.url = res._body;
 
-        this.listaImaganesRecurso.push(imagen);
-        if (id == length) {
+          this.listaImaganesRecurso.push(imagen);
+          if (id == length) {
 
-          this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
+             this.dataService.setDataRecursos(0, this.listaImaganesRecurso);
 
-        }
-
-
-      }, (err) => {
-
-      })
-  }
+          }
 
 
-  async convertBlobsToString2(escena) {
+       }, (err) => {
 
+       })
+ }
+
+
+async convertBlobsToString2(escena){
+   
+  this.iWithStringBlob = 0;
+  var listaFotoRecuros = this.dataService.getDataRecursos(0);
+
+  this.lengthwithStringBlob = listaFotoRecuros.length;
+
+     for (const element of listaFotoRecuros) {
+           const a = new Promise<any>((resolve, reject) => {
+              const blob = element.url;
+              const reader = new FileReader();
+              reader.onloadend = (event) => {
+                if(reader.error){
+                } else {
+
+
+                this.iWithStringBlob = this.iWithStringBlob + 1;
+                 element.url = reader.result.toString();
+                 this.listaRecursosWithStrings.push(element);
+
+                 if(this.iWithStringBlob == this.lengthwithStringBlob)
+                 {
+                    this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+                    this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+                 }
+                 resolve(reader);
+              }
+            
+           }
+           if (blob) {
+            reader.readAsDataURL(blob);
+          }
+          });
+
+        };
+
+
+}
+
+
+  async convertBlobsToString(escena){
+   
     this.iWithStringBlob = 0;
     var listaFotoRecuros = this.dataService.getDataRecursos(0);
 
     this.lengthwithStringBlob = listaFotoRecuros.length;
 
-    for (const element of listaFotoRecuros) {
-      const a = new Promise<any>((resolve, reject) => {
-        const blob = element.url;
-        const reader = new FileReader();
-        reader.onloadend = (event) => {
-          if (reader.error) {
-          } else {
+       for (const element of listaFotoRecuros) {
+             const a = new Promise<any>((resolve, reject) => {
+                const blob = element.url;
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                   this.iWithStringBlob = this.iWithStringBlob + 1;
+                   element.url = reader.result.toString();
+                   this.listaRecursosWithStrings.push(element);
+
+                   if(this.iWithStringBlob == this.lengthwithStringBlob)
+                   {
+                      this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
+                      this.router.navigate(['/cuentocanvas' + "/" + escena.id])
+
+                   }
+                   resolve(reader);
+                }, false);
+                if (blob) {
+                   reader.readAsDataURL(blob);
+                 }
+            })
+
+          };
 
 
-            this.iWithStringBlob = this.iWithStringBlob + 1;
-            element.url = reader.result.toString();
-            this.listaRecursosWithStrings.push(element);
-
-            if (this.iWithStringBlob == this.lengthwithStringBlob) {
-              this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
-              this.router.navigate(['/cuentocanvas' + "/" + escena.id])
-
-            }
-            resolve(reader);
-          }
-
-        }
-        if (blob) {
-          reader.readAsDataURL(blob);
-        }
-      });
-
-    };
+ }
 
 
-  }
+ cambiarFinalizadoATrue()
+ {
+   this.libro.finalizado = true;
+
+   this.peticionesAPI.putLibro(this.idLibro, this.libro)
+   .subscribe((res)=>{
+
+    this.router.navigate(['/juegolibro'])
 
 
-  async convertBlobsToString(escena) {
-
-    this.iWithStringBlob = 0;
-    var listaFotoRecuros = this.dataService.getDataRecursos(0);
-
-    this.lengthwithStringBlob = listaFotoRecuros.length;
-
-    for (const element of listaFotoRecuros) {
-      const a = new Promise<any>((resolve, reject) => {
-        const blob = element.url;
-        const reader = new FileReader();
-        reader.addEventListener('load', () => {
-          this.iWithStringBlob = this.iWithStringBlob + 1;
-          element.url = reader.result.toString();
-          this.listaRecursosWithStrings.push(element);
-
-          if (this.iWithStringBlob == this.lengthwithStringBlob) {
-            this.dataService.setDataRecursos(1, this.listaRecursosWithStrings);
-            this.router.navigate(['/cuentocanvas' + "/" + escena.id])
-
-          }
-          resolve(reader);
-        }, false);
-        if (blob) {
-          reader.readAsDataURL(blob);
-        }
-      })
-
-    };
+   },(err)=>{
+      
+   })
+ }
 
 
-  }
+ async alertanivel() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'No puedes crear mas escenas',
+    subHeader: 'No tienes permisos suficientes',
+    message: 'Visita la pagina del juego para saber como desbloquear mas niveles',
+    buttons: ['Aceptar']
+  });
 
+  await alert.present();
+}
 
-  cambiarFinalizadoATrue() {
-    this.libro.finalizado = true;
-
-    this.peticionesAPI.putLibro(this.idLibro, this.libro)
-      .subscribe((res) => {
-
-        this.router.navigate(['/juegolibro'])
-
-
-      }, (err) => {
-
-      })
-  }
 
 
 }
