@@ -25,7 +25,7 @@ export class JuegolibroPage implements OnInit {
   NombreJuego: any = '';
   grupoId: any = '';
   listaparticipantes: Alumno[];
-  concurso: any;
+  concurso;
   concursoRequisitos;
   concursoPrimerCriterio;
   concursoSegundoCriterio;
@@ -56,7 +56,7 @@ export class JuegolibroPage implements OnInit {
   libroalumno: Libro;
   hayLibro: any = false;
   idLibro: any;
-
+concu;
   hayLibroFinalizado: any = false;
 
   permisoVer: any = false;
@@ -208,6 +208,7 @@ export class JuegolibroPage implements OnInit {
 
       .subscribe((res) => {
         var data;
+        
         this.concurso = res;
         console.log(res);
         console.log(res);
@@ -228,8 +229,10 @@ export class JuegolibroPage implements OnInit {
           this.concursoTematica = cosa.concursoTematica;
           this.listainscripcipnes = cosa.listaLibrosParticipantes;
           this.acabado = cosa.acabado;
+          this.concu = cosa;
           this.muestra();
           this.estaacabado();
+  
      
 
           this.obtenerfecha();
@@ -272,7 +275,7 @@ if ( this.acabado = true)
 
         this.alertinscribir();
 
-        this.peticionesAPI.putConcurso(this.id, this.concurso)
+        this.peticionesAPI.putConcurso(this.idconcurso, this.concu)
 
         .subscribe((res) => {
 
