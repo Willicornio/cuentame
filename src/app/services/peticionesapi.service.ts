@@ -221,18 +221,15 @@ public ponAudioFrame(contenedor: string, formData: FormData): Observable<any> {
 
 }
 
-<<<<<<< HEAD
 public ponAudioEscena(contenedor: string, formData: FormData): Observable<any> {
   return this.http.post<any>(this.urlimagenes + '/' + contenedor + '/upload', formData);
 
 }
   
-=======
 public DameAlumnoJuegoLibro(id): Observable<any>  {
   return this.http.get<Alumnojuegodecuento>(this.urlalumnojuego+ '/' + id);
   
  }
->>>>>>> 9fd164115ad42a29589d3e8e21e96d64e144d38a
   
   //  MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);

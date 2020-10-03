@@ -164,12 +164,23 @@ this.convertBlobsToString2(escena);
     }
     else {
 
+      const selects = document.querySelectorAll('.custom-options') as any;
+
+for (var i = 0; i < selects.length; i++) {
+  selects[i].interfaceOptions = {
+    cssClass: 'my-custom-interface'
+  };
+};
+
     var escenaNew = new EscenaFrames();
-    escenaNew.duracionFrame = 2;
+    escenaNew.duracionFrame = selects[0].value;
     escenaNew.maximoFrames = 10;
     escenaNew.numeroEscena = this.listaEscenas.length;
-    escenaNew.tipoAudio = "frame";
+    escenaNew.tipoAudio = selects[1].value;
     escenaNew.urlAudioFondo = "no";
+
+
+
 
     this.peticionesAPI.postEscenaLibro(this.idLibro, escenaNew)
       .subscribe((res) => {
