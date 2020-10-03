@@ -257,7 +257,7 @@ export class ReproductorPage implements OnInit {
 
   }
 
-
+///////////////////////7reproducir cuento///////////////////////////////////
 
   dameEscenas() {
 

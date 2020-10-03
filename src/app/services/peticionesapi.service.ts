@@ -199,8 +199,8 @@ public putLibro(id, libro): Observable<any> {
 }
 
 
-public putConcurso(id, concurso): Observable<any> {
-  return this.http.put<any>(this.urlconcurso+ '/' + id, concurso);
+public putConcurso(id, concurso): Observable<Concurso> {
+  return this.http.put<Concurso>(this.urlconcurso + '/' + id, concurso);
 }
 
 
