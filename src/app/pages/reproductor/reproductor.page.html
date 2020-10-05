@@ -7,37 +7,37 @@
 <h3>Libro {{titulo}}</h3>
 
 
-<!-- <ion-col size="6" *ngFor="let libro of listalibros">
-  <div (click)="continuarLibro(libro)">
-    <ion-col> <img src= '/assets/imgs/blanpix.png' width="165" height="150" class="center"></ion-col>
-     <ion-col> <img src={{libro.portada}} width="165" height="150" class="center"></ion-col> -->
-<!-- <ion-col>
-      <h3> {{libro.titulo}} </h3>
-    </ion-col>
-  </div>
 
-</ion-col> -->
 
 
 <ion-content>
   <ion-card>
 
-    <ion-slides [options]="slideOpts">
-      <ion-slide *ngFor="let fondo of listaFotos">
 
-        <img src={{fondo}} width="600" height="600">
+ <ion-slides [options]="slideOpts">
+  <ion-slide *ngFor="let fondo of listacompleja">
 
-      </ion-slide>
-      <ion-slide *ngFor="let fondo of listaFondos">
+    <img src={{fondo.frame}} width="600" height="600">
 
-        <img src={{fondo.src}} width="360" height="360">
+  </ion-slide>
 
-
-
-
-      </ion-slide>
 
     </ion-slides>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <ion-button expand="block" (click)="slidePrev()">soy flecha hacia la izquierda!</ion-button>
     <ion-button expand="block" (click)="startAutoplay()">imagen de un triangulito de play</ion-button>
     <ion-button expand="block" (click)="stopAutoplay()">imagen de un cuadradito de antiplay(pause)</ion-button>
@@ -45,6 +45,25 @@
   </ion-card>
 
 </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

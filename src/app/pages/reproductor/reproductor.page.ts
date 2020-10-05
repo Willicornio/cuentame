@@ -21,6 +21,9 @@ import { AnyTxtRecord } from 'dns';
   templateUrl: './reproductor.page.html',
   styleUrls: ['./reproductor.page.scss'],
 })
+
+
+
 export class ReproductorPage implements OnInit {
 
   @Input() rating: number;
@@ -60,8 +63,14 @@ export class ReproductorPage implements OnInit {
   c2: any = '';
   c3: any = '';
   criteriototal;
+  tipoaudio;
   modo: any = 0;
   notificacionvotar = 'a';
+  url = 'http://localhost:3000/api/imagenes/';
+ 
+ listacompleja =  [];
+
+  
   constructor(private socketservice: SocketsService ,private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
@@ -78,7 +87,7 @@ export class ReproductorPage implements OnInit {
     this.idalumno = localStorage.getItem("idAlumno");
 
     if (this.modo == 2) {
-      this.idLibro = localStorage.getItem("idLibroVer");
+      this.idLibro = localStorage.getItem("idLibroVer");  this.socketservice.votarnoti(this.notificacionvotar);
     }
     else {
       this.idLibro = localStorage.getItem("idLibro");
@@ -91,12 +100,12 @@ export class ReproductorPage implements OnInit {
     //////////borrar esto/////////////
     ////////////////////////////////
     //////////////////////////////////
-    this.socketservice.votarnoti(this.notificacionvotar);
-    this.socketservice.recibirprueba()
-    .subscribe((res: any) => {
+    // this.socketservice.votarnoti(this.notificacionvotar);
+    // this.socketservice.recibirprueba()
+    // .subscribe((res: any) => {
 
-      console.log(res);
-    });
+    //   console.log(res);
+    // });
 
   }
 
@@ -117,7 +126,6 @@ export class ReproductorPage implements OnInit {
     ////////if
     this.puntuarlibro();
   }
-
 
 
   onRatec1(rate1) {
@@ -263,11 +271,17 @@ export class ReproductorPage implements OnInit {
 
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
+
+     
+
+
+
         console.log(res);
 
         res.forEach(element => {
           this.listaEscenas.push(element);
           this.tiempo = element.duracionFrame;
+          this.tipoaudio = element.tipoAudio;
         });
         this.dameFrames();
       });
@@ -296,35 +310,6 @@ export class ReproductorPage implements OnInit {
     });
 
   }
-  // obtenerFrames(lista) {
-
-  //   /////////////////cambiar var contenedor///////////////////////////
-  //   var contenedor = this.libro.titulo;
-  //   lista.forEach(element => {
-
-  //     this.listaFondos.push(element.portadaFrame);
-
-
-  //     this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
-  //       .subscribe((res) => {
-  //         const blob = new Blob([res.blob()], { type: 'image/png' });
-
-  //         const reader = new FileReader();
-  //         reader.addEventListener('load', () => {
-
-  //           this.fotoimagen = reader.result.toString();
-  //           this.listaFotos.push(this.fotoimagen);
-
-
-  //         }, false);
-
-  //         if (blob) {
-  //           reader.readAsDataURL(blob);
-  //         }
-  //       });
-  //   });
-
-  // }
 
   obtenerFrames2(lista) {
 
@@ -332,7 +317,16 @@ export class ReproductorPage implements OnInit {
     var contenedor = this.libro.titulo;
     lista.forEach(element => {
 
-      this.listaFondos.push(element.portadaFrame);
+      var objetolista = {
+        frame: '',
+        escena : String,
+        audio : ''
+    
+     }
+
+     
+      
+   
 
 
       this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
@@ -346,6 +340,18 @@ export class ReproductorPage implements OnInit {
             } else {
               this.fotoimagen = reader.result.toString();
               this.listaFotos.push(this.fotoimagen);
+              objetolista.frame = this.fotoimagen;
+              objetolista.audio = element.audioUrl;
+              objetolista.escena = element.escenaid;
+              
+              if(objetolista.audio != '' )
+              {
+                var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
+                objetolista.audio = audio;
+              }
+      this.listacompleja.push(objetolista);
+
+
               }
           };
 
