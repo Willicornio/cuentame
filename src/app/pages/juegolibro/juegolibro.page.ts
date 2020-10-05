@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
 import { Libro } from 'src/app/models/libro';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-juegolibro',
@@ -56,7 +57,7 @@ export class JuegolibroPage implements OnInit {
   libroalumno: Libro;
   hayLibro: any = false;
   idLibro: any;
-concu;
+  concu;
   hayLibroFinalizado: any = false;
 
   permisoVer: any = false;
@@ -208,7 +209,7 @@ concu;
 
       .subscribe((res) => {
         var data;
-        
+
         this.concurso = res;
         console.log(res);
         console.log(res);
@@ -232,8 +233,8 @@ concu;
           this.concu = cosa;
           this.muestra();
           this.estaacabado();
-  
-     
+
+
 
           this.obtenerfecha();
         })
@@ -244,10 +245,10 @@ concu;
 
   }
 
-  estaacabado(){
-if ( this.acabado = true)
- this.muestraresul = true; 
-    
+  estaacabado() {
+    if (this.acabado = true)
+      this.muestraresul = true;
+
   }
   public muestra() {
     this.muestrame = true;
@@ -266,27 +267,35 @@ if ( this.acabado = true)
 
 
 
-
+    var encontrado = "false";
     if (this.hayLibro == true) {
 
       if (this.libroalumno.finalizado == true) {
 
-        this.listainscripcipnes.push(this.libroalumno.id);
-
-        this.alertinscribir();
-
-        this.peticionesAPI.putConcurso(this.idconcurso, this.concu)
-
-        .subscribe((res) => {
-
-
-        }, (err) => {
-      
-          console.log(err);
-
+        this.listainscripcipnes.forEach(element => {
+          if (element == this.libroalumno.id) {
+            encontrado = "true";
+          }
         })
 
+        if (encontrado == "false") {
 
+          this.listainscripcipnes.push(this.libroalumno.id);
+
+          this.alertinscribir();
+
+          this.peticionesAPI.putConcurso(this.idconcurso, this.concu)
+
+            .subscribe((res) => {
+
+
+            }, (err) => {
+
+              console.log(err);
+
+            })
+
+        }
       }
 
 

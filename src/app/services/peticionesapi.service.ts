@@ -206,12 +206,12 @@ public putConcurso(id, concurso): Observable<Concurso> {
 
 
 public BorraAudioFrame (contenedor, file):Observable<any>{
-  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/' + file) ;
+  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/files/' + file) ;
 }
 
 
 public BorraAudioEscena (contenedor, file):Observable<any>{
-  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/' + file) ;
+  return this.http.delete<any>(this.urlimagenes + '/' + contenedor + '/files/' + file) ;
 
 }
 

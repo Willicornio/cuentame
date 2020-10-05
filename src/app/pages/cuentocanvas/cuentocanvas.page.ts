@@ -19,6 +19,8 @@ import { Libro } from '../../models/libro';
 import { ImagenFrame } from '../../models/imagenFrame';
 import { juegolibro } from '../../models/juegolibro';
 import { ImagenRecurso } from '../../models/imagenRecurso';
+import { AlertController } from '@ionic/angular';
+
 
 import * as URL from '../../services/url';
 
@@ -37,6 +39,9 @@ import { AnyTxtRecord } from 'dns';
    templateUrl: './cuentocanvas.page.html',
    styleUrls: ['./cuentocanvas.page.scss'],
 })
+
+
+
 export class CuentocanvasPage implements OnInit {
    @ViewChild('canvas') canvasEl: ElementRef;
    private _CANVAS: any;
@@ -46,6 +51,7 @@ export class CuentocanvasPage implements OnInit {
    public context: CanvasRenderingContext2D;
 
    ISize: { width: number; height: number; }
+
 
    x: any;
    y: any;
@@ -57,7 +63,7 @@ export class CuentocanvasPage implements OnInit {
 
    imagenCargadaWidth: any;
    imagenCargadaHeight: any;
-   src: any
+   src: any;
    personajeCargado: PersonajeFrame;
    imagen: any;
    pintar: boolean = false;
@@ -118,7 +124,7 @@ export class CuentocanvasPage implements OnInit {
    showButtonFondoFrame: any = false;
    public PtagClicked: boolean = false;
 
-   constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute) {
+   constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute, public alertController: AlertController) {
 
    }
 
@@ -797,8 +803,18 @@ export class CuentocanvasPage implements OnInit {
 
       this.frameActual = newFrame;
       this.drawimages(this.frameActual.personajes);
-
-
+      var contenedor = localStorage.getItem("contenedor");
+      this.tieneVoz = false;
+      if(this.frameActual.audioUrl != "" && this.showButtonAudioFrame == true)
+      {
+         this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
+         this.tieneVoz = true;
+      }
+      else if(this.showButtonFondoFrame && this.escenaFrames.urlAudioFondo != "no")
+      {
+         this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.escenaFrames.urlAudioFondo;  
+         this.tieneVoz = true;
+      }
 
       this.peticionesApiService.postFrame(this.escenaFrames.id, newFrame).subscribe(async (res) => {
 
@@ -1411,7 +1427,7 @@ export class CuentocanvasPage implements OnInit {
 
 
 
-      if (this.frameActual.audioUrl) {
+      if (this.frameActual.audioUrl != "") {
          // borro el fichero de audio de la voz anterior
          this.peticionesApiService.BorraAudioFrame(contenedor,this.frameActual.audioUrl).subscribe();
        }
@@ -1429,10 +1445,32 @@ export class CuentocanvasPage implements OnInit {
          this.tieneVoz = true;
            // Notifico al server que se ha modificado un avatar
          this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
+         const select = document.getElementById('audio') as any;
+         var duration = select.duration;
+         if(duration > this.escenaFrames.duracionFrame)
+         {
+            console.log("dura demasiado");
+            this.eliminarAudioFrame();
+         }
 
        });
 
 
+   }
+
+   async eliminarAudioFrame(){
+         // borro el fichero de audio de la voz anterior
+         var contenedor = localStorage.getItem("contenedor");
+
+         this.peticionesApiService.BorraAudioFrame(contenedor,this.frameActual.audioUrl).subscribe(
+            (res)=>{
+               this.audioFrame = "";
+               this.frameActual.audioUrl = "";
+               this.tieneVoz = false;
+               this.alertMuchaDuracion();
+            }
+         );
+       
    }
 
    seleccionarFicheroVozFondo($event)
@@ -1467,4 +1505,17 @@ export class CuentocanvasPage implements OnInit {
 
        });
    }
+
+   async alertMuchaDuracion() {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Este audio es demasiado largo',
+        subHeader: 'El audio tiene que durar como mucho el tiempo de frame que seleccionaste',
+        message: 'Por favor  crea el cuento antes de participar en el concurso',
+        buttons: ['Aceptar']
+      });
+  
+      await alert.present();
+    }
+  
 }
