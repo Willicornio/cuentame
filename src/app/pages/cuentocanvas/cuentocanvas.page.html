@@ -14,6 +14,8 @@
           <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
         </div>
 
+        <h3>{{textoPrueba}}</h3>
+
 
       </ion-col>
 
@@ -52,9 +54,11 @@
 
       <ion-card>
 
+        <!-- <textarea [(ngModel)]="textarea" name="textarea" rows="5" cols="65">Escribe aquí tu resumen</textarea> -->
+
         <form #form="ngForm" (ngSubmit)="putText(form)" method="post">
           <ion-item>
-            <ion-input ngModel type="name" name="name" placeholder="Añade el dialogo"></ion-input>
+            <textarea ngModel type="textarea" rows="5" name="name" placeholder="Añade el dialogo"></textarea>
           </ion-item>
 
           <ion-button type="submit" expand="full">Cargar dialogo</ion-button>
@@ -169,7 +173,7 @@
       </div>
 
       <ion-col>
-        <audio id="audio" controls src = {{audioFrame}} *ngIf = 'tieneVoz' style="margin-bottom: 20%">   </audio>
+        <audio id="audio" controls src = {{audioFrame}} *ngIf = 'tieneVoz' style="margin-bottom: 20%"  ></audio>
       </ion-col>
     </ion-row>
     <ion-row>

@@ -124,6 +124,12 @@ export class CuentocanvasPage implements OnInit {
    showButtonFondoFrame: any = false;
    public PtagClicked: boolean = false;
 
+
+
+
+
+   textoPrueba: any = "";
+
    constructor(public router: Router, private dataService: DataService, private peticionesApiService: PeticionesapiService, private activatedRoute: ActivatedRoute, public alertController: AlertController) {
 
    }
@@ -836,6 +842,7 @@ export class CuentocanvasPage implements OnInit {
          this.escenaFrames.numeroFrames
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
+         this.textoPrueba = this.frameActual.textos;
          var contenedor = localStorage.getItem("contenedor");
          if(this.frameActual.audioUrl != "" && this.showButtonAudioFrame == true)
          {
@@ -873,6 +880,8 @@ export class CuentocanvasPage implements OnInit {
          this.drawimages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
          var contenedor = localStorage.getItem("contenedor");
+         this.textoPrueba = this.frameActual.textos;
+
          if(this.frameActual.audioUrl != "" && this.showButtonAudioFrame == true)
          {
             this.audioFrame =  URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;  
@@ -901,19 +910,28 @@ export class CuentocanvasPage implements OnInit {
       this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
       this._CONTEXT.lineWidth = 2;
       this._CONTEXT = this._CANVAS.getContext('2d');
-      this._CONTEXT.font = '30px serif';
+      this._CONTEXT.font = '20px Roboto';
       this._CONTEXT.strokeText(dialogo, 50, 450);
    }
+
+
+   // ["Arial", "Serif", "Roboto", "Times New Roman", "Times", "Courier New", "Courier", "Verdana", "Georgia", "Palatino", "Garamond", "Bookman",
+   // "Comic Sans MS", "Candara", "Arial Black", "Impact", "FugazOne", "GermaniaOne", "GorditasBold", "GorditasRegular",
+   // "KaushanScript", "LeckerliOne", "Lemon", "LilitaOne", "LuckiestGuy", "Molle", "MrDafoe", "MrsSheppards",
+   // "Norican", "OriginalSurfer", "OswaldBold", "OswaldLight", "OswaldRegular", "Pacifico", "Paprika", "Playball",
+   // "Quando", "Ranchers", "SansitaOne", "SpicyRice", "TitanOne", "Yellowtail", "Yesteryear"]
 
    dibujarDilogoSaveImage(dialogo) {
 
       this.dialogoActual = dialogo;
       this.frameActual.textos = dialogo;
-      this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
-      this._CONTEXT.lineWidth = 2;
-      this._CONTEXT = this._CANVAS.getContext('2d');
-      this._CONTEXT.font = '30px serif';
-      this._CONTEXT.strokeText(dialogo, 50, 450);
+      this.textoPrueba = dialogo;
+      // this.frameActual.textos = dialogo;
+      // this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
+      // this._CONTEXT.lineWidth = 2;
+      // this._CONTEXT = this._CANVAS.getContext('2d');
+      // this._CONTEXT.font = '20px Arial';
+      // this._CONTEXT.strokeText(dialogo, 50, 450);
 
       this.guardarFoto();
 
@@ -1359,7 +1377,7 @@ export class CuentocanvasPage implements OnInit {
          };
 
       }
-      this.dibujarDilogo(this.frameActual.textos);
+      // this.dibujarDilogo(this.frameActual.textos);
 
    }
 
@@ -1445,14 +1463,8 @@ export class CuentocanvasPage implements OnInit {
          this.tieneVoz = true;
            // Notifico al server que se ha modificado un avatar
          this.audioFrame = URL.audioFrameOrFondo + contenedor + "/download/" + this.frameActual.audioUrl;
-         const select = document.getElementById('audio') as any;
-         var duration = select.duration;
-         if(duration > this.escenaFrames.duracionFrame)
-         {
-            console.log("dura demasiado");
-            this.eliminarAudioFrame();
-         }
-
+         // const select = document.getElementById('audio') as any;
+         // var duration = select.duration;
        });
 
 
@@ -1505,6 +1517,8 @@ export class CuentocanvasPage implements OnInit {
 
        });
    }
+
+ 
 
    async alertMuchaDuracion() {
       const alert = await this.alertController.create({

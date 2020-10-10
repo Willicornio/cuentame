@@ -37,10 +37,10 @@ export class Libro{
         listavotantes = [],
         listavotantesconcurso = [],
         inscrito = '',
-        criterio1 = '',
-        criterio2 = '',
-        criterio3 = '',
-        criteriototal = ''
+        criterio1 = 0,
+        criterio2 = 0,
+        criterio3 = 0,
+        criteriototal = 0
 
     ) {
         this.autor = autor,
