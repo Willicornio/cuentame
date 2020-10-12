@@ -50,12 +50,12 @@ export class ReproductorPage implements OnInit {
   duracion;
   tiempo;
   concurso: Concurso;
-  criterio1: any ;
+  criterio1: number ;
   criterio1guar: any ;
   criterio2guar: any;
   criterio3guar: any ;
-  criterio2: any ;
-  criterio3: any ;
+  criterio2: number ;
+  criterio3: number ;
   votante = false;
   votantec = false;
   tengoconcurso = false;
@@ -348,7 +348,9 @@ export class ReproductorPage implements OnInit {
               {
                 var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
                 objetolista.audio = audio;
-              }
+                // var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
+                // objetolista.audio = audio;
+                      }
       this.listacompleja.push(objetolista);
 
 
