@@ -8,6 +8,7 @@ export class Frame{
     escenaid: any;
     url: any;
     audioUrl: any;
+    contador: any;
    
     constructor(
         portadaFrame = '',

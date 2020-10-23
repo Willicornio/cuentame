@@ -14,6 +14,7 @@ import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { SocketsService}from '../../services/sockets.service';
 import { AnyTxtRecord } from 'dns';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -34,6 +35,8 @@ export class ReproductorPage implements OnInit {
   listaFondos: ImagenFondo[] = [];
   idalumno;
   idLibro;
+  i = 0;
+  numeroDeFrame = 0;
   listaEscenas: EscenaFrames[] = [];
   listaFrames: Frame[] = [];
   listaFotos = [];
@@ -67,7 +70,7 @@ export class ReproductorPage implements OnInit {
   modo: any = 0;
   notificacionvotar = 'a';
   url = 'http://localhost:3000/api/imagenes/';
- 
+  audioFrame: any;
  listacompleja =  [];
 
   
@@ -269,6 +272,7 @@ export class ReproductorPage implements OnInit {
 
   dameEscenas() {
 
+
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
 
@@ -301,7 +305,10 @@ export class ReproductorPage implements OnInit {
           console.log(res);
 
           res.forEach(element => {
-            lista.push(element);
+          element.contador = this.numeroDeFrame;
+          lista.push(element);
+          this.numeroDeFrame++;
+
           });
           this.obtenerFrames2(lista);
         });
@@ -320,16 +327,12 @@ export class ReproductorPage implements OnInit {
       var objetolista = {
         frame: '',
         escena : String,
-        audio : ''
+        audio : '',
+        numero: Number
     
      }
 
-     
-      
-   
-
-
-      this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
+         this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
         .subscribe((res) => {
           const blob = new Blob([res.blob()], { type: 'image/png' });
 
@@ -338,21 +341,25 @@ export class ReproductorPage implements OnInit {
             if(reader.error){
               console.log(reader.error)
             } else {
+
               this.fotoimagen = reader.result.toString();
               this.listaFotos.push(this.fotoimagen);
               objetolista.frame = this.fotoimagen;
               objetolista.audio = element.audioUrl;
               objetolista.escena = element.escenaid;
+              objetolista.numero = element.contador;
               
               if(objetolista.audio != '' )
               {
                 var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
+                // this.audioFrame = audio;
                 objetolista.audio = audio;
                 // var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
                 // objetolista.audio = audio;
-                      }
-      this.listacompleja.push(objetolista);
+               }
 
+                this.listacompleja.push(objetolista);
+                this.listacompleja.sort((a, b) => a.numero - b.numero);
 
               }
           };
@@ -372,17 +379,23 @@ export class ReproductorPage implements OnInit {
 
   startAutoplay() {
 
+
+
     var time = 0;
     time = 1000 * this.tiempo;
     this.get_duration_interval = setInterval(() => {
-      this.slides.slideNext()
+      this.slideNext();
+
     }, time);
 
 
   }
-  slideChanged() {
 
-  }
+
+
+
+
+
   stopAutoplay() {
     if (this.get_duration_interval) {
       clearInterval(this.get_duration_interval);
@@ -392,13 +405,23 @@ export class ReproductorPage implements OnInit {
 
   slidePrev() {
     this.slides.slidePrev();
-
+    this.i--;
+    if(this.listacompleja[this.i].audio != '' )
+    {
+      this.audioFrame = this.listacompleja[this.i].audio;
+ 
+            }
   }
   slideNext() {
     this.slides.slideNext();
-
-
-
+    this.i++;
+    if(this.listacompleja[this.i].audio != '' )
+    {
+      this.audioFrame = this.listacompleja[this.i].audio;
+    }
+    else{
+      this.audioFrame = '';
+    }
 
   }
 }
