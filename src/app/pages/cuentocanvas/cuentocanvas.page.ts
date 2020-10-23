@@ -490,28 +490,18 @@ export class CuentocanvasPage implements OnInit {
 
    saveTheFrames() {
 
-      // var i = 0;
-      // this.listaFotosFrame.forEach(element => {
+      const select = document.getElementById('audio') as any;
+      if(select != null){
 
-      //    this.peticionesApiService.postImage(this.escenaFrames.id,element.numeroFrame, element)
-      //    .subscribe((res) => {
-
-
-      //    }, (err) => {
-
-      //       console.log(err);
-      //    })
-
-      // });
-
+      var duration = select.duration;
+      var arrayNew = this.escenaFrames.frames as any;
+      
+      this.escenaFrames.frames[ arrayNew.length-1].duracionAudio = duration;
+      }
       this.escenaFrames.frames.forEach(element => {
-
-
-
          element.personajes.forEach(per => {
             per.url = "";
          });
-
 
          this.peticionesApiService.putFrame(this.escenaFrames.id, element.id, element)
             .subscribe((res) => {
@@ -834,6 +824,11 @@ export class CuentocanvasPage implements OnInit {
 
    nextFrame() {
 
+      const select = document.getElementById('audio') as any;
+      if(select != null){
+         var duration = select.duration;
+         this.frameActual.duracionAudio= duration;
+         }
       this.tieneVoz = false;
       if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
          var numero = this.frameActual.numero;
@@ -872,7 +867,12 @@ export class CuentocanvasPage implements OnInit {
 
    antiNextFrame() {
 
-      this.tieneVoz = false;
+        const select = document.getElementById('audio') as any;
+        if(select != null){
+        var duration = select.duration;
+        this.frameActual.duracionAudio= duration;
+        }
+        this.tieneVoz = false;
       if (this.frameActual.numero > 1) {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero - 2];

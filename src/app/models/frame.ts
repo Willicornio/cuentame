@@ -9,13 +9,15 @@ export class Frame{
     url: any;
     audioUrl: any;
     contador: any;
+    duracionAudio: any;
    
     constructor(
         portadaFrame = '',
         personajes = [],
         textos = '',
         numero = 1,
-        audioUrl = ''
+        audioUrl = '',
+        duracionAudio = 10
 
     ) {
 
@@ -23,7 +25,8 @@ export class Frame{
      this.textos = textos,
      this.portadaFrame = portadaFrame,
      this.numero = numero,
-     this.audioUrl = audioUrl
+     this.audioUrl = audioUrl,
+     this.duracionAudio = duracionAudio
 
     }
 }
