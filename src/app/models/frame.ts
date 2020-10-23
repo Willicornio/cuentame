@@ -8,13 +8,15 @@ export class Frame{
     escenaid: any;
     url: any;
     audioUrl: any;
+    duracionAudio: any;
    
     constructor(
         portadaFrame = '',
         personajes = [],
         textos = '',
         numero = 1,
-        audioUrl = ''
+        audioUrl = '',
+        duracionAudio = 10
 
     ) {
 
@@ -22,7 +24,8 @@ export class Frame{
      this.textos = textos,
      this.portadaFrame = portadaFrame,
      this.numero = numero,
-     this.audioUrl = audioUrl
+     this.audioUrl = audioUrl,
+     this.duracionAudio = duracionAudio
 
     }
 }
