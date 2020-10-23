@@ -825,8 +825,10 @@ export class CuentocanvasPage implements OnInit {
    nextFrame() {
 
       const select = document.getElementById('audio') as any;
-      var duration = select.duration;
-      this.frameActual.duracionAudio= duration;
+      if(select != null){
+         var duration = select.duration;
+         this.frameActual.duracionAudio= duration;
+         }
       this.tieneVoz = false;
       if (this.frameActual.numero < this.escenaFrames.numeroFrames) {
          var numero = this.frameActual.numero;
@@ -866,8 +868,10 @@ export class CuentocanvasPage implements OnInit {
    antiNextFrame() {
 
         const select = document.getElementById('audio') as any;
+        if(select != null){
         var duration = select.duration;
         this.frameActual.duracionAudio= duration;
+        }
         this.tieneVoz = false;
       if (this.frameActual.numero > 1) {
          var numero = this.frameActual.numero;
