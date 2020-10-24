@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SocketsService}from '../../services/sockets.service';
 import { AnyTxtRecord } from 'dns';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
 
 
 @Component({
@@ -68,6 +69,7 @@ export class ReproductorPage implements OnInit {
   criteriototal;
   tipoaudio;
   modo: any = 0;
+  tiemporepro = 1000;
   notificacionvotar = 'a';
   url = 'http://localhost:3000/api/imagenes/';
   audioFrame: any;
@@ -328,7 +330,8 @@ export class ReproductorPage implements OnInit {
         frame: '',
         escena : String,
         audio : '',
-        numero: Number
+        numero: Number,
+        duracion: Number
     
      }
 
@@ -348,6 +351,7 @@ export class ReproductorPage implements OnInit {
               objetolista.audio = element.audioUrl;
               objetolista.escena = element.escenaid;
               objetolista.numero = element.contador;
+              objetolista.duracion = element.duracionAudio;
               
               if(objetolista.audio != '' )
               {
@@ -381,12 +385,12 @@ export class ReproductorPage implements OnInit {
 
 
 
-    var time = 0;
-    time = 1000 * this.tiempo;
     this.get_duration_interval = setInterval(() => {
-      this.slideNext();
 
-    }, time);
+      this.slideNextr();
+      
+
+    }, this.tiemporepro);
 
 
   }
@@ -418,10 +422,28 @@ export class ReproductorPage implements OnInit {
     if(this.listacompleja[this.i].audio != '' )
     {
       this.audioFrame = this.listacompleja[this.i].audio;
+
     }
     else{
       this.audioFrame = '';
     }
 
+  }
+
+  slideNextr() {
+    clearInterval(this.get_duration_interval);
+    this.slides.slideNext();
+
+    this.i++;
+    if(this.listacompleja[this.i].audio != '' )
+    {
+      this.audioFrame = this.listacompleja[this.i].audio;
+      this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+    }
+    else{
+      this.audioFrame = '';
+      this.tiemporepro = 100 * 10;
+    }
+this.startAutoplay();
   }
 }

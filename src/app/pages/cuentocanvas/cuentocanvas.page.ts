@@ -778,6 +778,11 @@ export class CuentocanvasPage implements OnInit {
 
    newFrame() {
 
+      const select = document.getElementById('audio') as any;
+        if(select != null){
+        var duration = select.duration;
+        this.frameActual.duracionAudio= duration;
+        }
       var newFrame = new Frame();
 
       newFrame.numero = this.frameActual.numero + 1;
