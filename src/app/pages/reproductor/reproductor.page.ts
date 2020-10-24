@@ -32,6 +32,9 @@ export class ReproductorPage implements OnInit {
   @Output() ratingChange: EventEmitter<number> = new EventEmitter();;
   @ViewChild(IonSlides) slides: IonSlides;
 
+
+
+  textoparaver: string = '';
   get_duration_interval: any;
   listaFondos: ImagenFondo[] = [];
   idalumno;
@@ -331,7 +334,8 @@ export class ReproductorPage implements OnInit {
         escena : String,
         audio : '',
         numero: Number,
-        duracion: Number
+        duracion: Number,
+        texto: ''
     
      }
 
@@ -352,6 +356,7 @@ export class ReproductorPage implements OnInit {
               objetolista.escena = element.escenaid;
               objetolista.numero = element.contador;
               objetolista.duracion = element.duracionAudio;
+              objetolista.texto = element.textos;
               
               if(objetolista.audio != '' )
               {
@@ -410,15 +415,18 @@ export class ReproductorPage implements OnInit {
   slidePrev() {
     this.slides.slidePrev();
     this.i--;
+    this.textoparaver = this.listacompleja[this.i].texto;
     if(this.listacompleja[this.i].audio != '' )
     {
       this.audioFrame = this.listacompleja[this.i].audio;
+ 
  
             }
   }
   slideNext() {
     this.slides.slideNext();
     this.i++;
+    this.textoparaver = this.listacompleja[this.i].texto;
     if(this.listacompleja[this.i].audio != '' )
     {
       this.audioFrame = this.listacompleja[this.i].audio;
@@ -433,8 +441,9 @@ export class ReproductorPage implements OnInit {
   slideNextr() {
     clearInterval(this.get_duration_interval);
     this.slides.slideNext();
-
+  
     this.i++;
+    this.textoparaver = this.listacompleja[this.i].texto;
     if(this.listacompleja[this.i].audio != '' )
     {
       this.audioFrame = this.listacompleja[this.i].audio;
@@ -442,7 +451,7 @@ export class ReproductorPage implements OnInit {
     }
     else{
       this.audioFrame = '';
-      this.tiemporepro = 100 * 10;
+      this.tiemporepro = 1000 * 10;
     }
 this.startAutoplay();
   }
