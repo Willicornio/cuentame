@@ -12,7 +12,7 @@ import { threadId } from 'worker_threads';
 import { Concurso } from 'src/app/models/concurso';
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
-import { SocketsService}from '../../services/sockets.service';
+import { SocketsService } from '../../services/sockets.service';
 import { AnyTxtRecord } from 'dns';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
@@ -57,12 +57,12 @@ export class ReproductorPage implements OnInit {
   duracion;
   tiempo;
   concurso: Concurso;
-  criterio1: number ;
-  criterio1guar: any ;
+  criterio1: number;
+  criterio1guar: any;
   criterio2guar: any;
-  criterio3guar: any ;
-  criterio2: number ;
-  criterio3: number ;
+  criterio3guar: any;
+  criterio2: number;
+  criterio3: number;
   votante = false;
   votantec = false;
   tengoconcurso = false;
@@ -76,10 +76,10 @@ export class ReproductorPage implements OnInit {
   notificacionvotar = 'a';
   url = 'http://localhost:3000/api/imagenes/';
   audioFrame: any;
- listacompleja =  [];
+  listacompleja = [];
 
-  
-  constructor(private socketservice: SocketsService ,private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
+
+  constructor(private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -95,7 +95,7 @@ export class ReproductorPage implements OnInit {
     this.idalumno = localStorage.getItem("idAlumno");
 
     if (this.modo == 2) {
-      this.idLibro = localStorage.getItem("idLibroVer");  this.socketservice.votarnoti(this.notificacionvotar);
+      this.idLibro = localStorage.getItem("idLibroVer"); this.socketservice.votarnoti(this.notificacionvotar);
     }
     else {
       this.idLibro = localStorage.getItem("idLibro");
@@ -258,8 +258,8 @@ export class ReproductorPage implements OnInit {
       this.libro.criterio2 = this.criterio2guar + this.rate2;
       this.libro.criterio3 = this.criterio3guar + this.rate3;
 
- 
-     this.libro.criteriototal = this.libro.criterio1 + this.libro.criterio2 + this.libro.criterio3 ;
+
+      this.libro.criteriototal = this.libro.criterio1 + this.libro.criterio2 + this.libro.criterio3;
       this.peticionesAPI.modificalibro(this.libro)
         .subscribe((res) => {
           console.log(res)
@@ -273,7 +273,7 @@ export class ReproductorPage implements OnInit {
 
   }
 
-///////////////////////7reproducir cuento///////////////////////////////////
+  ///////////////////////7reproducir cuento///////////////////////////////////
 
   dameEscenas() {
 
@@ -281,7 +281,7 @@ export class ReproductorPage implements OnInit {
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
 
-     
+
 
 
 
@@ -310,9 +310,9 @@ export class ReproductorPage implements OnInit {
           console.log(res);
 
           res.forEach(element => {
-          element.contador = this.numeroDeFrame;
-          lista.push(element);
-          this.numeroDeFrame++;
+            element.contador = this.numeroDeFrame;
+            lista.push(element);
+            this.numeroDeFrame++;
 
           });
           this.obtenerFrames2(lista);
@@ -331,21 +331,21 @@ export class ReproductorPage implements OnInit {
 
       var objetolista = {
         frame: '',
-        escena : String,
-        audio : '',
+        escena: String,
+        audio: '',
         numero: Number,
         duracion: Number,
         texto: ''
-    
-     }
 
-         this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
+      }
+
+      this.peticionesAPI.getImagen(element.portadaFrame, contenedor)
         .subscribe((res) => {
           const blob = new Blob([res.blob()], { type: 'image/png' });
 
           const reader = new FileReader();
           reader.onloadend = (event) => {
-            if(reader.error){
+            if (reader.error) {
               console.log(reader.error)
             } else {
 
@@ -357,20 +357,19 @@ export class ReproductorPage implements OnInit {
               objetolista.numero = element.contador;
               objetolista.duracion = element.duracionAudio;
               objetolista.texto = element.textos;
-              
-              if(objetolista.audio != '' )
-              {
-                var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
+
+              if (objetolista.audio != '') {
+                var audio = this.url + this.libro.titulo + "/download/" + objetolista.audio;
                 // this.audioFrame = audio;
                 objetolista.audio = audio;
                 // var audio =  this.url + this.libro.titulo + "/download/" + objetolista.audio;
                 // objetolista.audio = audio;
-               }
-
-                this.listacompleja.push(objetolista);
-                this.listacompleja.sort((a, b) => a.numero - b.numero);
-
               }
+
+              this.listacompleja.push(objetolista);
+              this.listacompleja.sort((a, b) => a.numero - b.numero);
+
+            }
           };
 
           if (blob) {
@@ -393,7 +392,7 @@ export class ReproductorPage implements OnInit {
     this.get_duration_interval = setInterval(() => {
 
       this.slideNextr();
-      
+
 
     }, this.tiemporepro);
 
@@ -415,24 +414,33 @@ export class ReproductorPage implements OnInit {
   slidePrev() {
     this.slides.slidePrev();
     this.i--;
-    this.textoparaver = this.listacompleja[this.i].texto;
-    if(this.listacompleja[this.i].audio != '' )
-    {
+    if (this.listacompleja[this.i].texto != undefined) {
+      this.textoparaver = this.listacompleja[this.i].texto;
+    }
+    else {
+      this.textoparaver = '';
+
+    } if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
- 
- 
-            }
+
+
+    }
   }
   slideNext() {
     this.slides.slideNext();
     this.i++;
-    this.textoparaver = this.listacompleja[this.i].texto;
-    if(this.listacompleja[this.i].audio != '' )
-    {
+    if (this.listacompleja[this.i].texto != undefined) {
+      this.textoparaver = this.listacompleja[this.i].texto;
+    }
+    else {
+      this.textoparaver = '';
+
+    }
+    if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
 
     }
-    else{
+    else {
       this.audioFrame = '';
     }
 
@@ -441,18 +449,23 @@ export class ReproductorPage implements OnInit {
   slideNextr() {
     clearInterval(this.get_duration_interval);
     this.slides.slideNext();
-  
+
     this.i++;
-    this.textoparaver = this.listacompleja[this.i].texto;
-    if(this.listacompleja[this.i].audio != '' )
-    {
+    if (this.listacompleja[this.i].texto != undefined) {
+      this.textoparaver = this.listacompleja[this.i].texto;
+    }
+    else {
+      this.textoparaver = '';
+
+    }
+    if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
       this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
     }
-    else{
+    else {
       this.audioFrame = '';
       this.tiemporepro = 1000 * 10;
     }
-this.startAutoplay();
+    this.startAutoplay();
   }
 }
