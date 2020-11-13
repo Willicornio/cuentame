@@ -528,7 +528,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.frameActual.personajes.forEach(obj => {
 
-         if (obj.id % 2 == 0) {
+         if (obj.id % 2 == 0) {  
             listaRecursosService.forEach(element => {
                if (element.nombre == obj.foto) {
                   var personaje: any;
@@ -1166,23 +1166,10 @@ export class CuentocanvasPage implements OnInit {
          }
 
       });
-
-      // this.getImageDimension(img3).subscribe(
-      //    response => {
-      //       console.log(response);
-      //       this.fondoCargadaHeight = response.height;
-      //       this.fondoCargadaWidth = response.width;
-      //       this.fondoHeigth = response.height;
-      //       this.fondoWeith = response.width;
-      //    }
-      // )
-
-
-
       this._CONTEXT = this._CANVAS.getContext('2d');
-      var pat = this._CONTEXT.createPattern(img3, "repeat", 900, );
+      // var pat = this._CONTEXT.createPattern(img3, "repeat", 900, );
       
-      this._CONTEXT.fillStyle = pat;
+      // this._CONTEXT.fillStyle = pat;
       this._CONTEXT.fillRect(0, 0, 1900, 1900);
 
       this._CONTEXT = this._CANVAS.getContext('2d');

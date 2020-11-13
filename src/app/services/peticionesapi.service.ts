@@ -32,6 +32,8 @@ export class PeticionesapiService {
   private urljuegolibro = this.base + '3000/api/juegodelibro';
   private urlalumnojuego = this.base + '3000/api/alumnojuegodecuento';
   private urlconcurso = this.base + '3000/api/juegoLibroConcursos';
+  private APIUrlAlumnos = this.base + ':3000/api/Alumnos';
+
 
 
   constructor(private http: HttpClient,
@@ -234,6 +236,11 @@ public DameAlumnoJuegoLibro(id): Observable<any>  {
   //  MOodlibro(titulo: string, autor: string, resumen: string, portada: string, puntuacion: string, idAlumno: string, escenas: [], numeropag:string): Observable<Libro> {
   //   return this.http.put<Libro>(this.urllibro + '/' + titulo + '/juegoDeColeccions/' + juegoId, juego);
   // }
+
+  public loginAlumno(nombre: string, apellido: string): Observable<any> {
+    console.log('Entro a mostrar a ' + nombre + ' ' + apellido);
+    return this.http.get<any>(this.APIUrlAlumnos + '?filter[where][Nombre]=' + nombre + '&filter[where][Apellido]=' + apellido);
+  }
 
 
 }

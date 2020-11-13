@@ -1,0 +1,54 @@
+<nav class="nav-wrapper green">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> Login </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-grid>
+    <br>
+      <ion-row>
+      <ion-col>
+      
+        <ion-card>
+        <div>
+          <form #postForm="ngForm" (ngSumbit)="login(postForm)">
+            <div>
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input type="text" [(ngModel)]="name" name="name"></ion-input>
+
+              </ion-item>
+            </div>
+
+            <div>
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input type="text" [(ngModel)]="pass" name="pass"></ion-input>
+
+              </ion-item>
+            </div>
+            <div>
+              <ion-button type="submit" expand="full" (click)="login(postForm)" round>
+                Acceder </ion-button>
+
+            </div>
+
+          </form>
+        </div>
+        
+      </ion-card>
+      </ion-col>
+  
+     
+    </ion-row>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+  </ion-grid>
+  

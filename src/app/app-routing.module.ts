@@ -60,8 +60,6 @@ const routes: Routes = [
     path: 'juegos',
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
-
-
   {
     path: 'todoslibros',
     loadChildren: () => import('./pages/todoslibros/todoslibros.module').then( m => m.TodoslibrosPageModule)
@@ -77,9 +75,14 @@ const routes: Routes = [
   {
     path: 'votacionesconcurso',
     loadChildren: () => import('./pages/votacionesconcurso/votacionesconcurso.module').then( m => m.VotacionesconcursoPageModule)
-  },  {
+  },
+  {
     path: 'resultadosconcurso',
     loadChildren: () => import('./pages/resultadosconcurso/resultadosconcurso.module').then( m => m.ResultadosconcursoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   }
 
 
