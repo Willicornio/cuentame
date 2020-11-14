@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { EscenaFrames } from 'src/app/models/escenaFrames';
 import { Alumno } from 'src/app/models/alumno';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class LibroPage implements OnInit {
   font: any = "Arial";
   fontPX: any = 50;
 
-  constructor(private router: Router, private peticionesAPI: PeticionesapiService) { }
+  constructor(private router: Router, private peticionesAPI: PeticionesapiService, public alertController: AlertController) { }
 
 
   nombreaAlumno: any = "Horse Luis";
@@ -83,16 +84,29 @@ export class LibroPage implements OnInit {
     this.libro.idAlumno = this.alumno.id;
     this.libro.numeropag = '32';
 
-    this.peticionesAPI.publicarlibro(this.idalumnojuego, this.libro)
+    
+    this.peticionesAPI.comprobarTituloLibro(this.libro.titulo)
       .subscribe(res => {
-        console.log(res);
-        this.crearCarpeta(res.id);
+        if(res[0] == null){
+        this.publicarlibro();
+        }
+        else{
+          this.alertaNombreIgual();
+        }
       });
 
 
   }
 
+  publicarlibro()
+  {
 
+    this.peticionesAPI.publicarlibro(this.idalumnojuego, this.libro)
+      .subscribe(res => {
+        console.log(res);
+        this.crearCarpeta(res.id);
+      });
+  }
 
   crearCarpeta(id) {
 
@@ -102,8 +116,11 @@ export class LibroPage implements OnInit {
 
     this.peticionesAPI.createFolder(name)
       .subscribe((res) => {
-        console.log(res);
-        this.router.navigate(["listaescenas/" + id]);
+        console.log(res); 
+       
+          this.router.navigate(["listaescenas/" + id]);
+
+      
 
       },
 
@@ -213,7 +230,21 @@ export class LibroPage implements OnInit {
     // this.refreshFondo();
   }
 
+  async alertaNombreIgual() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'No se ha creado el cuento',
+      subHeader: 'El nombre ya está ocupado',
+      message: 'Ya existe un libro con este nombre, elije otro',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+
 }
+
 
 
 

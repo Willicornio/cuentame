@@ -32,7 +32,7 @@ export class PeticionesapiService {
   private urljuegolibro = this.base + '3000/api/juegodelibro';
   private urlalumnojuego = this.base + '3000/api/alumnojuegodecuento';
   private urlconcurso = this.base + '3000/api/juegoLibroConcursos';
-  private APIUrlAlumnos = this.base + ':3000/api/Alumnos';
+  private APIUrlAlumnos = this.base + '3000/api/Alumnos';
 
 
 
@@ -239,8 +239,12 @@ public DameAlumnoJuegoLibro(id): Observable<any>  {
 
   public loginAlumno(nombre: string, apellido: string): Observable<any> {
     console.log('Entro a mostrar a ' + nombre + ' ' + apellido);
-    return this.http.get<any>(this.APIUrlAlumnos + '?filter[where][Nombre]=' + nombre + '&filter[where][Apellido]=' + apellido);
+    return this.http.get<any>(this.APIUrlAlumnos + '?filter[where][Nombre]=' + nombre + '&filter[where][PrimerApellido]=' + apellido);
   }
 
+public comprobarTituloLibro(nombre: string){
+  return this.http.get<any>(this.urllibro + '?filter[where][titulo]=' + nombre);
+
+}
 
 }

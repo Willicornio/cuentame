@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/libro/libro.module').then( m => m.LibroPageModule)
   },
   {
-    path: '',
+    path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
@@ -81,7 +81,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/resultadosconcurso/resultadosconcurso.module').then( m => m.ResultadosconcursoPageModule)
   },
   {
-    path: 'login',
+    path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   }
 

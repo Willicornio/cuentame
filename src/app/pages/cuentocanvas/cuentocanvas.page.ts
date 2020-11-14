@@ -495,6 +495,7 @@ export class CuentocanvasPage implements OnInit {
 
    saveTheFrames() {
 
+      var longitud = 0;
       const select = document.getElementById('audio') as any;
       if(select != null){
 
@@ -510,6 +511,12 @@ export class CuentocanvasPage implements OnInit {
 
          this.peticionesApiService.putFrame(this.escenaFrames.id, element.id, element)
             .subscribe((res) => {
+               longitud++;
+
+               if(this.escenaFrames.frames.length == longitud)
+               {
+                  this.guardar();
+               }
 
             }, (err) => {
 

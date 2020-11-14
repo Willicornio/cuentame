@@ -280,11 +280,6 @@ export class ReproductorPage implements OnInit {
 
     this.peticionesAPI.dameEscenasLibro(this.idLibro)
       .subscribe(res => {
-
-
-
-
-
         console.log(res);
 
         res.forEach(element => {

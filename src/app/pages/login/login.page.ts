@@ -33,13 +33,14 @@ export class LoginPage implements OnInit {
 
         if (res[0] !== undefined) {
 
-          console.log("va ?");
-        
 
-        
+          localStorage.setItem("idAlumno", res[0].id);
+
+          this.router.navigate(["inicio"]);
         }
 
       },(err)=>{
+        console.log(err);
 
       }
       
