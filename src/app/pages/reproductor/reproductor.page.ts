@@ -78,7 +78,6 @@ export class ReproductorPage implements OnInit {
   audioFrame: any;
   listacompleja = [];
 
-
   constructor(private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
@@ -241,7 +240,7 @@ export class ReproductorPage implements OnInit {
 
   guardar() {
 
-this.mostrar = false;
+    this.mostrar = false;
 
     if (this.listavotantesconcurso.length > 0) {
       this.listavotantesconcurso.forEach(element => {
@@ -372,14 +371,12 @@ this.mostrar = false;
 
               this.listacompleja.push(objetolista);
 
-              this.listaEscenas.sort((a, b) => a.id - b.id);
-              this.listaEscenas;
-
 
 
 
 
               this.listacompleja.sort((a, b) => a.numero - b.numero);
+
 
             }
           };
@@ -441,52 +438,81 @@ this.mostrar = false;
   slidePrev() {
     this.slides.slidePrev();
     this.i--;
+
     this.textoparaver = this.listacompleja[this.i].texto;
     if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
+
+      } if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+
+
+      }
     }
   }
-  slideNext() {
-    this.slides.slideNext();
-    this.i++;
-    this.textoparaver = this.listacompleja[this.i].texto;
-    if (this.listacompleja[this.i].audio != '') {
-      this.audioFrame = this.listacompleja[this.i].audio;
+
+    slideNext()
+    {
+      this.slides.slideNext();
+      this.i++;
+      this.textoparaver = this.listacompleja[this.i].texto;
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
+
+      }
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+
+      }
+      else {
+        this.audioFrame = '';
+      }
 
     }
-    else {
-      this.audioFrame = '';
-    }
 
+    goToSlide() {
+
+      this.textoparaver = this.listacompleja[this.i].texto;
+      this.slides.slideTo(this.i);
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+        this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+      }
+      else {
+        this.audioFrame = '';
+        this.tiemporepro = 1000 * 10;
+      }
+
+    }
+    slideNextr() {
+      clearInterval(this.get_duration_interval);
+      this.slides.slideNext();
+
+      this.i++;
+      this.textoparaver = this.listacompleja[this.i].texto;
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
+
+      }
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+        this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+      }
+      else {
+        this.audioFrame = '';
+        this.tiemporepro = 1000 * 10;
+      }
+      this.startAutoplay();
+    }
   }
-  goToSlide() {
-
-    this.textoparaver = this.listacompleja[this.i].texto;
-    this.slides.slideTo(this.i);
-    if (this.listacompleja[this.i].audio != '') {
-      this.audioFrame = this.listacompleja[this.i].audio;
-      this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
-    }
-    else {
-      this.audioFrame = '';
-      this.tiemporepro = 1000 * 10;
-    }
-
-  }
-  slideNextr() {
-    clearInterval(this.get_duration_interval);
-    this.slides.slideNext();
-
-    this.i++;
-    this.textoparaver = this.listacompleja[this.i].texto;
-    if (this.listacompleja[this.i].audio != '') {
-      this.audioFrame = this.listacompleja[this.i].audio;
-      this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
-    }
-    else {
-      this.audioFrame = '';
-      this.tiemporepro = 1000 * 10;
-    }
-    this.startAutoplay();
-  }
-}

@@ -63,6 +63,8 @@ export class CuentocanvasPage implements OnInit {
 
    imagenCargadaWidth: any;
    imagenCargadaHeight: any;
+   fondoCargadaWidth: any;
+   fondoCargadaHeight: any;
    src: any;
    personajeCargado: PersonajeFrame;
    imagen: any;
@@ -99,6 +101,9 @@ export class CuentocanvasPage implements OnInit {
    imagenRedimension: any = "";
    imagenWeith: any = "";
    imagenHeigth: any = "";
+
+   fondoWeith: any = "";
+   fondoHeigth: any = "";
 
    i: any = 0;
    iNumber: number = 0;
@@ -1162,11 +1167,34 @@ export class CuentocanvasPage implements OnInit {
 
       });
 
+      // this.getImageDimension(img3).subscribe(
+      //    response => {
+      //       console.log(response);
+      //       this.fondoCargadaHeight = response.height;
+      //       this.fondoCargadaWidth = response.width;
+      //       this.fondoHeigth = response.height;
+      //       this.fondoWeith = response.width;
+      //    }
+      // )
+
+
 
       this._CONTEXT = this._CANVAS.getContext('2d');
-      var pat = this._CONTEXT.createPattern(img3, "repeat");
+      var pat = this._CONTEXT.createPattern(img3, "repeat", 900, );
+      
       this._CONTEXT.fillStyle = pat;
       this._CONTEXT.fillRect(0, 0, 1900, 1900);
+
+      this._CONTEXT = this._CANVAS.getContext('2d');
+
+                  this._CONTEXT.drawImage(   // Image
+                     img3,
+                     0,
+                     0,
+                     900,
+                     600
+                  );
+                  this._CONTEXT.stroke();
    }
 
    timeLeft: number = 60;
