@@ -33,7 +33,7 @@ export class ReproductorPage implements OnInit {
   @ViewChild(IonSlides) slides: IonSlides;
 
 
-
+  mostrar = false;
   textoparaver: string = '';
   get_duration_interval: any;
   listaFondos: ImagenFondo[] = [];
@@ -77,7 +77,6 @@ export class ReproductorPage implements OnInit {
   url = 'http://localhost:3000/api/imagenes/';
   audioFrame: any;
   listacompleja = [];
-
 
   constructor(private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
@@ -152,6 +151,10 @@ export class ReproductorPage implements OnInit {
     console.log(rate3)
     this.rate3 = rate3;
 
+  }
+
+  vervotar() {
+    this.mostrar = true;
   }
 
   damelibro() {
@@ -237,7 +240,7 @@ export class ReproductorPage implements OnInit {
 
   guardar() {
 
-
+    this.mostrar = false;
 
     if (this.listavotantesconcurso.length > 0) {
       this.listavotantesconcurso.forEach(element => {
@@ -362,7 +365,13 @@ export class ReproductorPage implements OnInit {
               }
 
               this.listacompleja.push(objetolista);
+
+
+
+
+
               this.listacompleja.sort((a, b) => a.numero - b.numero);
+
 
             }
           };
@@ -375,10 +384,30 @@ export class ReproductorPage implements OnInit {
 
   }
 
+  entrarenaescena(numero) {
+    var a = 0;
+    var encontrado;
+    encontrado = false;
+
+    if (encontrado != true) {
+      this.listacompleja.forEach(element => {
+
+        if (numero == this.listacompleja[a].escena && encontrado != true) {
+          this.i = a;
+          encontrado = true;
+
+          // this.startAutoplay();
+          this.goToSlide();
+          return;
+
+        }
+        else a = a + 1;
+      }
+      );
 
 
-
-
+    }
+  }
 
   startAutoplay() {
 
@@ -394,11 +423,6 @@ export class ReproductorPage implements OnInit {
 
   }
 
-
-
-
-
-
   stopAutoplay() {
     if (this.get_duration_interval) {
       clearInterval(this.get_duration_interval);
@@ -409,58 +433,81 @@ export class ReproductorPage implements OnInit {
   slidePrev() {
     this.slides.slidePrev();
     this.i--;
-    if (this.listacompleja[this.i].texto != undefined) {
-      this.textoparaver = this.listacompleja[this.i].texto;
-    }
-    else {
-      this.textoparaver = '';
 
-    } if (this.listacompleja[this.i].audio != '') {
-      this.audioFrame = this.listacompleja[this.i].audio;
-
-
-    }
-  }
-  slideNext() {
-    this.slides.slideNext();
-    this.i++;
-    if (this.listacompleja[this.i].texto != undefined) {
-      this.textoparaver = this.listacompleja[this.i].texto;
-    }
-    else {
-      this.textoparaver = '';
-
-    }
+    this.textoparaver = this.listacompleja[this.i].texto;
     if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
 
-    }
-    else {
-      this.audioFrame = '';
-    }
+      } if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
 
+
+      }
+    }
   }
 
-  slideNextr() {
-    clearInterval(this.get_duration_interval);
-    this.slides.slideNext();
-
-    this.i++;
-    if (this.listacompleja[this.i].texto != undefined) {
+    slideNext()
+    {
+      this.slides.slideNext();
+      this.i++;
       this.textoparaver = this.listacompleja[this.i].texto;
-    }
-    else {
-      this.textoparaver = '';
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
+
+      }
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+
+      }
+      else {
+        this.audioFrame = '';
+      }
 
     }
-    if (this.listacompleja[this.i].audio != '') {
-      this.audioFrame = this.listacompleja[this.i].audio;
-      this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+
+    goToSlide() {
+
+      this.textoparaver = this.listacompleja[this.i].texto;
+      this.slides.slideTo(this.i);
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+        this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+      }
+      else {
+        this.audioFrame = '';
+        this.tiemporepro = 1000 * 10;
+      }
+
     }
-    else {
-      this.audioFrame = '';
-      this.tiemporepro = 1000 * 10;
+    slideNextr() {
+      clearInterval(this.get_duration_interval);
+      this.slides.slideNext();
+
+      this.i++;
+      this.textoparaver = this.listacompleja[this.i].texto;
+      if (this.listacompleja[this.i].texto != undefined) {
+        this.textoparaver = this.listacompleja[this.i].texto;
+      }
+      else {
+        this.textoparaver = '';
+
+      }
+      if (this.listacompleja[this.i].audio != '') {
+        this.audioFrame = this.listacompleja[this.i].audio;
+        this.tiemporepro = 1000 * this.listacompleja[this.i].duracion;
+      }
+      else {
+        this.audioFrame = '';
+        this.tiemporepro = 1000 * 10;
+      }
+      this.startAutoplay();
     }
-    this.startAutoplay();
   }
-}
