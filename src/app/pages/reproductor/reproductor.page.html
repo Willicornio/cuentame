@@ -12,32 +12,117 @@
 
 <ion-content>
   <ion-card>
- 
 
- <ion-slides  #slides [options]="slideOpts">
-  <ion-slide *ngFor="let fondo of listacompleja">
 
-    <img src={{fondo.frame}} width="600" height="600">
+    <ion-slides #slides [options]="slideOpts">
+      <ion-slide *ngFor="let fondo of listacompleja">
 
-  </ion-slide>
+        <img src={{fondo.frame}} width="600" height="600">
+
+      </ion-slide>
 
 
     </ion-slides>
     <ion-card>
-   
+
       <ion-textarea type="text" [(ngModel)]="textoparaver"> </ion-textarea>
     </ion-card>
 
 
 
+
+
+    <ion-grid>
+      <br>
+      <ion-row>
+
+        <ion-col>
+          <ion-card (click)="slidePrev()">
+            <div>
+              <img src="assets/imgs/flechaizquierda.png" height='90' width='90'>
+              <h3 text-center></h3>
+
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card (click)="startAutoplay()">
+            <div>
+              <img src="assets/imgs/green-play-button.png" height='90' width='90'>
+              <br>
+              <h3> </h3>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card (click)="stopAutoplay()">
+            <div>
+              <img src="assets/imgs/pause_green.png" height='90' width='90'>
+              <br>
+              <h3> </h3>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card (click)="slideNext()">
+            <div>
+              <img src="assets/imgs/flechaderecha.png" height='90' width='90'>
+              <br>
+              <h3> </h3>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </ion-grid>
+
+
+
+
+
+
+
+
+    <!-- 
     <ion-button expand="block" (click)="slidePrev()">soy flecha hacia la izquierda!</ion-button>
     <ion-button expand="block" (click)="startAutoplay()">imagen de un triangulito de play</ion-button>
     <ion-button expand="block" (click)="stopAutoplay()">imagen de un cuadradito de antiplay(pause)</ion-button>
-    <ion-button expand="block" (click)="slideNext()">soy flecha hacia la derecha!</ion-button>
-     
-    <audio autoplay src =  {{audioFrame}} controls></audio>
+    <ion-button expand="block" (click)="slideNext()">soy flecha hacia la derecha!</ion-button> -->
+
+    <audio autoplay src={{audioFrame}} controls></audio>
 
   </ion-card>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" *ngFor="let escena of listaEscenas">
+        <ion-card (click)="entrarenaescena(escena.id)">
+          <h3> Escena: {{escena.id}} </h3>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </ion-content>
 
@@ -60,226 +145,229 @@
 
 
 
+<ion-button expand="block" (click)="vervotar()">Votar</ion-button>
+<div *ngIf="mostrar">
+  <div *ngIf="modo==2">
+
+    <ion-card>
+      <h3>
+        PUNTUA
+      </h3>
+
+      <div *ngIf="rate==0">
 
 
-<div *ngIf="modo==2">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate==1">
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate==2">
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+      </div>
 
-  <ion-card>
-    <h3>
-      PUNTUA
-    </h3>
-
-    <div *ngIf="rate==0">
-
-
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate==1">
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate==2">
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
-    </div>
-
-    <div *ngIf="rate==3">
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate==4">
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate==5">
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(5)"></ion-icon>
-    </div>
-  </ion-card>
+      <div *ngIf="rate==3">
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate==4">
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRate(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate==5">
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star" (click)="onRate(5)"></ion-icon>
+      </div>
+    </ion-card>
+  </div>
 </div>
 
-<div *ngIf="modo==3">
+<div *ngIf="mostrar">
+  <div *ngIf="modo==3">
 
 
-  <ion-card>
-    <h3>
-      criterio1
-    </h3>
-    <p> {{c1}} </p>
+    <ion-card>
+      <h3>
+        criterio1
+      </h3>
+      <p> {{c1}} </p>
 
 
-    <div *ngIf="rate1==0">
+      <div *ngIf="rate1==0">
 
 
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate1==1">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate1==2">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate1==1">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate1==2">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
 
-    <div *ngIf="rate1==3">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate1==4">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate1==5">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
-    </div>
-
-
-
-    <h3>
-      CRITERIO 2
-    </h3>
-
-
-    <div *ngIf="rate2==0">
-
-
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate2==1">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate2==2">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
-
-    <div *ngIf="rate2==3">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate2==4">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate2==5">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
-    </div>
+      <div *ngIf="rate1==3">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate1==4">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate1==5">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec1(5)"></ion-icon>
+      </div>
 
 
 
-    <h3>
-      CRITERIO 3
-    </h3>
+      <h3>
+        CRITERIO 2
+      </h3>
 
 
-    <div *ngIf="rate3==0">
+      <div *ngIf="rate2==0">
 
 
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate3==1">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate3==2">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate2==1">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate2==2">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
 
-    <div *ngIf="rate3==3">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate3==4">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
-    <div *ngIf="rate3==5">
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
-      <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
-    </div>
+      <div *ngIf="rate2==3">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate2==4">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate2==5">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec2(5)"></ion-icon>
+      </div>
 
 
-    <ion-button expand="block" (click)="guardar()">Enviar votación</ion-button>
-  </ion-card>
+
+      <h3>
+        CRITERIO 3
+      </h3>
+
+
+      <div *ngIf="rate3==0">
+
+
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate3==1">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate3==2">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+
+      <div *ngIf="rate3==3">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate3==4">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+      <div *ngIf="rate3==5">
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(1)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(2)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(3)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(4)"></ion-icon>
+        <ion-icon color="primary" style="zoom:2.5;" name="star-outline" (click)="onRatec3(5)"></ion-icon>
+      </div>
+
+
+      <ion-button expand="block" (click)="guardar()">Enviar votación</ion-button>
+    </ion-card>
+  </div>
 </div>
