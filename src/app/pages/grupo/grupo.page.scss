@@ -1,6 +1,10 @@
 ion-card{
     width: 90%;
-    background-color: rgba(255, 255, 255, 0.733);
+    background-color: rgb(255, 255, 255);
+
+    background-image: url("/assets/imgs/bordes.png");
+    background-size: cover;
+
     text-align: center;
     margin-left: 20px;
     margin-right: 20px;
@@ -9,9 +13,14 @@ ion-card{
 }
 
 ion-item{
-    --background: rgba(253, 253, 253, 0.575);
+    --background: rgba(226, 245, 209, 0.575);
     font-weight: bold;
 }
+
+.name {
+    margin: 0;
+}
+
 
 ion-content{
 
@@ -23,7 +32,7 @@ ion-content{
 }
 
 ion-button {
-    --background: rgb(216, 238, 155);
+    --background: rgb(238, 247, 216);
     --background-hover: #ffb6c1;
     --background-activated: green;
     --color: #222;

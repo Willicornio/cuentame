@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeticionesapiService } from '../../services/peticionesapi.service';
+import { DataService } from '../../services/data.service';
 import { juegolibro } from 'src/app/models/juegolibro';
 import { Alumno } from 'src/app/models/alumno';
 import { Concurso } from 'src/app/models/concurso';
@@ -16,7 +17,9 @@ import { element } from 'protractor';
 })
 export class JuegolibroPage implements OnInit {
 
-  constructor(private router: Router, private peticionesAPI: PeticionesapiService, public alertController: AlertController) { }
+
+  
+  constructor(private router: Router, private peticionesAPI: PeticionesapiService, public alertController: AlertController, private dataService: DataService)  { }
   id;
   idg;
   nivel1: any = '';
@@ -142,6 +145,7 @@ export class JuegolibroPage implements OnInit {
           this.libroalumno = res[0];
           this.hayLibroFinalizado = res[0].finalizado;
           localStorage.setItem("idLibro", this.idLibro);
+          localStorage.setItem("contenedor",res[0].titulo)
 
         }
       }, (err) => {
@@ -231,8 +235,14 @@ export class JuegolibroPage implements OnInit {
           this.listainscripcipnes = cosa.listaLibrosParticipantes;
           this.acabado = cosa.acabado;
           this.concu = cosa;
+
+
+          this.
+
+          dataService.setdataconcurso= this.concu;
           this.muestra();
           this.estaacabado();
+
 
 
 

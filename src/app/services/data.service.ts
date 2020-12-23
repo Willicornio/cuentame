@@ -8,7 +8,7 @@ export class DataService {
 
   private data = [];
   private dataRecursos = [];
-  private dataconcurso: Concurso;
+  private dataconcurso: Concurso = new Concurso;
 
 
   constructor() { }
@@ -22,15 +22,15 @@ getData(id){
 }
 
 
-setdataconcurso(id, dataconcurso){
+setdataconcurso(dataconcurso){
 
-this.dataconcurso[id] = dataconcurso;
+this.dataconcurso = dataconcurso;
 
 }
 
-getdataconcurso(id){
+getdataconcurso(){
 
-return this.dataconcurso[id];
+return this.dataconcurso;
 
 
 }

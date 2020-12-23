@@ -19,7 +19,10 @@ import { Alumnojuegodecuento  } from '../models/alumnojuegodecuento';
 })
 
 export class PeticionesapiService {
-  private base = 'http://localhost:';
+  private base = 'http://localhost:'
+  //  private base = '  http://192.168.1.107:'
+
+
 
   private urllibro = this.base + '3000/api/libro';
   private urlescena = this.base + '3000/api/escenas';

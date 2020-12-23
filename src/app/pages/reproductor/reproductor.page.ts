@@ -16,6 +16,7 @@ import { SocketsService } from '../../services/sockets.service';
 import { AnyTxtRecord } from 'dns';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -77,6 +78,7 @@ export class ReproductorPage implements OnInit {
   url = 'http://localhost:3000/api/imagenes/';
   audioFrame: any;
   listacompleja = [];
+  
 
   constructor(private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
@@ -103,6 +105,7 @@ export class ReproductorPage implements OnInit {
 
     this.dameEscenas();
     this.damelibro();
+    
 
     //////////borrar esto/////////////
     ////////////////////////////////
@@ -220,16 +223,27 @@ export class ReproductorPage implements OnInit {
 
   libroconcursante() {
 
-    // if (this.tengoconcurso == true) {
 
+    this.concurso = this.dataservice.getdataconcurso();
+    if (this.concurso[0].concursoTematica != '') {     
 
-    //   this.concurso = this.dataservice.getdataconcurso(500);
-    //   this.c1 = this.concurso.concursoPrimerCriterio;
-    //   this.c2 = this.concurso.concursoSegundoCriterio;
-    //   this.c3 = this.concurso.concursoTercerCriterio;
+      if(this.concurso[0].concursoPrimerCriterio != '')
+      {
+        this.c1 = this.concurso[0].concursoPrimerCriterio;
 
+      }
+      if(this.concurso[0].concursoSegundoCriterio != '')
+      {
+        this.c2 = this.concurso[0].concursoSegundoCriterio;
 
-    // }
+      }
+      if(this.concurso[0].concursoTercerCriterio != '')
+      {
+        this.c3 = this.concurso[0].concursoTercerCriterio;
+
+      }
+    
+    }
 
 
 
