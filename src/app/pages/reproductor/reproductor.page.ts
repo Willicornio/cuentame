@@ -451,7 +451,14 @@ export class ReproductorPage implements OnInit {
     this.slides.slidePrev();
     this.i--;
 
-    this.textoparaver = this.listacompleja[this.i].texto;
+    if(this.listacompleja[this.i].texto != undefined || this.listacompleja[this.i].texto != null)
+    {
+      this.textoparaver = this.listacompleja[this.i].texto;
+    }
+    else{
+
+      this.textoparaver = ' ';
+    }
     if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
       if (this.listacompleja[this.i].texto != undefined) {
