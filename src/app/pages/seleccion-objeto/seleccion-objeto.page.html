@@ -1,13 +1,13 @@
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Personajes</ion-title>
+      <ion-title>OBJETOS</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-item>
     <ion-card>
-      <h3>Elije un personaje</h3>
+      <h3>Elije un objeto</h3>
 
 
 
@@ -19,8 +19,8 @@
 
           <ion-grid>
             <ion-row>
-              <ion-col size="3" *ngFor="let foto of listaFotosPersonaje">
-                <ion-card (click)="seleccionarpersonaje(foto)">
+              <ion-col size="3" *ngFor="let foto of listaFotosObjetos">
+                <ion-card (click)="seleccionarobjeto(foto)">
 
                   <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
                   <ion-col>
@@ -41,25 +41,19 @@
               <ion-row>
                 <h3>Especiales</h3>
 
-                <ion-col size="3" *ngFor="let foto of listaFotosPersonajeEspeciales">
-                  <ion-card (click)="seleccionarpersonaje(foto)">
+                <ion-col size="3" *ngFor="let foto of listaFotosObjetosEspeciales">
+                  <ion-card (click)="seleccionarobjeto(foto)">
 
                     <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
                     <ion-col>
                       <h3> {{foto.nombre}} </h3>
 
-
                     </ion-col>
-
                   </ion-card>
-
-
-
-
                 </ion-col>
               </ion-row>
 
-            </div> 
+            </div>
           </ion-grid>
 
 

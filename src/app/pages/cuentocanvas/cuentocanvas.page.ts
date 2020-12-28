@@ -32,6 +32,7 @@ import { createNgModule } from '@angular/compiler/src/core';
 import { runInThisContext } from 'vm';
 import { element } from 'protractor';
 import { AnyTxtRecord } from 'dns';
+import { url } from 'inspector';
 
 
 @Component({
@@ -704,6 +705,12 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   irAObjetos()
+   {
+      localStorage.setItem("idService", this.i);
+      this.dataService.setData(this.i, this.escenaFrames);
+      this.router.navigate(["seleccionobjeto"]);
+   }
 
 
    cargarFrame(numero) {

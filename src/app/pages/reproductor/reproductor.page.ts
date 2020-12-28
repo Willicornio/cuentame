@@ -161,7 +161,7 @@ export class ReproductorPage implements OnInit {
   }
 
   damelibro() {
-    var idlibro = localStorage.getItem("idLibro");
+    var idlibro = this.idLibro;
 
 
     this.peticionesAPI.dameunlibro(idlibro)
@@ -224,27 +224,30 @@ export class ReproductorPage implements OnInit {
   libroconcursante() {
 
 
+    
+
+
     this.concurso = this.dataservice.getdataconcurso();
-    if (this.concurso[0].concursoTematica != '') {     
+    if (this.concurso.concursoTematica != '') {     
 
-      if(this.concurso[0].concursoPrimerCriterio != '')
+      if(this.concurso.concursoPrimerCriterio != '')
       {
-        this.c1 = this.concurso[0].concursoPrimerCriterio;
-
-      }
-      if(this.concurso[0].concursoSegundoCriterio != '')
-      {
-        this.c2 = this.concurso[0].concursoSegundoCriterio;
+        this.c1 = this.concurso.concursoPrimerCriterio;
 
       }
-      if(this.concurso[0].concursoTercerCriterio != '')
+      if(this.concurso.concursoSegundoCriterio != '')
       {
-        this.c3 = this.concurso[0].concursoTercerCriterio;
+        this.c2 = this.concurso.concursoSegundoCriterio;
+
+      }
+      if(this.concurso.concursoTercerCriterio != '')
+      {
+        this.c3 = this.concurso.concursoTercerCriterio;
 
       }
     
-    }
-
+    
+  }
 
 
 

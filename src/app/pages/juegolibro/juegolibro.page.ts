@@ -51,6 +51,7 @@ export class JuegolibroPage implements OnInit {
   descripcion;
   listainscripcipnes = [];
   juegoAlumnoLibro: any;
+  juegoAlumnoLibroElegido: any;
   criterioprivilegio1: any = '';
   criterioprivilegio2: any = '';
   criterioprivilegio3: any = '';
@@ -237,9 +238,7 @@ export class JuegolibroPage implements OnInit {
           this.concu = cosa;
 
 
-          this.
-
-          dataService.setdataconcurso= this.concu;
+          this.dataService.setdataconcurso(this.concu);
           this.muestra();
           this.estaacabado();
 

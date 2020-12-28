@@ -83,7 +83,12 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'seleccionobjeto',
+    loadChildren: () => import('./pages/seleccion-objeto/seleccion-objeto.module').then( m => m.SeleccionObjetoPageModule)
   }
+
 
 
 
