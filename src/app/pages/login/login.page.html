@@ -2,13 +2,17 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title> Login </ion-title>
+      <ion-title> ClassPipKids </ion-title>
     </ion-toolbar>
   </ion-header>
   
-  
+  <ion-content [fullscreen]= "true" class="ion-padding">
+
+  <ion-text>
+    <h1>¡Bienvenido a ClassPipKids!</h1>
+    <p>Para empezar, entra en la aplicación</p>
+    </ion-text>
   <ion-grid>
-    <br>
       <ion-row>
       <ion-col>
       
@@ -31,7 +35,7 @@
               </ion-item>
             </div>
             <div>
-              <ion-button type="submit" expand="full" (click)="login(postForm)" round>
+              <ion-button type="submit" expand="full" (click)="login(postForm)" round class="singup">
                 Acceder </ion-button>
 
             </div>
@@ -44,11 +48,7 @@
   
      
     </ion-row>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    
+   
   </ion-grid>
-  
+
+  </ion-content>

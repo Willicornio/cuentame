@@ -1,22 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>juegos</ion-title>
+    <ion-title>ClassPipKids</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content [fullscreen]="true" class="ion-padding">
 
-<ion-grid>
-  <ion-row>
 
-    <ion-col  *ngFor="let grupo of listagrupo">
+  <ion-text>
+    <h1>¡Tus grupos!</h1>
+    <p>Seleciona el grupo que quieras</p>
+  </ion-text>
 
-      <ion-card (click)="iragrupo(grupo.id)">
+  <ion-grid>
 
-        <h3> holii</h3>
-        <h3> {{grupo.Nombre}} </h3>
-       
-      </ion-card>
-  
-    </ion-col>
-  </ion-row>
-</ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let grupo of listaForView">
+
+        <ion-card (click)="iragrupo(grupo.id)" height='300' width='300'>
+          <div>
+            <p> {{grupo.name}} </p>
+            <img src={{grupo.foto}} height='175' width='175' class="foto">
+          </div>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

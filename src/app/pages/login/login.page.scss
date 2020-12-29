@@ -1,0 +1,28 @@
+
+*{
+    font-weight: 300;
+}
+
+ion-content{
+    --background: #fafafa;   
+}
+
+.singup {
+
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+}
+
+ion-text {
+    position: relative;
+    top:25%;
+    text-align: center;
+
+    h1{
+        font-size: 42px;
+    }
+
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+}

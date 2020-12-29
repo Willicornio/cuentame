@@ -14,11 +14,13 @@ export class GrupoPage implements OnInit {
 
   idgrupo;
   listajuegolibro: juegolibro[];
-  constructor(private peticionesAPI: PeticionesapiService,  private router: Router) { }
+  listaForView: any[] = [];
+
+  constructor(private peticionesAPI: PeticionesapiService, private router: Router) { }
 
   ngOnInit() {
 
-this.obtenergrupos();
+    this.obtenergrupos();
 
   }
 
@@ -29,38 +31,47 @@ this.obtenergrupos();
         console.log(res);
 
       });
-      this.obtenerjuegos();
+    this.obtenerjuegos();
 
   }
 
 
 
 
-public obtenerjuegos() {
-  
+  public obtenerjuegos() {
+
     this.peticionesAPI.getjuegosdelibro(this.idgrupo)
       .subscribe(res => {
 
-         this.listajuegolibro = res;
-        console.log(this.listajuegolibro);
+        this.listajuegolibro = res;
 
-       
-        
+        this.listajuegolibro.forEach(element => {
+          var gameView = {
+            name: '',
+            foto: '',
+            id: 0
+          }
 
+          gameView.id = element.id;
+          gameView.name = element.NombreJuego;
+          var randomNumber = Math.floor(Math.random() * 14);
+          var urlPicture = 'assets/imgs/juego' + randomNumber + '.png';
+          gameView.foto = urlPicture;
+
+          this.listaForView.push(gameView);
+
+        });
 
       });
+  }
+  entrarenjuego(id) {
+
+    localStorage.setItem("idjuegolibro", id);
+    this.router.navigate(['/juegolibro']);
+
+
 
   }
-
-  entrarenjuego(id)
-{
-
-  localStorage.setItem("idjuegolibro", id);
-  this.router.navigate(['/juegolibro']);
-
-
-
-}
 
 
 }
