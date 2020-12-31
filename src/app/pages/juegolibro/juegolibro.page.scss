@@ -8,6 +8,7 @@ ion-card{
 
 }
 
+
 ion-text {
     position: center;
     top:25%;
@@ -75,4 +76,40 @@ div[scrollx=true] {
 
 div[scrolly=true] {
    overflow-y: auto;
+}
+
+.toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
+}
+
+
+.alumnos{
+    position: center;
+    top:25%;
+    text-align: center;
+    font-size: 18px;
+        color: #696969;
+}
+
+.eyeAlumno{
+    position: center;
+    top:25%;
+    text-align: center;
 }

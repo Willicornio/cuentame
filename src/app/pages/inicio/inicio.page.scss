@@ -1,7 +1,5 @@
-ion-toolbar{
-
-    background-color: rgb(186, 235, 250);
-    font-family: Andale Mono, monospace  !important;
+.toolbar{
+  --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
 
 }
 
@@ -20,11 +18,10 @@ ion-card{
 }
 
 
-ion-grid{
-
-    
-    background-image: url("/assets/imgs/fondoinicio.png");
-    background-size: cover;
-      --background: rgba(206, 217, 223, 0.644);
-
- }
+.titleicon {
+  position: absolute;
+  width: 100%;
+  left: 97%;
+  bottom: 0;
+  // text-align:center;
+}

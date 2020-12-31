@@ -32,3 +32,16 @@ ion-card{
 	  max-height: 250px;
 	}
 }
+
+.toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
+}

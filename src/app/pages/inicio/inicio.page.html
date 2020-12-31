@@ -1,48 +1,55 @@
-<nav class="nav-wrapper green">
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title> ClassPipKids </ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-header>
+    <ion-toolbar class="toolbar">
+      <ion-title> ClassPipKids </ion-title>
+      <div class="titleicon">
+        <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+      </div>
+    </ion-toolbar>
+  </ion-header>
 
 
-<ion-grid>
-  <br>
+  <ion-grid>
+    <br>
     <ion-row>
-    <ion-col>
-    
-      <ion-card>
-      <div>
-        <img src="assets/imgs/miperfil.jpg" height='400' width='400'>
-        <h3>MI PERFIL</h3>
-      </div>
-      
-    </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card (click)="irainiciolibro()">
-      <div>
-        <img src="assets/imgs/milibros.jpg" height='400' width='400'>
-        <h3 text-center >MIS LIBROS</h3>
-      
-      </div>
-    </ion-card>
-    </ion-col>
-    <ion-col>
-    <ion-card  (click)="iramisjuegos()">
-      <div>
-        <img src="assets/imgs/librosamigos (1).jpg" height='400' width='400'>
-        <br>
-        <h3>MIS JUEGOS </h3>
-      </div>
-    </ion-card>
-    </ion-col>
-  </ion-row>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  
-</ion-grid>
+      <ion-col>
+
+        <ion-card>
+          <div>
+            <img src="assets/imgs/miperfil.jpg" height='400' width='400'>
+            <h3>MI PERFIL</h3>
+          </div>
+
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="irainiciolibro()">
+          <div>
+            <img src="assets/imgs/milibros.jpg" height='400' width='400'>
+            <h3 text-center>MIS LIBROS</h3>
+
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="iramisjuegos()">
+          <div>
+            <img src="assets/imgs/librosamigos (1).jpg" height='400' width='400'>
+            <br>
+            <h3>MIS JUEGOS </h3>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+  </ion-grid>
+
+  <ion-footer>
+    <ion-toolbar class="toolbar">
+    </ion-toolbar>
+  </ion-footer>
