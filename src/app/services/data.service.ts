@@ -8,8 +8,8 @@ export class DataService {
 
   private data = [];
   private dataRecursos = [];
-  private dataconcurso: Concurso = new Concurso;
 
+  private dataconcurso: Concurso = new Concurso;
 
   constructor() { }
 

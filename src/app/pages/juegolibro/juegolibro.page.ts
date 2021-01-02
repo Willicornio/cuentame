@@ -237,9 +237,7 @@ export class JuegolibroPage implements OnInit {
           this.concu = cosa;
 
 
-          this.
-
-          dataService.setdataconcurso= this.concu;
+          this.dataService.setdataconcurso(this.concu);
           this.muestra();
           this.estaacabado();
 

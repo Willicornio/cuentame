@@ -223,7 +223,7 @@ export class ReproductorPage implements OnInit {
 
   libroconcursante() {
 
-
+    
     this.concurso = this.dataservice.getdataconcurso();
     if (this.concurso[0].concursoTematica != '') {     
 
@@ -244,7 +244,7 @@ export class ReproductorPage implements OnInit {
       }
     
     }
-
+  
 
 
 
