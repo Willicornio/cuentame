@@ -8,10 +8,6 @@ export class DataService {
 
   private data = [];
   private dataRecursos = [];
-<<<<<<< HEAD
-=======
-  private dataconcurso = new Concurso;
->>>>>>> d727e58060ad235223a1e6cd72c9827efb79cd71
 
   private dataconcurso: Concurso = new Concurso;
 
