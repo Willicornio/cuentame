@@ -66,11 +66,14 @@ export class VotacionesconcursoPage implements OnInit {
       this.peticionesAPI.dameunlibro(idlibro)
  
       .subscribe((res) => {
+       
       this.cuento = new Libro();
-       this.cuento = res;
+      this.cuento = res;
         
-
-     
+      
+      var randomNumber = Math.floor(Math.random() * 11);
+      var urlPicture = 'assets/imgs/libro' + randomNumber + '.png';
+      this.cuento.foto = urlPicture;
      
         this.listashow.push(this.cuento);
 
@@ -110,7 +113,11 @@ obtenerpuntuacionactual(){
 }
 
 
+salir()
+{
 
+   this.router.navigate(["login"]);
+}
 
 
 
