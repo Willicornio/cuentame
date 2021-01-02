@@ -1,0 +1,71 @@
+
+*{
+    font-weight: 300;
+  }
+  
+  ion-content{
+    --background: #fafafa;   
+  }
+  
+  ion-card{
+     
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    width: 90% !important;
+    margin-left: 40px;
+    margin-right: 40px;
+  
+  }
+    
+  ion-text {
+    position: relative;
+    top:25%;
+    text-align: center;
+  
+    h1{
+        font-size: 38px;
+    }
+  
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+  }
+  
+  .banner{
+    width:100%;
+    height: auto;
+  }
+  
+  
+  .titleicon {
+    position: absolute;
+    width: 100%;
+    left: 95%;
+    bottom: 0;
+    // text-align:center;
+  }
+  
+  
+
+  
+  .toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+  
+  }
+  
+  
+ion-text {
+    position: relative;
+    top:25%;
+    text-align: center;
+
+    h1{
+        font-size: 38px;
+    }
+
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+}

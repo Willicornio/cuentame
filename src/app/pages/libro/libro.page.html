@@ -1,15 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>libro</ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-grid>
-    <ion-row>
 
-      <ion-col size=6>
-        <ion-row>
+<ion-content>
+  <ion-card>
+
+         <ion-col>
+  
           <ion-card>
+
+            <ion-text>
+              <h1> ¡Este es el primer paso para crear tu cuento!</h1>
+              <p>Ponle un título y una descripción para ir al taller de cuentos</p>
+              </ion-text> 
+
             <form #postForm="ngForm" (ngSumbit)="crearlibro(libroForm)">
               <div>
                 <ion-item>
@@ -18,124 +27,47 @@
 
                 </ion-item>
                 <br>
-                <!-- <img src={{libro.fondo}}  /> -->
-              </div>
+                     </div>
 
               <div>
                 <br>
-                <textarea [(ngModel)]="textarea" name="textarea" rows="5" cols="65">Escribe aquí tu resumen</textarea>
+                <textarea [(ngModel)]="textarea" name="textarea" rows="6" cols="10">Escribe aquí tu resumen</textarea>
 
 
               </div>
               <div>
-                <ion-button type="submit" expand="full" (click)="crearlibro(postForm)" round>
-                  Guardar </ion-button>
+                <br>
+                <ion-button type="submit" expand="full"  class = "but" (click)="crearlibro(postForm)" round>
+                  Crear libro </ion-button>
 
               </div>
 
             </form>
           </ion-card>
-        </ion-row>
-
-
-        <h3>Tamaño y fuente nombre autor</h3>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <div (click)="fontAnterior()">
-                <img src="../../assets/imgs/flechaizquierda.png" width="30" height="30">
-              </div>
-            </ion-card>
-          </ion-col>
-
-          <ion-col>
-            <ion-card>
-              <h1>{{font}}</h1>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-
-            <ion-card>
-
-              <div (click)="siguienteFont()">
-                <img src="../../assets/imgs/flechaderecha.png" width="30" height="30">
-              </div>
-            </ion-card>
-
-          </ion-col>
-        </ion-row>
-        <ion-row>
-
-          <ion-col>
-            <ion-card>
-
-              <div (click)="menosPX()">
-                <img src="../../assets/imgs/menos.png" width="30" height="30">
-              </div>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <h1>{{fontPX}}</h1>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-
-            <ion-card>
-
-              <div (click)="masPX()">
-                <img src="../../assets/imgs/mas.png" width="30" height="30">
-              </div>
-            </ion-card>
-
-          </ion-col>
-
-        </ion-row>
-
-
-
-        <ion-row>
-          <ion-card>
-            <ion-label position="floating">Tamaño y fuente titulo</ion-label>
-
-          </ion-card>
-        </ion-row>
-
+        
+    
       </ion-col>
+   
+ 
 
-      <ion-col size=6>
-        <ion-row>
-          <ion-card>
+</ion-card>
 
-            <div class="ion-canvas">
-              <canvas #canvas id="micanvas2"></canvas>
-            </div>
-
-          </ion-card>
-        </ion-row>
-
-
-        <ion-row>
-
-          <ion-col size=12>
-
-            <ion-grid>
-              <ion-row>
-                <ion-col size="6" *ngFor="let fondo of listaEscenas">
-                  <div (click)=cargarFondo(fondo)>
-                    <img width="200" height="200" [src]="fondo" />
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-
-          </ion-col>
-
-        </ion-row>
-
-
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <ion-header-bar custom-subheader class="bar-subheader bar-stable">
+    <img src="assets/imgs/banner.jpg"  class = "banner">
+  </ion-header-bar>
+ 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar  class = "toolbar">
+   
+  </ion-toolbar>
+</ion-footer>
