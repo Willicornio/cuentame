@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>reproductor</ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
   </ion-toolbar>
 </ion-header>
-
-<h3>Libro {{titulo}}</h3>
-
 
 
 
@@ -17,19 +17,17 @@
     <ion-slides #slides [options]="slideOpts">
       <ion-slide *ngFor="let fondo of listacompleja">
 
-        <img src={{fondo.frame}} width="600" height="600">
+        <img src={{fondo.frame}} width="800" height="800">
 
       </ion-slide>
 
 
     </ion-slides>
 
-    <ion-card>
-
-      <ion-textarea type="text" [(ngModel)]="textoparaver"> </ion-textarea>
-    </ion-card>
-
-
+   <br>
+    <ion-card-content class="a" style="padding-top:0; white-space: pre-wrap;">
+      <ion-text [innerHtml]="textoparaver"></ion-text>
+    </ion-card-content>
 
 
 
@@ -37,37 +35,37 @@
       <br>
       <ion-row>
 
-        <ion-col>
+        <ion-col size = "2.75" >
           <ion-card (click)="slidePrev()">
             <div>
-              <img src="assets/imgs/flechaizquierda.png" height='90' width='90'>
+              <img src="assets/imgs/izquierda.PNG" height='90' width='90'>
               <h3 text-center></h3>
 
             </div>
           </ion-card>
         </ion-col>
-        <ion-col>
+        <ion-col size = "2.75" >
           <ion-card (click)="startAutoplay()">
             <div>
-              <img src="assets/imgs/green-play-button.png" height='90' width='90'>
+              <img src="assets/imgs/play1.png" height='90' width='90'>
               <br>
               <h3> </h3>
             </div>
           </ion-card>
         </ion-col>
-        <ion-col>
+        <ion-col size = "2.75">
           <ion-card (click)="stopAutoplay()">
             <div>
-              <img src="assets/imgs/pause_green.png" height='90' width='90'>
+              <img src="assets/imgs/pause1.png" height='90' width='90'>
               <br>
               <h3> </h3>
             </div>
           </ion-card>
         </ion-col>
-        <ion-col>
+        <ion-col size = "2.75">
           <ion-card (click)="slideNext()">
             <div>
-              <img src="assets/imgs/flechaderecha.png" height='90' width='90'>
+              <img src="assets/imgs/derecha.PNG" height='90' width='90'>
               <br>
               <h3> </h3>
             </div>
@@ -146,7 +144,7 @@
 
 
 
-<ion-button expand="block" (click)="vervotar()">Votar</ion-button>
+<ion-button expand="block" (click)="vervotar()"  class="votar" >Votar</ion-button>
 <div *ngIf="mostrar">
   <div *ngIf="modo==2">
 
@@ -370,7 +368,19 @@
       </div>
 
 
-      <ion-button expand="block" (click)="guardar()">Enviar votación</ion-button>
+      <ion-button expand="block" (click)="guardar()"  class="votar">Enviar votación</ion-button>
+
+
+
+
     </ion-card>
   </div>
+
+
 </div>
+
+<ion-footer>
+  <ion-toolbar  class = "toolbar">
+   
+  </ion-toolbar>
+</ion-footer>
