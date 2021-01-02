@@ -51,6 +51,7 @@ export class JuegolibroPage implements OnInit {
   descripcion;
   listainscripcipnes = [];
   juegoAlumnoLibro: any;
+  juegoAlumnoLibroElegido: any;
   criterioprivilegio1: any = '';
   criterioprivilegio2: any = '';
   criterioprivilegio3: any = '';

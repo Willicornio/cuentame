@@ -1,23 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Juegos del grupo </ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
 
- 
+  <ion-text>
+    <h1>¡Tus juegos en el grupo!</h1>
+    <p>Seleciona el juego que quieras</p>
+  </ion-text>
+
   <ion-row>
 
     <ion-col>
 
       <ion-grid>
         <ion-row>
-          <ion-col size="3" *ngFor="let juegolibro of listajuegolibro">
-            <ion-card (click)="entrarenjuego(juegolibro.id)">
-              <img src='/assets/imgs/book2.jpg' width="450" height="450" class="center">
-              <h3 class="name"> {{juegolibro.NombreJuego}} </h3>
-              <h3> Activo: {{juegolibro.Temporada}} </h3>
+          <ion-col size="3" *ngFor="let juegolibro of listaForView">
+            <ion-card (click)="entrarenjuego(juegolibro.id)" height='300' width='300'>
+              <div>
+                <img src={{juegolibro.foto}} width="200" height="200" class="foto">
+                <p> {{juegolibro.name}} </p>
+              </div>
             </ion-card>
           </ion-col>
         </ion-row>
@@ -28,9 +36,9 @@
 
 
 
+</ion-content>
 
-
-
-
-
-  </ion-content>
+<ion-footer>
+  <ion-toolbar class="toolbar">
+  </ion-toolbar>
+</ion-footer>

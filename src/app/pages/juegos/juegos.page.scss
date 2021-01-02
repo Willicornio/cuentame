@@ -1,0 +1,47 @@
+ion-text {
+    position: relative;
+    text-align: center;
+
+    h1{
+        font-size: 42px;
+    }
+
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+}
+
+
+ion-content{
+    --background: #fafafa;   
+}
+
+ion-card{
+	text-align: center;
+	align-content: center;
+    align-self: center;
+    font-size: 25px;
+    color: #696969;
+
+	img{
+	  text-align: center;
+	  align-content: center;
+	  align-self: center;
+	  max-width: 250px;
+	  max-height: 250px;
+	}
+}
+
+.toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
+}

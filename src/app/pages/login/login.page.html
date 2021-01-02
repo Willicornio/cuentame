@@ -1,14 +1,29 @@
-<nav class="nav-wrapper green">
 
   <ion-header>
-    <ion-toolbar>
-      <ion-title> Login </ion-title>
+    <ion-toolbar class="toolbar">
+      <ion-title>ClassPipKids</ion-title>
+      <div class="titleicon">
+        <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+      </div>
     </ion-toolbar>
   </ion-header>
   
-  
+
+
+  <ion-content [fullscreen]= "true" class="ion-padding">
+    <ion-header-bar custom-subheader class="bar-subheader bar-stable">
+      <img src="assets/imgs/banner.jpg"  class = "banner">
+    </ion-header-bar>
+
+  <ion-text>
+    <h1>¡Bienvenido a ClassPipKids!</h1>
+    
+    <p>Para empezar, entra en la aplicación</p>
+    </ion-text>
+
+
+
   <ion-grid>
-    <br>
       <ion-row>
       <ion-col>
       
@@ -26,12 +41,12 @@
             <div>
               <ion-item>
                 <ion-label position="floating">Contraseña</ion-label>
-                <ion-input type="text" [(ngModel)]="pass" name="pass"></ion-input>
+                <ion-input type="password" [(ngModel)]="pass" name="pass"></ion-input>
 
               </ion-item>
             </div>
             <div>
-              <ion-button type="submit" expand="full" (click)="login(postForm)" round>
+              <ion-button type="submit" expand="full" (click)="login(postForm)" round class="singup">
                 Acceder </ion-button>
 
             </div>
@@ -44,11 +59,7 @@
   
      
     </ion-row>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    
+   
   </ion-grid>
-  
+
+  </ion-content>

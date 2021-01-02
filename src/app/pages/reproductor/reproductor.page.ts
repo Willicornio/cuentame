@@ -161,7 +161,7 @@ export class ReproductorPage implements OnInit {
   }
 
   damelibro() {
-    var idlibro = localStorage.getItem("idLibro");
+    var idlibro = this.idLibro;
 
 
     this.peticionesAPI.dameunlibro(idlibro)
@@ -223,28 +223,40 @@ export class ReproductorPage implements OnInit {
 
   libroconcursante() {
 
+<<<<<<< HEAD
     
+=======
+
+    
+
+
+>>>>>>> d727e58060ad235223a1e6cd72c9827efb79cd71
     this.concurso = this.dataservice.getdataconcurso();
-    if (this.concurso[0].concursoTematica != '') {     
+    if (this.concurso.concursoTematica != '') {     
 
-      if(this.concurso[0].concursoPrimerCriterio != '')
+      if(this.concurso.concursoPrimerCriterio != '')
       {
-        this.c1 = this.concurso[0].concursoPrimerCriterio;
-
-      }
-      if(this.concurso[0].concursoSegundoCriterio != '')
-      {
-        this.c2 = this.concurso[0].concursoSegundoCriterio;
+        this.c1 = this.concurso.concursoPrimerCriterio;
 
       }
-      if(this.concurso[0].concursoTercerCriterio != '')
+      if(this.concurso.concursoSegundoCriterio != '')
       {
-        this.c3 = this.concurso[0].concursoTercerCriterio;
+        this.c2 = this.concurso.concursoSegundoCriterio;
+
+      }
+      if(this.concurso.concursoTercerCriterio != '')
+      {
+        this.c3 = this.concurso.concursoTercerCriterio;
 
       }
     
+<<<<<<< HEAD
     }
   
+=======
+    
+  }
+>>>>>>> d727e58060ad235223a1e6cd72c9827efb79cd71
 
 
 
@@ -448,7 +460,14 @@ export class ReproductorPage implements OnInit {
     this.slides.slidePrev();
     this.i--;
 
-    this.textoparaver = this.listacompleja[this.i].texto;
+    if(this.listacompleja[this.i].texto != undefined || this.listacompleja[this.i].texto != null)
+    {
+      this.textoparaver = this.listacompleja[this.i].texto;
+    }
+    else{
+
+      this.textoparaver = ' ';
+    }
     if (this.listacompleja[this.i].audio != '') {
       this.audioFrame = this.listacompleja[this.i].audio;
       if (this.listacompleja[this.i].texto != undefined) {

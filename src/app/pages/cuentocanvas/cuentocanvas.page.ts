@@ -32,6 +32,7 @@ import { createNgModule } from '@angular/compiler/src/core';
 import { runInThisContext } from 'vm';
 import { element } from 'protractor';
 import { AnyTxtRecord } from 'dns';
+import { url } from 'inspector';
 
 
 @Component({
@@ -259,9 +260,7 @@ export class CuentocanvasPage implements OnInit {
    async ngOnInit() {
 
       this.libroJuego = new juegolibro();
-      this.libroJuego.id = 25;
-
-
+      this.libroJuego.id = this.src = localStorage.getItem("idjuegolibro");
       this.cargarAlumnoJuegoLibro();
 
 
@@ -704,6 +703,12 @@ export class CuentocanvasPage implements OnInit {
 
    }
 
+   irAObjetos()
+   {
+      localStorage.setItem("idService", this.i);
+      this.dataService.setData(this.i, this.escenaFrames);
+      this.router.navigate(["seleccionobjeto"]);
+   }
 
 
    cargarFrame(numero) {

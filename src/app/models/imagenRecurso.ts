@@ -7,6 +7,7 @@ export class ImagenRecurso{
     especial: any;
     url: any;
     id: any;
+    nombreToShow:string;
   
    
     constructor(
@@ -14,7 +15,8 @@ export class ImagenRecurso{
         tipo = '',
         especial= '',
         url='',
-        id = 0
+        id = 0,
+        nombreToShow=''
 
     ) {
 
@@ -24,6 +26,7 @@ export class ImagenRecurso{
         this.tipo = tipo;
         this.url = url;
         this.id = id;
+        this.nombreToShow = nombreToShow;
        
     }
 }

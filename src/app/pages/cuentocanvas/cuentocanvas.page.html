@@ -1,9 +1,13 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-title>Cuentame</ion-title>
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content fullscreen>
+
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>
 
     <ion-row>
@@ -14,7 +18,9 @@
           <canvas #canvas id="micanvas" (click)="fireEvent($event)"></canvas>
         </div>
 
-        <h3>{{textoPrueba}}</h3>
+        <ion-card-content class="" style="padding-top:0; white-space: pre-wrap;">
+          <ion-text [innerHtml]="textoPrueba"></ion-text>
+        </ion-card-content>
 
 
       </ion-col>
@@ -22,130 +28,119 @@
 
       <ion-col>
         <ion-card>
-
-
-
-
-          <ion-button expand="block" (click)="irAFondos()"> SELECCIONAR FONDO</ion-button>
+          <ion-button expand="block" (click)="irAFondos()" round class = "botones" >Seleccionar fondo</ion-button>
           <br>
-          <ion-button expand="block" (click)="irAPersonajes()"> SELECCIONAR PERSONAJES
-          </ion-button>
+          <ion-button expand="block" (click)="irAPersonajes()" round class = "botones"> Seleccionar personajes</ion-button>
           <br>
-          <ion-button expand="block" (click)="crearRepo()"> El boton multiusos
-          </ion-button>
+          <ion-button expand="block" (click)="irAObjetos()" round class = "botones"> Seleccionar objetos</ion-button>
           <br>
-          <ion-button expand="block" routerLink="/cuentofondos" routerDirection="root"> a los fondos </ion-button>
+          <ion-button expand="block" routerLink="/juegolibro" routerDirection="root" round class = "botones"> Volver al juego </ion-button>
           <br>
-          <ion-button expand="block" routerLink="/libro" routerDirection="root"> IR A LIBRO </ion-button>
-          <br>
-          <ion-button expand="block" routerLink="/" routerDirection="root"> IR A INICO </ion-button>
-          <br>
-          <ion-button expand="block" (click)="guardar()">GUARDAR </ion-button>
-          <br>
-          <ion-button expand="block" (click)="saveTheFrames()">Guardar los frames</ion-button>
-
-        </ion-card>
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row>
-
-
-      <ion-card>
-
-        <!-- <textarea [(ngModel)]="textarea" name="textarea" rows="5" cols="65">Escribe aquí tu resumen</textarea> -->
-
-        <form #form="ngForm" (ngSubmit)="putText(form)" method="post">
-          <ion-item>
-            <textarea ngModel type="textarea" rows="5" name="name" placeholder="Añade el dialogo"></textarea>
-          </ion-item>
-
-          <ion-button type="submit" expand="full">Cargar dialogo</ion-button>
-        </form>
-      </ion-card>
-
-
-
-
-
-      <ion-col>
-        <ion-card>
-
-          <div (click)="antiNextFrame()">
-            <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
-          </div>
+          <ion-button expand="block" (click)="saveTheFrames()" round class = "botones">Guardar la escena</ion-button>
 
         </ion-card>
 
-      </ion-col>
-
-      <ion-col>
-        <ion-card>
-          Nº:{{frameActual.numero}}
-        </ion-card>
-      </ion-col>
-
-      <ion-col>
-        <ion-card>
-
-          <div *ngIf="buttonNewFrame">
-
-            <div (click)="newFrame()">
-              <img src="../../assets/imgs/mas.png" width="50" height="50">
-            </div>
-          </div>
-          <div *ngIf="!buttonNewFrame">
-
-            <div (click)="nextFrame()">
-              <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
-            </div>
-          </div>
-
-        </ion-card>
-
-      </ion-col>
-      <ion-col>
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row>
-      <ion-button (click)="verListaPersonajes()">Ver personajes en escena</ion-button>
-
-    </ion-row>
-    <ion-row>
-
-      <div *ngIf="hiddenPersonajes">
         <ion-col>
-          <div *ngFor="let elemento of listaElementosIzquierda">
-            <div (click)="borrarPersonajeEscena(elemento)">
-              <img src={{elemento.url}} width="150" height="80">
-            </div>
-          </div>
-        </ion-col>
-      </div>
+          <ion-card>
 
-      <div *ngIf="hiddenPersonajes">
+            <div (click)="antiNextFrame()">
+              <img src="../../assets/imgs/flechaizquierda.png" width="50" height="50">
+            </div>
+
+          </ion-card>
+
+        </ion-col>
+
         <ion-col>
-          <div *ngFor="let elemento of listaElementosDerecha">
-            <div (click)="borrarPersonajeEscena(elemento)">
-              <img src={{elemento.url}} width="150" height="80">
-            </div>
-          </div>
+          <ion-card>
+            Nº:{{frameActual.numero}}
+          </ion-card>
         </ion-col>
-      </div>
 
-      <ion-col>
+        <ion-col>
+          <ion-card>
+
+            <div *ngIf="buttonNewFrame">
+
+              <div (click)="newFrame()">
+                <img src="../../assets/imgs/mas.png" width="50" height="50">
+              </div>
+            </div>
+            <div *ngIf="!buttonNewFrame">
+
+              <div (click)="nextFrame()">
+                <img src="../../assets/imgs/flechaderecha.png" width="50" height="50">
+              </div>
+            </div>
+
+          </ion-card>
+
+        </ion-col>
 
       </ion-col>
     </ion-row>
+
+
+
+    <ion-row>
+      <ion-col size="7">
+
+
+        <ion-card class="cardTexto">
+          <form #form="ngForm" (ngSubmit)="putText(form)" method="post">
+            <ion-item>
+              <textarea ngModel type="textarea" rows="5" name="name" placeholder="Añade el dialogo"></textarea>
+            </ion-item>
+
+            <ion-button type="submit" expand="full" round class = "botones">Cargar dialogo</ion-button>
+          </form>
+        </ion-card>
+
+      </ion-col>
+      <ion-col>
+
+        <ion-row>
+          <ion-button (click)="verListaPersonajes()" round class = "botones">Eliminar elementos del frame</ion-button>
+
+        </ion-row>
+
+        <ion-row>
+
+          <div *ngIf="hiddenPersonajes">
+            <ion-col>
+              <div *ngFor="let elemento of listaElementosIzquierda">
+                <div (click)="borrarPersonajeEscena(elemento)">
+                  <img src={{elemento.url}} width="150" height="80">
+                </div>
+              </div>
+            </ion-col>
+          </div>
+
+          <div *ngIf="hiddenPersonajes">
+            <ion-col>
+              <div *ngFor="let elemento of listaElementosDerecha">
+                <div (click)="borrarPersonajeEscena(elemento)">
+                  <img src={{elemento.url}} width="150" height="80">
+                </div>
+              </div>
+            </ion-col>
+          </div>
+
+
+
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+
+
     <ion-row>
 
       <ion-card>
         <img src={{imagenRedimension}} width={{imagenWeith}} height={{imagenHeigth}}>
-        <ion-button (click)="masTamano()">+</ion-button>
-        <ion-button (click)="menosTamano()">-</ion-button>
+        <ion-button (click)="masTamano()" round class = "botones">+</ion-button>
+        <ion-button (click)="menosTamano()" round class = "botones">-</ion-button>
 
       </ion-card>
 
@@ -161,19 +156,19 @@
         <ion-col offset-4>
           <input #file id="inputVoz" type="file" accept=".mp3,audio/*" (change)="SeleccionarFicheroVoz($event)"
             style="display:none">
-          <ion-button color="danger" (click)="ActivarInput();">Pon voz</ion-button>
+          <ion-button  (click)="ActivarInput()" round class = "botones">Pon voz</ion-button>
         </ion-col>
       </div>
       <div *ngIf='showButtonFondoFrame'>
         <ion-col offset-4>
           <input #file id="inputVoz" type="file" accept=".mp3,audio/*" (change)="seleccionarFicheroVozFondo($event)"
             style="display:none">
-          <ion-button color="danger" (click)="ActivarInput();">Pon fondo</ion-button>
+          <ion-button color="danger" (click)="ActivarInput()" round class = "botones">Pon fondo</ion-button>
         </ion-col>
       </div>
 
       <ion-col>
-        <audio id="audio" controls src = {{audioFrame}} *ngIf = 'tieneVoz' style="margin-bottom: 20%"  ></audio>
+        <audio id="audio" controls src={{audioFrame}} *ngIf='tieneVoz' style="margin-bottom: 20%"></audio>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -200,3 +195,8 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="toolbar">
+  </ion-toolbar>
+</ion-footer>

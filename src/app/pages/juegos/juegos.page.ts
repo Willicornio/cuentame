@@ -20,6 +20,8 @@ export class JuegosPage implements OnInit {
   listaidgrupo: number[];
   listajuegolibro: juegolibro[];
 
+  listaForView: any[] = [];
+
   
   ngOnInit() {
 
@@ -35,6 +37,25 @@ export class JuegosPage implements OnInit {
       .subscribe(res => {
 
         this.listagrupo = res;
+
+        this.listagrupo.forEach(element => {
+          var groupView = {
+            name:'',
+            foto:'',
+            id:0
+          }
+
+          groupView.id=element.id;
+          groupView.name=element.Nombre;
+          var randomNumber = Math.floor(Math.random() * 15); 
+          var urlPicture = 'assets/imgs/grupo' + randomNumber + '.png';
+          groupView.foto = urlPicture;
+
+          this.listaForView.push(groupView);
+   
+
+
+        });
         console.log(this.listagrupo);
      
 

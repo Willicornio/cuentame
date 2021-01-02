@@ -108,7 +108,7 @@ export class ListaescenasPage implements OnInit {
         this.listaEscenas = [];
         res.forEach(element => {
      
-          element.fondo = '../../assets/imgs/2.png';
+          element.fondo = '../../assets/imgs/escenas.png';
           this.listaEscenas.push(element);
         });
 

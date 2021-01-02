@@ -3,7 +3,7 @@ import { Concurso } from 'src/app/models/concurso';
 import { Router } from "@angular/router";
 import { PeticionesapiService } from '../../services/peticionesapi.service';
 import { Libro } from 'src/app/models/libro';
-import {DataService} from '../../services/data.service';
+import { DataService } from '../../services/data.service';
 
 
 @Component({
@@ -47,7 +47,7 @@ export class VotacionesconcursoPage implements OnInit {
        
     })
     this.crearlista();
-    this.dataservice.setdataconcurso(this.concurso);
+    this.dataservice.setdataconcurso(this.concurso[0]);
     }, (err) => {
       
         })

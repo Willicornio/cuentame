@@ -15,7 +15,7 @@ export class Concurso{
     primerpuesto: any;
     segundopuesto: any;
     tercerpuesto: any;
-
+    id: any;
     
    
     constructor(
@@ -28,11 +28,11 @@ export class Concurso{
     ) {
 
    
-        this.concursoTematica = concursoTematica;
-        this.concursoRequisitos = concursoRequisitos;
-        this.concursoPrimerCriterio = concursoPrimerCriterio;
-        this.concursoSegundoCriterio = concursoSegundoCriterio;
-        this.concursoTercerCriterio = concursoTercerCriterio;
+        // this.concursoTematica = concursoTematica;
+        // this.concursoRequisitos = concursoRequisitos;
+        // this.concursoPrimerCriterio = concursoPrimerCriterio;
+        // this.concursoSegundoCriterio = concursoSegundoCriterio;
+        // this.concursoTercerCriterio = concursoTercerCriterio;
       
         
     }
