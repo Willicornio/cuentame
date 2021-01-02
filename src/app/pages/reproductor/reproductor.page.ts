@@ -350,7 +350,7 @@ export class ReproductorPage implements OnInit {
         audio: '',
         numero: Number,
         duracion: Number,
-        texto: ''
+        texto: ' '
 
       }
 
@@ -371,7 +371,13 @@ export class ReproductorPage implements OnInit {
               objetolista.escena = element.escenaid;
               objetolista.numero = element.contador;
               objetolista.duracion = element.duracionAudio;
-              objetolista.texto = element.textos;
+              if (element.textos != undefined && element.textos != null && element.textos != "")
+              {
+                objetolista.texto = element.textos;
+              }
+              else{
+                objetolista.texto = " ";
+              }
 
               if (objetolista.audio != '') {
                 var audio = this.url + this.libro.titulo + "/download/" + objetolista.audio;

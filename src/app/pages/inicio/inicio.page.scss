@@ -11,6 +11,19 @@ ion-card{
   margin-right: 20px;
 }
 
+ion-text {
+  position: relative;
+  text-align: center;
+
+  h1{
+      font-size: 42px;
+  }
+
+  p {
+      font-size: 28px;
+      color: #696969;
+  }
+}
 
 .titleicon {
   position: absolute;
