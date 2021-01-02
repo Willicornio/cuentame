@@ -16,10 +16,8 @@
   </ion-text>
 
   <ion-grid>
-
     <ion-row>
       <ion-col *ngFor="let grupo of listaForView">
-
         <ion-card (click)="iragrupo(grupo.id)" height='300' width='300'>
           <div>
             <p> {{grupo.name}} </p>
@@ -35,6 +33,5 @@
 
 <ion-footer>
   <ion-toolbar  class = "toolbar">
-   
   </ion-toolbar>
 </ion-footer>

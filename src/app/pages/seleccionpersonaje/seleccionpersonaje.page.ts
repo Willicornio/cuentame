@@ -54,6 +54,8 @@ export class SeleccionpersonajePage implements OnInit {
              
              var foto = new ImagenRecurso();
              foto.nombre = elemento.nombre;
+             var nombreToShow = foto.nombre.split('.')[0];
+             foto.nombreToShow = nombreToShow;
              foto.id = elemento.id;
              foto.especial = elemento.especial;
              foto.tipo = elemento.tipo;
@@ -65,6 +67,8 @@ export class SeleccionpersonajePage implements OnInit {
              {
                 var foto = new ImagenRecurso();
                 foto.nombre = elemento.nombre;
+                var nombreToShow = foto.nombre.split('.')[0];
+                foto.nombreToShow = nombreToShow;
                 foto.id = elemento.id;
                 foto.especial = elemento.especial;
                 foto.tipo = elemento.tipo;

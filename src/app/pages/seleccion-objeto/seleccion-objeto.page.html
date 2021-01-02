@@ -1,18 +1,22 @@
-<ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>OBJETOS</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+
+  <ion-text>
+    <h1>¡Estos son los objetos del juego!</h1>
+    <p>Seleciona el objeto que quieras</p>
+  </ion-text>
 
   <ion-item>
     <ion-card>
-      <h3>Elije un objeto</h3>
-
-
-
-
-
       <ion-row>
 
         <ion-col>
@@ -24,7 +28,7 @@
 
                   <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
                   <ion-col>
-                    <h3> {{foto.nombre}} </h3>
+                    <h3> {{foto.nombreToShow}} </h3>
 
 
                   </ion-col>
@@ -39,14 +43,15 @@
 
             <div *ngIf="muestraEspeciales">
               <ion-row>
-                <h3>Especiales</h3>
-
+                <ion-text>
+                  <p>Especiales:</p>
+                </ion-text>
                 <ion-col size="3" *ngFor="let foto of listaFotosObjetosEspeciales">
                   <ion-card (click)="seleccionarobjeto(foto)">
 
                     <ion-col> <img src={{foto.url}} width="165" height="150" class="center"></ion-col>
                     <ion-col>
-                      <h3> {{foto.nombre}} </h3>
+                      <h3> {{foto.nombreToShow}} </h3>
 
                     </ion-col>
                   </ion-card>
@@ -72,3 +77,8 @@
   </ion-item>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="toolbar">
+  </ion-toolbar>
+</ion-footer>

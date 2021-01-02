@@ -260,9 +260,7 @@ export class CuentocanvasPage implements OnInit {
    async ngOnInit() {
 
       this.libroJuego = new juegolibro();
-      this.libroJuego.id = 25;
-
-
+      this.libroJuego.id = this.src = localStorage.getItem("idjuegolibro");
       this.cargarAlumnoJuegoLibro();
 
 

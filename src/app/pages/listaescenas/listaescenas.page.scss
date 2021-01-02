@@ -44,3 +44,40 @@ ion-card{
   .my-custom-interface .select-interface-option[aria-checked=true] .alert-checkbox-label {
     color: #79193b;
   }
+
+  .toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
+}
+
+ion-text {
+  position: relative;
+  text-align: center;
+
+  h1{
+      font-size: 42px;
+  }
+
+  p {
+      font-size: 28px;
+      color: #696969;
+  }
+}
+
+
+ion-content{
+  --background: #fafafa;   
+}
+
+.crear {
+
+  --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+}

@@ -26,11 +26,36 @@ ion-button {
     
   }
 
+
+ion-text {
+    position: relative;
+    text-align: center;
+
+    h1{
+        font-size: 42px;
+    }
+
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+}
+
+
 ion-content{
+    --background: #fafafa;   
+}
 
-    
-   background-image: url("/assets/imgs/fondoinicio.png");
-    background-size: cover;
-    --background: rgba(255, 255, 255, 0.5);
 
+.toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
 }

@@ -11,11 +11,51 @@ ion-item{
     font-weight: bold;
 }
 
-ion-content{
 
+
+ion-button {
+    --background: rgb(192, 219, 117);
+    --background-hover: #ffb6c1;
+    --background-activated: green;
+    --color: #222;
+    --color-activated: white;
+    --opacity: 1;
+    --font-size: 24px;    
+    --padding-start: 10px;
+    --padding-end: 10px;
     
-   background-image: url("/assets/imgs/curntame.png");
-    background-size: cover;
-    --background: rgba(255, 255, 255, 0.5);
+  }
 
+
+ion-text {
+    position: relative;
+    text-align: center;
+
+    h1{
+        font-size: 42px;
+    }
+
+    p {
+        font-size: 28px;
+        color: #696969;
+    }
+}
+
+
+ion-content{
+    --background: #fafafa;   
+}
+
+
+.toolbar{
+    --background: linear-gradient(90deg, #84c5eb 0%, #723fa1 100%);
+
+}
+
+.titleicon {
+    position: absolute;
+    width: 100%;
+    left: 97%;
+    bottom: 0;
+    // text-align:center;
 }

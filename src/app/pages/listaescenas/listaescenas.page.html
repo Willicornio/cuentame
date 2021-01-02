@@ -1,53 +1,34 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Libro : Nombre del libro </ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title>ClassPipKids</ion-title>
+    <div class="titleicon">
+      <img src="assets/imgs/toolbar.png" width="40px" style="display:inline-block" height="40px" />
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content  #content >
+<ion-content [fullscreen]="true" class="ion-padding">
 
+  <ion-text>
+    <h1>¡Bienvenido al libro {{titulo}}!</h1>
+    <p>Selecciona o crea las escenas que quieras</p>
+  </ion-text>
 
   <ion-grid>
     <ion-row>
 
       <ion-col>
-        <ion-card>
-          <ion-card>
-
-
-            <ion-row>
-              <h1></h1>
-            </ion-row>
-            <ion-row>
-              <h1></h1>
-            </ion-row>
-
-
-
-            <h3>{{titulo}}</h3>
-            <h3>Autor: {{autor}}</h3>
-
-            <ion-row>
-              <h1></h1>
-            </ion-row>
-            <ion-row>
-              <ion-button expand="block" (click)="cambiarFinalizadoATrue()" >Finalizar cuento</ion-button>
-            </ion-row>
-
-
-          </ion-card>
-
-        </ion-card>
+       
       </ion-col>
-
-      <ion-col> <img src='/assets/imgs/nuevolibro.jpg' width="400" height="300" class="center"></ion-col>
-
 
     </ion-row>
 
     <ion-row>
 
       <ion-col>
-        <h3>Escenas</h3>
+
+      <ion-text>
+        <p>Escenas:</p>
+      </ion-text>
 
         <ion-grid>
           <ion-row>
@@ -80,23 +61,35 @@
 
           <ion-item>
             <ion-label>Tipo de audio</ion-label>
-            <ion-select interface="action-sheet" class="custom-options">
-              <ion-select-option value="frame">Audio por cada frame</ion-select-option>
-              <ion-select-option value="fondo">Audio de fondo en la escena</ion-select-option>
-            
+            <ion-select interface="popover" class="custom-options">
+              <ion-select-option value="frame">Audio por cada frame</ion-select-option>   
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col *ngIf="creacion">
 
-          <ion-button expand="block" (click)="crearEscena()" >Crear Escena!</ion-button>
+          <ion-button expand="block" (click)="crearEscena()" round class="crear">Crear Escena!</ion-button>
+          
+
         </ion-col>
 
 
 
     </ion-row>
 
+    <br>
+    <br>
+    <br>
+
+    <ion-row>
+      <ion-button expand="block" (click)="cambiarFinalizadoATrue()" round class="crear">Finalizar cuento</ion-button>
+    </ion-row>
   </ion-grid>
 
 </ion-content>
 
+<ion-footer>
+  <ion-toolbar  class = "toolbar">
+   
+  </ion-toolbar>
+</ion-footer>
