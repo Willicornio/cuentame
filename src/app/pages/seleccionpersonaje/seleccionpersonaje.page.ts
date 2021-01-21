@@ -127,6 +127,9 @@ export class SeleccionpersonajePage implements OnInit {
   
   }
 
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
 
 }

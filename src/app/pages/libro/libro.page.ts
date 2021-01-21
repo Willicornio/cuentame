@@ -129,7 +129,10 @@ export class LibroPage implements OnInit {
     localStorage.setItem("contenedor", this.libro.titulo);
   }
 
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
 
   ionViewDidEnter() {
     this._CANVAS = this.canvasEl.nativeElement;

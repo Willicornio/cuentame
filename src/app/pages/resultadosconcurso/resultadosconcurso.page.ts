@@ -63,7 +63,10 @@ export class ResultadosconcursoPage implements OnInit {
 
   }
 
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
   obtenerlibros() {
     var i = 0;
     this.listalibros = [];

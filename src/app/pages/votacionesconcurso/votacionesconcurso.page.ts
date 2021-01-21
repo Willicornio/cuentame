@@ -115,7 +115,6 @@ obtenerpuntuacionactual(){
 
 salir()
 {
-
    this.router.navigate(["login"]);
 }
 

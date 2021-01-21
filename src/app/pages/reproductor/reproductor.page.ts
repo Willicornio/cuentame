@@ -17,6 +17,7 @@ import { AnyTxtRecord } from 'dns';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
 import { of } from 'rxjs';
+import {Router} from '@angular/router'
 
 
 @Component({
@@ -80,7 +81,7 @@ export class ReproductorPage implements OnInit {
   listacompleja = [];
   
 
-  constructor(private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private socketservice: SocketsService, private peticionesAPI: PeticionesapiService, private dataservice: DataService, private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -480,7 +481,10 @@ export class ReproductorPage implements OnInit {
       }
     }
   }
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
     slideNext()
     {
       this.slides.slideNext();

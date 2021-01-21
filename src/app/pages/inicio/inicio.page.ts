@@ -22,7 +22,10 @@ export class InicioPage implements OnInit {
 
     this.router.navigate(['/iniciolibro'])
   }
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
 
   iramisjuegos(){
 

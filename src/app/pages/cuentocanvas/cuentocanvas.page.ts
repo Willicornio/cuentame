@@ -348,7 +348,10 @@ export class CuentocanvasPage implements OnInit {
    }
 
 
-
+   salir()
+   {
+      this.router.navigate(["login"]);
+   }
 
 
    cargarAlumnoJuegoLibro() {

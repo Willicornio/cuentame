@@ -72,6 +72,9 @@ export class GrupoPage implements OnInit {
 
 
   }
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
 
 }

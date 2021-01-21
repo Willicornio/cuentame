@@ -98,7 +98,10 @@ export class ListaescenasPage implements OnInit {
 
   }
 
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
   dameEscenas() {
 
     this.peticionesAPI.dameEscenasLibro(this.idLibro)

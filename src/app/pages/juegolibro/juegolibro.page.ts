@@ -45,7 +45,7 @@ export class JuegolibroPage implements OnInit {
   date;
   diafrontera = false;
   aunhaytiempo = false;
-  muestraresul;
+  muestraresul = false;
   idalumno;
   idalumnojuegodelibro;
   descripcion;
@@ -421,8 +421,6 @@ export class JuegolibroPage implements OnInit {
     }
     else
       this.aunhaytiempo = true;
-
-
   }
 
   getLibroAlumno(id) {
@@ -446,7 +444,10 @@ export class JuegolibroPage implements OnInit {
 
       })
   }
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
   libroAlumnoSeleccionado(alumno) {
 
     this.peticionesAPI.obtenerAlumnosJuegoLibro(this.id)

@@ -105,7 +105,10 @@ export class SeleccionObjetoPage implements OnInit {
      
     
 
-
+     salir()
+     {
+        this.router.navigate(["login"]);
+     }
 
 
 

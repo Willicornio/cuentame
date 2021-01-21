@@ -30,7 +30,11 @@ export class JuegosPage implements OnInit {
 
   }
 
-
+  salir()
+  {
+     this.router.navigate(["login"]);
+  }
+  
   public obtenergrupos() {
     this.idalumno = localStorage.getItem("idAlumno");
     this.peticionesAPI.getGrupoalumno(this.idalumno)
