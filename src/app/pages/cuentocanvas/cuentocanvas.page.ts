@@ -573,7 +573,7 @@ export class CuentocanvasPage implements OnInit {
 
       this.escenaFrames.frames[this.frameActual.numero - 1] = this.frameActual;
       this.generarListaPersonajesEnPantalla();
-      this.drawimages(this.frameActual.personajes);
+      this.firstDrawImages(this.frameActual.personajes);
 
       this.guardarFoto();
    }
@@ -860,7 +860,7 @@ export class CuentocanvasPage implements OnInit {
          this.frameActual = this.escenaFrames.frames[numero];
          this.escenaFrames.numeroframeActual = numero + 1;
          this.escenaFrames.numeroFrames
-         this.drawimages(this.frameActual.personajes);
+         this.firstDrawImages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
          this.textoPrueba = this.frameActual.textos;
          var contenedor = localStorage.getItem("contenedor");
@@ -902,7 +902,7 @@ export class CuentocanvasPage implements OnInit {
          var numero = this.frameActual.numero;
          this.frameActual = this.escenaFrames.frames[numero - 2];
          this.escenaFrames.numeroframeActual = numero - 1;
-         this.drawimages(this.frameActual.personajes);
+         this.firstDrawImages(this.frameActual.personajes);
          this.generarListaPersonajesEnPantalla();
          var contenedor = localStorage.getItem("contenedor");
          this.textoPrueba = this.frameActual.textos;

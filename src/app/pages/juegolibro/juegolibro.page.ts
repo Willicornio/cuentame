@@ -240,11 +240,7 @@ export class JuegolibroPage implements OnInit {
 
           this.dataService.setdataconcurso(this.concu);
           this.muestra();
-          this.estaacabado();
-
-
-
-
+          // this.estaacabado();
           this.obtenerfecha();
         })
       }, (err) => {
@@ -254,11 +250,11 @@ export class JuegolibroPage implements OnInit {
 
   }
 
-  estaacabado() {
-    if (this.acabado = true)
-      this.muestraresul = true;
+  // estaacabado() {
+  //   if (this.acabado = true)
+  //     this.muestraresul = true;
 
-  }
+  // }
   public muestra() {
     this.muestrame = true;
 
@@ -415,12 +411,18 @@ export class JuegolibroPage implements OnInit {
     this.date = this.date[0];
     console.log(this.date);
 
-    if (this.date >= this.dateFinInscripcion) {
+    if (this.date >= this.dateFinInscripcion && this.date <= this.dateFinVotacion) {
       this.diafrontera = true;
-
     }
-    else
+    else if(this.date < this.dateFinInscripcion)
+    {
       this.aunhaytiempo = true;
+    }
+    else if(this.date > this.dateFinVotacion)
+    {
+      this.muestraresul = true;
+    }
+  
   }
 
   getLibroAlumno(id) {

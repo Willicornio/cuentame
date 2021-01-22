@@ -38,13 +38,19 @@
                 <ion-col>
 
                   <div *ngIf="aunhaytiempo">
-                    <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button>
+                    <!-- <ion-button expand="block" (click)="inscribirlibro()">Inscribir</ion-button> -->
+
+                    <ion-card (click)="inscribirlibro()">
+                      <div>
+                        <img src="assets/imgs/inscribete.jpg" height="200" width="300">
+                      </div>
+                    </ion-card>
                   </div>
                   <div *ngIf="diafrontera">
                     <!-- <ion-button expand="block" (click)="iravotaciones()" img="/assets/imgs/botonvotar.png">Votar</ion-button> -->
                     <ion-card (click)="iravotaciones()">
                       <div>
-                        <img src="assets/imgs/botonVotar.png">
+                        <img src="assets/imgs/botonVotar.png" height="200" width="300">
                       </div>
                     </ion-card>
 
@@ -52,7 +58,7 @@
                   <div *ngIf="muestraresul">
                     <ion-card (click)="iraresultados()">
                       <div>
-                        <img src="assets/imgs/verResultados.png">
+                        <img src="assets/imgs/verResultados.png" height="200" width="300">
 
                       </div>
                     </ion-card>

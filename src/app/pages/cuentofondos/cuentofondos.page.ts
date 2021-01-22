@@ -131,8 +131,7 @@ export class CuentofondosPage implements OnInit {
      {
         this.router.navigate(["login"]);
      }
-  seleccion
-  arfondo(foto: ImagenRecurso){
+  seleccionarfondo(foto: ImagenRecurso){
          
     var img3 = new Image();
     img3.src = foto.url;
