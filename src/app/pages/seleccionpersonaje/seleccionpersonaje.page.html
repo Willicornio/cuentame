@@ -41,8 +41,9 @@
             </ion-row>
 
             <div *ngIf="muestraEspeciales">
+              <h3>Especiales</h3>
+
               <ion-row>
-                <h3>Especiales</h3>
 
                 <ion-col size="3" *ngFor="let foto of listaFotosPersonajeEspeciales">
                   <ion-card (click)="seleccionarpersonaje(foto)">

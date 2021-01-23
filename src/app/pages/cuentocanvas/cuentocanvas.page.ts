@@ -823,8 +823,9 @@ export class CuentocanvasPage implements OnInit {
       this.escenaFrames.numeroFrames = this.escenaFrames.numeroFrames + 1;
 
       this.frameActual = newFrame;
-      this.drawimages(this.frameActual.personajes);
+      this.firstDrawImages(this.frameActual.personajes);
       var contenedor = localStorage.getItem("contenedor");
+      this.textoPrueba = this.frameActual.textos;
       this.tieneVoz = false;
       if(this.frameActual.audioUrl != "" && this.showButtonAudioFrame == true)
       {
@@ -837,13 +838,22 @@ export class CuentocanvasPage implements OnInit {
          this.tieneVoz = true;
       }
 
-      this.peticionesApiService.postFrame(this.escenaFrames.id, newFrame).subscribe(async (res) => {
+      this.generarListaPersonajesEnPantalla();
+
+       var newFrameCopia =  newFrame;
+       newFrameCopia.personajes.forEach(per => {
+            per.url = "";
+         });
+
+      this.peticionesApiService.postFrame(this.escenaFrames.id, newFrameCopia).subscribe(async (res) => {
 
          this.frameActual.id = res.id;
          await this.uploadNumeroFrameEscena()
       }, (err) => {
          console.log(err);
       })
+
+
 
    }
 
@@ -1379,7 +1389,7 @@ export class CuentocanvasPage implements OnInit {
 
    async drawimages(listaPersonajesFrame) {
 
-      this.clearCanvas();
+      // this.clearCanvas();
       this.refreshFondo();
       // this.lineaTexto();
       var listaFotoRecuros = this.dataService.getDataRecursos(1);
