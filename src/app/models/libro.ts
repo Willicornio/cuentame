@@ -24,6 +24,7 @@ export class Libro{
     puntostotalesc2:any;
     puntostotalesc3:any;
     alumnjoJuegoLibroId: any;
+    foto: any;
 
     constructor( 
         autor = '',

@@ -13,11 +13,11 @@ import { DataService } from '../../services/data.service';
 })
 export class VotacionesconcursoPage implements OnInit {
 
-  constructor(private dataservice: DataService ,private router: Router, private peticionesAPI: PeticionesapiService) { }
+  constructor(private dataservice: DataService, private router: Router, private peticionesAPI: PeticionesapiService) { }
   idconcurso;
   concurso: any;
   listainscritos: [];
-  listashow: Libro [];
+  listashow: Libro[];
   id;
   cuento: any;
   ngOnInit() {
@@ -30,58 +30,61 @@ export class VotacionesconcursoPage implements OnInit {
 
 
 
-  public obtenerconcurso(){
+  public obtenerconcurso() {
     this.id = localStorage.getItem("idjuegolibro");
 
     this.peticionesAPI.getconcurso(this.id)
 
-    .subscribe((res) => {
-      var data;
-      this.concurso = res;
-      console.log(res);
-      console.log(res);
+      .subscribe((res) => {
+        var data;
+        this.concurso = res;
+        console.log(res);
+        console.log(res);
 
-      this.concurso.forEach(cosa => {
-      this.idconcurso =cosa.id;
-      this.listainscritos = cosa.listaLibrosParticipantes;
-       
-    })
-    this.crearlista();
-    this.dataservice.setdataconcurso(this.concurso[0]);
-    }, (err) => {
-      
+        this.concurso.forEach(cosa => {
+          this.idconcurso = cosa.id;
+          this.listainscritos = cosa.listaLibrosParticipantes;
+
         })
+        this.crearlista();
+        this.dataservice.setdataconcurso(this.concurso[0]);
+      }, (err) => {
+
+      })
 
 
 
   }
 
 
-  public crearlista(){
+  public crearlista() {
 
-
+    var i = 0 as number;
     this.listainscritos.forEach(libroi => {
       var idlibro = libroi;
       this.listashow = [];
       this.peticionesAPI.dameunlibro(idlibro)
- 
-      .subscribe((res) => {
-       
-      this.cuento = new Libro();
-      this.cuento = res;
+
+        .subscribe((res) => {
+
+          i = i + 1;
+          var cuento = new Libro();
+          cuento = res;
+
+
+          var randomNumber = Math.floor(Math.random() * 11);
+          var urlPicture = 'assets/imgs/libro' + randomNumber + '.png';
+          cuento.foto = urlPicture;
+
+          this.listashow.push(cuento);
+
+          console.log(this.listashow);
+
+
+          })
         
-      
-      var randomNumber = Math.floor(Math.random() * 11);
-      var urlPicture = 'assets/imgs/libro' + randomNumber + '.png';
-      this.cuento.foto = urlPicture;
-     
-        this.listashow.push(this.cuento);
-
-        console.log(this.listashow);
-
-    }) 
-   }, (err) => {
-     console.log(err);
+    }, (err) => {
+      console.log(err);
 
 
     })
@@ -94,29 +97,27 @@ export class VotacionesconcursoPage implements OnInit {
   }
 
 
-  irareproductor(id)
-{
-  localStorage.setItem("idLibro", id);
-  this.router.navigate(['/reproductor/3']);
+  irareproductor(id) {
+    localStorage.setItem("idLibro", id);
+    this.router.navigate(['/reproductor/3']);
 
 
 
-}
+  }
 
-obtenerpuntuacionactual(){
-
-
+  obtenerpuntuacionactual() {
 
 
 
 
-}
 
 
-salir()
-{
-   this.router.navigate(["login"]);
-}
+  }
+
+
+  salir() {
+    this.router.navigate(["login"]);
+  }
 
 
 
